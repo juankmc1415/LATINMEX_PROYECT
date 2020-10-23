@@ -247,6 +247,7 @@ namespace LATINMEX.MODULOS.VENTAS
             mpe_NuevaNota.Show();
             OcultarControles("O_MENSAGE");
             //HOLA MUNDO
+
         }
 
         protected void btn_cerrar_Click(object sender, EventArgs e)
