@@ -1,0 +1,381 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="LATINMEX.SiteMaster" %>
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head runat="server">
+
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/resources/images/icon_color.ico" type="image/ico" />
+
+    <title>LATINMEX | </title>
+
+    <!-- Bootstrap -->
+    <link href="~/Content/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="~/Content/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <!-- NProgress -->
+    <link href="~/Content/nprogress/nprogress.css" rel="stylesheet">
+    <!-- iCheck -->
+    <link href="~/Content/iCheck/skins/flat/green.css" rel="stylesheet">
+
+    <!-- bootstrap-progressbar -->
+    <link href="~/Content/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet">
+    <!-- JQVMap -->
+    <link href="~/Content/jqvmap/dist/jqvmap.min.css" rel="stylesheet" />
+    <!-- bootstrap-daterangepicker -->
+    <link href="~/Content/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
+
+    <!-- Custom Theme Style -->
+    <link href="~/Content/build/css/custom.min.css" rel="stylesheet">
+
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+
+    <style>
+        .modalBackground {
+            background-color: black;
+            filter: alpha(opacity=90) !important;
+            opacity: 0.6 !important;
+            z-index: 20;
+        }
+
+        .modalpopup {
+            /*padding:20px 0px 24px 10px;*/
+            position: relative; /*
+            border:1px solid black;*/
+        }
+    </style>
+
+</head>
+<body class="nav-md" >
+
+
+    <form id="form2" runat="server">
+        <asp:ScriptManager ID="ScriptManager2" runat="server"></asp:ScriptManager>
+
+        <div class="container body">
+            <div class="main_container">
+                <div class="col-md-3 left_col">
+                    <div class="left_col scroll-view">
+                        <div class="navbar nav_title" style="border: 0;">
+
+
+                            <a href="index.html" class="site_title">
+                                <%--<img src="/resources/images/logo.jpg" style="" width="50" alt="..." class="">--%>
+                                <i class="fa fa-home"></i>
+                                <span>LATINMEX</span>
+                            </a>
+
+                        </div>
+
+                        <div class="clearfix"></div>
+
+                        <!-- menu profile quick info -->
+                        <div class="profile clearfix">
+                            <div class="profile_pic">
+                                <img src="/resources/images/logo.jpg" alt="..." class="img-circle profile_img">
+                            </div>
+                            <div class="profile_info">
+                                <%-- <span>Bienvenido</span>--%>
+                                <h2>
+                                    <asp:Label runat="server" ID="lbl_Nombre1" ForeColor="White" Font-Size="12"></asp:Label>
+                                </h2>
+                            </div>
+                        </div>
+
+                        <br />
+
+                        <!-- Menu principal -->
+                        <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+                            <div class="menu_section">
+
+                                <ul class="nav side-menu">
+                                    
+                                    <li><a href="frm_Ventas.aspx?CLIENT_ID=12"><i class="fa fa-shopping-cart"></i>Módulo de Ventas</a></li>
+                                    <li><a href="frm_llamadas.aspx"><i class="fa fa-phone"></i>Módulo de Llamadas</a></li>
+                                    <li><a href="frm_Informes.aspx"><i class="fa fa-file-text-o"></i>Informes</a></li>
+                                    <li>
+                                        <asp:LinkButton runat="server" ID="LinkButton1" OnClick="LinkButton1_Click" CssClass=" btn-default">
+                                            <i class="fa fa-dollar"></i>Gastos
+                                        </asp:LinkButton>
+                                    <li><a href="index.aspx"><i class="fa fa-cog"></i>Configuraciones</a></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Opciones del menu de la parte inferior izquierda -->
+                        <div class="sidebar-footer hidden-small">
+
+                            <a data-toggle="tooltip" data-placement="top" title="Lock">
+                                <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
+                            </a>
+                            <a data-toggle="tooltip" data-placement="top" title="Logout/Salir" href="/LOGIN/LOGIN.aspx">
+                                <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- panel de navegación superior -->
+                <div class="top_nav">
+                    <div class="nav_menu">
+                        <div class="nav toggle">
+                            <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+                        </div>
+
+                        <nav class="nav navbar-nav">
+
+                            <ul class=" navbar-right">
+
+                                <asp:Label runat="server" Width="100"></asp:Label>
+
+
+                                <%--<asp:Button runat="server" CssClass="btn btn-app btn-sm" Height="5" />--%>
+
+                                <asp:LinkButton runat="server" ID="lbFoo" OnClick="Page_Load" CssClass="btn btn-default">
+                                    <i class="fa fa-search" aria-hidden="true"></i>
+                                </asp:LinkButton>
+
+                                <asp:TextBox runat="server" ID="TextBox1" Width="180" Height="31" BorderStyle="None" ToolTip="Buscar cliente" placeholder="Buscar"></asp:TextBox>
+
+                                <a href="frm_Ventas.aspx?CLIENT_ID=0" class="btn btn-default">
+                                    <i class="fa fa-plus"></i>
+                                    <i class="fa fa-user"></i>
+                                </a>
+
+                                <asp:LinkButton runat="server" ID="LinkButton2" OnClick="Page_Load" ToolTip="Nueva venta" CssClass="btn btn-default">
+                                    <i class="fa fa-tags" aria-hidden="true"></i>
+                                </asp:LinkButton>
+                                <asp:LinkButton runat="server" ID="LinkButton3" OnClick="Page_Load" ToolTip="Empresas" CssClass="btn btn-default">
+                                    <i class="fa fa-briefcase fa-1x" aria-hidden="true"></i>
+                                </asp:LinkButton>
+
+
+                                <li class="nav-item dropdown open" style="padding-left: 15px;">
+                                    <a href="javascript:;" class="user-profile dropdown-toggle" aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown" aria-expanded="false">
+                                        <img src="/resources/images/img.png" alt="">
+                                        <asp:Label runat="server" ID="lbl_Nombre2" Text=""></asp:Label>
+                                    </a>
+                                    <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
+                                        <a class="dropdown-item" href="javascript:;">Profile</a>
+                                        <a class="dropdown-item" href="javascript:;">Help</a>
+                                        <a class="dropdown-item" href="/LOGIN/LOGIN.aspx"><i class="fa fa-sign-out pull-right"></i>Salir</a>
+                                    </div>
+                                </li>
+
+                                <li>
+                                    <asp:Button runat="server" ID="btn_Iniciar" CssClass="btn btn-success btn-sm" Text="Check In" />
+                                    <%-- <a class="reset_pass" href="#">Lost your password?</a>--%>
+                                </li>
+
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+                <!-- /top navigation -->
+
+                <!-- page content -->
+                <div class="right_col" role="main">
+
+                    <asp:ContentPlaceHolder ID="MainContent" runat="server">
+                    </asp:ContentPlaceHolder>
+
+                </div>
+                <!-- /page content -->
+
+                <!-- footer content -->
+                <footer>
+                    <div class="sidebar-foote pull-right" style="position: inherit;">
+
+                        <asp:Label runat="server" ID="lbl_FechaIngreso" Font-Size="19px" Font-Bold="true" CssClass="alert alert-success alert-dismissible col-12"></asp:Label>
+
+                        <%-- <asp:Label runat="server" ID="lbl_FechaIngreso" Text="In 12/20/2020 23:54"></asp:Label>--%>
+                        -  JA CORPORATION
+                    </div>
+                    <div class="clearfix"></div>
+
+                </footer>
+            </div>
+        </div>
+
+        <ajaxToolkit:ModalPopupExtender ID="mpe_NuevoGastos" BackgroundCssClass="modalBackground" runat="server" TargetControlID="LinkButton1" PopupControlID="ModalGastos" OkControlID="btn_closeG" />
+        <asp:Panel ID="ModalGastos" CssClass="modalpopup" runat="server" Width="700px">
+            <div class="modal-dialog" runat="server" style="max-width: 650px !important;">
+                <div class="modal-content">
+
+                    <div class="modal-header" style="height: 48px">
+                        <div class="left">
+                            <h2>
+                                <asp:Label runat="server" ForeColor="#73879C" Text="Agregar gastos"></asp:Label>
+                            </h2>
+                        </div>
+                        <button id="btn_closeG" type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    </div>
+                    <div class="modal-body">
+
+                        <div class="item form-group">
+                            <label class="col-form-label col-md-2 col-sm-2 label-align">
+                                Tipo gastos <span class="required" style="color: red">*</span>
+                            </label>
+                            <div class="col-md-4 col-sm-4 ">
+                                <asp:DropDownList ID="bl_TipoProducto" runat="server" CssClass="form-control">
+                                    <asp:ListItem Value="0" Text="Seleccionar"></asp:ListItem>
+                                    <asp:ListItem Value="1" Text="Compra"></asp:ListItem>
+                                    <asp:ListItem Value="2" Text="Pago"></asp:ListItem>
+                                </asp:DropDownList>
+                            </div>
+
+                            <label class="col-form-label col-md-2 col-sm-2 label-align">
+                                Pago <span class="required" style="color: red">*</span>
+                            </label>
+                            <div class="col-md-4 col-sm-4 ">
+                                <asp:DropDownList ID="bl_CatProduc" runat="server" CssClass="form-control">
+                                    <asp:ListItem Value="0" Text="Seleccionar"></asp:ListItem>
+                                    <asp:ListItem Value="1" Text="Caja"></asp:ListItem>
+                                    <asp:ListItem Value="2" Text="Banco"></asp:ListItem>
+                                    <asp:ListItem Value="3" Text="préstamo de un auxiliar"></asp:ListItem>
+                                </asp:DropDownList>
+                            </div>
+                        </div>
+
+                        <div class="item form-group">
+                            <label class="col-form-label col-md-2 col-sm-2 label-align" for="last-name">
+                                Valor <span class="required" style="color: red">*</span>
+                            </label>
+                            <div class="col-md-10 col-sm-10 ">
+                                <asp:TextBox runat="server" ID="txt_valor" CssClass="form-control" required=""></asp:TextBox>
+                            </div>
+                        </div>
+
+                        <div class="item form-group">
+                            <label class="col-form-label col-md-2 col-sm-2 label-align stile_label" for="last-name">
+                                Descripción <span class="required" style="color: red">*</span>
+                            </label>
+                            <div class="col-md-10 col-sm-10 ">
+                                <textarea runat="server" id="txt_descripcion" required class="form-control" style="height: 50px;"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="item form-group">
+
+                            <label class="col-form-label col-md-2 col-sm-2 label-align stile_label" for="last-name">
+                                Archivo <span class="required" style="color: red">*</span>
+                            </label>
+
+                            <div class="col-md-10 col-sm-10">
+                                <asp:FileUpload ID="FileUpload1" runat="server" CssClass="form-control" />
+                            </div>
+                        </div>
+
+                        <div class="item form-group ">
+                            <label class="col-form-label col-md-2 col-sm-2 label-align stile_label">
+                                Fecha Pago <span class="required" style="color: red">*</span>
+                            </label>
+                            <div class="col-md-4 col-sm-4 ">
+                                <asp:TextBox ID="txt_FecPagoGasto" CssClass="date-picker form-control" TextMode="Date" runat="server"></asp:TextBox>
+                            </div>
+
+                            <label class="col-form-label col-md-2 col-sm-2 label-align stile_label">
+                                F. Registro <span class="required" style="color: red">*</span>
+                            </label>
+                            <div class="col-md-4 col-sm-4 ">
+                                <asp:TextBox ID="txt_fechRegistroGasto" CssClass="date-picker form-control" TextMode="Date" runat="server"></asp:TextBox>
+                            </div>
+                        </div>
+
+                        <div class="item form-group">
+                            <label class="col-form-label col-md-2 col-sm-2 label-align stile_label" for="last-name">
+                                Observación <span class="required" style="color: red">*</span>
+                            </label>
+                            <div class="col-md-10 col-sm-10 ">
+                                <textarea runat="server" id="txt_observacion" required class="form-control" style="height: 50px;"></textarea>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <asp:LinkButton runat="server" ID="LinkButton4" OnClick="btn_crearGasto_Click" CssClass="btn btn-primary">
+                             <i class="fa fa-save" aria-hidden="true"></i>Guardar
+                        </asp:LinkButton>
+
+                        <asp:LinkButton runat="server" ID="btn_cerrarGasto" OnClick="btn_cerrarGasto_Click" CssClass="btn btn-secondary">
+                             <i class="fa fa-times" aria-hidden="true"></i>Cancelar
+                        </asp:LinkButton>
+                        <%-- <asp:Button runat="server" ID="btn_crearGasto" CssClass="btn btn-primary" Text="Crear" OnClick="btn_crearGasto_Click" />
+                        <asp:Button runat="server" ID="btn_cerrarGasto" CssClass="btn  btn-secondary" Text="Cancelar" OnClick="btn_cerrarGasto_Click" />--%>
+                    </div>
+                </div>
+            </div>
+
+        </asp:Panel>
+
+    </form>
+    <!-- jQuery -->
+    <script src="/Content/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="/Content/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- FastClick -->
+    <script src="/Content/fastclick/lib/fastclick.js"></script>
+    <!-- NProgress -->
+    <script src="/Content/nprogress/nprogress.js"></script>
+    <!-- Chart.js -->
+    <script src="/Content/Chart.js/dist/Chart.min.js"></script>
+    <!-- gauge.js -->
+    <script src="/Content/gauge.js/dist/gauge.min.js"></script>
+    <!-- bootstrap-progressbar -->
+    <script src="/Content/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
+    <!-- iCheck -->
+    <script src="/Content/iCheck/icheck.min.js"></script>
+    <!-- Skycons -->
+    <script src="/Content/skycons/skycons.js"></script>
+    <!-- Flot -->
+    <script src="/Content/Flot/jquery.flot.js"></script>
+    <script src="/Content/Flot/jquery.flot.pie.js"></script>
+    <script src="/Content/Flot/jquery.flot.time.js"></script>
+    <script src="/Content/Flot/jquery.flot.stack.js"></script>
+    <script src="/Content/Flot/jquery.flot.resize.js"></script>
+    <!-- Flot plugins -->
+    <script src="/Content/flot.orderbars/js/jquery.flot.orderBars.js"></script>
+    <script src="/Content/flot-spline/js/jquery.flot.spline.min.js"></script>
+    <script src="/Content/flot.curvedlines/curvedLines.js"></script>
+    <!-- DateJS -->
+    <script src="/Content/DateJS/build/date.js"></script>
+    <!-- JQVMap -->
+    <script src="/Content/jqvmap/dist/jquery.vmap.js"></script>
+    <script src="/Content/jqvmap/dist/maps/jquery.vmap.world.js"></script>
+    <script src="/Content/jqvmap/examples/js/jquery.vmap.sampledata.js"></script>
+    <!-- bootstrap-daterangepicker -->
+    <script src="/Content/moment/min/moment.min.js"></script>
+    <script src="/Content/bootstrap-daterangepicker/daterangepicker.js"></script>
+
+    <script src="/Content/build/js/custom.min.js"></script>
+
+    <script>
+
+        
+
+        $(document).ready(function () {
+            function changeColor()
+            {
+
+                //alert('Hola mundo');
+
+                $('#MainContent_Message_Succes').hide();
+                $('#MainContent_Message_infos').hide();
+                $('#MainContent_Message_warning').hide();
+                $('#MainContent_Message_danger').hide();
+            }
+            setInterval(changeColor, 20000);
+        });
+
+    </script>
+</body>
+   
+</html>
+
