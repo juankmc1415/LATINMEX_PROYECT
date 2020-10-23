@@ -246,6 +246,7 @@ namespace LATINMEX.MODULOS.VENTAS
             txt_nota.Value = "";
             mpe_NuevaNota.Show();
             OcultarControles("O_MENSAGE");
+
         }
 
         protected void btn_cerrar_Click(object sender, EventArgs e)
