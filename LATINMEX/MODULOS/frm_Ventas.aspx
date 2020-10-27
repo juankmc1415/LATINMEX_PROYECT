@@ -106,59 +106,77 @@
                                 <br />
                                 <form id="demo-form2" class="form-horizontal form-label-left">
                                     <asp:Panel runat="server" ID="pnll_info1">
+
                                         <div class="item form-group">
-                                            <label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name">
-                                                Nomres <span class="required" style="color: red">*</span>
+                                            <label class="col-form-label col-md-4 col-sm-4 label-align" for="first-name">
+                                                Primer nombre <span class="required" style="color: red">*</span>
                                             </label>
-                                            <div class="col-md-6 col-sm-6 ">
-                                                <asp:TextBox runat="server" ID="txt_Nombre" CssClass="form-control" required=""></asp:TextBox>
+                                            <div class="col-md-7 col-sm-7 ">
+                                                <asp:TextBox runat="server" ID="txt_PrimerNombre" CssClass="form-control" required=""></asp:TextBox>
                                             </div>
                                         </div>
                                         <div class="item form-group">
-                                            <label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">
-                                                Primer Apellido <span class="required" style="color: red">*</span>
+                                            <label class="col-form-label col-md-4 col-sm-4 label-align" for="first-name">
+                                                Segundo Nombre 
                                             </label>
-                                            <div class="col-md-6 col-sm-6 ">
-                                                <asp:TextBox runat="server" ID="txt_PrimerApellido" CssClass="form-control" required=""></asp:TextBox>
+                                            <div class="col-md-7 col-sm-7 ">
+                                                <asp:TextBox runat="server" ID="txt_SegundoNombre" CssClass="form-control"></asp:TextBox>
                                             </div>
                                         </div>
                                         <div class="item form-group">
-                                            <label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">
-                                                Segung Apellido 
+                                            <label class="col-form-label col-md-4 col-sm-4 label-align" for="last-name">
+                                                Apellidos <span class="required" style="color: red">*</span>
                                             </label>
-                                            <div class="col-md-6 col-sm-6 ">
-                                                <asp:TextBox runat="server" ID="txt_SegunApellido" CssClass="form-control"></asp:TextBox>
+                                            <div class="col-md-7 col-sm-7 ">
+                                                <asp:TextBox runat="server" ID="txt_Apellidos" CssClass="form-control" required=""></asp:TextBox>
                                             </div>
                                         </div>
                                         <div class="item form-group">
-                                            <label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">
+                                            <label class="col-form-label col-md-4 col-sm-4 label-align" for="last-name">
+                                                ID. de Conducción <span class="required" style="color: red">*</span>
+                                            </label>
+                                            <div class="col-md-7 col-sm-7 ">
+                                                <asp:TextBox runat="server" ID="txt_IDconducion" CssClass="form-control" required=""></asp:TextBox>
+                                            </div>
+                                        </div>
+                                        <div class="item form-group">
+                                            <label class="col-form-label col-md-4 col-sm-4 label-align">
+                                                Fecha Nacimiento <span class="required" style="color: red">*</span>
+                                            </label>
+                                            <div class="col-md-7 col-sm-7 ">
+                                                <asp:TextBox ID="txt_fechaNacimiento" CssClass="date-picker form-control" TextMode="Date" runat="server"></asp:TextBox>
+
+                                            </div>
+                                        </div>
+                                        <div class="item form-group">
+                                            <label class="col-form-label col-md-4 col-sm-4 label-align" for="last-name">
                                                 Correo 
                                             </label>
-                                            <div class="col-md-6 col-sm-6 ">
+                                            <div class="col-md-7 col-sm-7 ">
                                                 <asp:TextBox runat="server" ID="txt_Corre" AutoCompleteType="Email" CssClass="form-control"></asp:TextBox>
                                             </div>
                                         </div>
                                         <div class="item form-group">
-                                            <label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">
+                                            <label class="col-form-label col-md-4 col-sm-4 label-align" for="last-name">
                                                 Tel. Movil <span class="required" style="color: red">*</span>
                                             </label>
-                                            <div class="col-md-6 col-sm-6 ">
+                                            <div class="col-md-7 col-sm-7 ">
                                                 <asp:TextBox runat="server" ID="txt_Telefono" CssClass="form-control" required=""></asp:TextBox>
                                             </div>
                                         </div>
                                         <div class="item form-group">
-                                            <label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">
+                                            <label class="col-form-label col-md-4 col-sm-4 label-align" for="last-name">
                                                 D. Residencia <span class="required" style="color: red">*</span>
                                             </label>
-                                            <div class="col-md-6 col-sm-6 ">
+                                            <div class="col-md-7 col-sm-7 ">
                                                 <asp:TextBox runat="server" ID="txt_DirecResidencia" CssClass="form-control" required=""></asp:TextBox>
                                             </div>
                                         </div>
                                         <div class="item form-group">
-                                            <label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">
+                                            <label class="col-form-label col-md-4 col-sm-4 label-align" for="last-name">
                                                 D. Correspondencia 
                                             </label>
-                                            <div class="col-md-6 col-sm-6 ">
+                                            <div class="col-md-7 col-sm-7 ">
                                                 <asp:TextBox runat="server" ID="txt_DireCorrespond" CssClass="form-control"></asp:TextBox>
                                             </div>
                                         </div>
@@ -170,51 +188,34 @@
                                     <asp:Panel runat="server" Visible="false" ID="pnll_info2">
 
                                         <div class="item form-group">
-                                            <label class="col-form-label col-md-3 col-sm-3 label-align">
-                                                Fecha Nacimiento <span class="required" style="color: red">*</span>
-                                            </label>
-                                            <div class="col-md-6 col-sm-6 ">
-                                                <asp:TextBox ID="txt_fechaNacimiento" CssClass="date-picker form-control" TextMode="Date" runat="server"></asp:TextBox>
-
-                                            </div>
-                                        </div>
-                                        <div class="item form-group">
-                                            <label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">
-                                                ID. de Conducción <span class="required" style="color: red">*</span>
-                                            </label>
-                                            <div class="col-md-6 col-sm-6 ">
-                                                <asp:TextBox runat="server" ID="txt_IDconducion" CssClass="form-control" required=""></asp:TextBox>
-                                            </div>
-                                        </div>
-                                        <div class="item form-group">
-                                            <label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">
+                                            <label class="col-form-label col-md-4 col-sm-4 label-align" for="last-name">
                                                 Ciudad <span class="required" style="color: red">*</span>
                                             </label>
-                                            <div class="col-md-6 col-sm-6 ">
+                                            <div class="col-md-7 col-sm-7">
                                                 <asp:TextBox runat="server" ID="txt_Ciudad" CssClass="form-control" required=""></asp:TextBox>
                                             </div>
                                         </div>
                                         <div class="item form-group">
-                                            <label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">
+                                            <label class="col-form-label col-md-4 col-sm-4 label-align" for="last-name">
                                                 Estado <span class="required" style="color: red">*</span>
                                             </label>
-                                            <div class="col-md-6 col-sm-6 ">
+                                            <div class="col-md-7 col-sm-7 ">
                                                 <asp:TextBox runat="server" ID="txt_Estado" CssClass="form-control" required=""></asp:TextBox>
                                             </div>
                                         </div>
                                         <div class="item form-group">
-                                            <label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">
+                                            <label class="col-form-label col-md-4 col-sm-4 label-align" for="last-name">
                                                 Codg. Postal <span class="required" style="color: red">*</span>
                                             </label>
-                                            <div class="col-md-6 col-sm-6 ">
+                                            <div class="col-md-7 col-sm-7 ">
                                                 <asp:TextBox runat="server" ID="txt_CodigoPostal" CssClass="form-control" required=""></asp:TextBox>
                                             </div>
                                         </div>
                                         <div class="item form-group">
-                                            <label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">
+                                            <label class="col-form-label col-md-4 col-sm-4 label-align" for="last-name">
                                                 Nombre de la Empresa 
                                             </label>
-                                            <div class="col-md-6 col-sm-6 ">
+                                            <div class="col-md-8 col-sm-8 ">
                                                 <asp:TextBox runat="server" ID="txt_NombreEmpresa" CssClass="form-control"></asp:TextBox>
                                             </div>
                                         </div>
@@ -229,7 +230,7 @@
                                             <label class="col-form-label col-md-2 col-sm-2 label-align">
                                                 F. venci 1
                                             </label>
-                                            <div class="col-md-3 col-sm-3 ">
+                                            <div class="col-md-5 col-sm-5 ">
                                                 <asp:TextBox ID="txt_FecVin1" CssClass="date-picker form-control" TextMode="Date" runat="server"></asp:TextBox>
 
                                             </div>
@@ -245,7 +246,7 @@
                                             <label class="col-form-label col-md-2 col-sm-2 label-align">
                                                 F. venci 2 
                                             </label>
-                                            <div class="col-md-3 col-sm-3 ">
+                                            <div class="col-md-5 col-sm-5 ">
 
                                                 <asp:TextBox ID="txt_FecVin2" CssClass="date-picker form-control" TextMode="Date" runat="server"></asp:TextBox>
 
@@ -262,16 +263,42 @@
                                             <label class="col-form-label col-md-2 col-sm-2 label-align">
                                                 F. venci 3 
                                             </label>
-                                            <div class="col-md-3 col-sm-3 ">
-
+                                            <div class="col-md-5 col-sm-5">
                                                 <asp:TextBox ID="txt_FecVin3" CssClass="date-picker form-control" TextMode="Date" runat="server"></asp:TextBox>
+                                            </div>
+                                        </div>
+                                        <div class="item form-group">
+                                            <label class="col-form-label col-md-2 col-sm-2 label-align">
+                                                Vin 4
+                                            </label>
+                                            <div class="col-md-3 col-sm-3 ">
+                                                <asp:TextBox runat="server" ID="txt_Vin4" CssClass="form-control"></asp:TextBox>
+                                            </div>
 
+                                            <label class="col-form-label col-md-2 col-sm-2 label-align">
+                                                F. venci 4 
+                                            </label>
+                                            <div class="col-md-5 col-sm-5">
+                                                <asp:TextBox ID="txt_FecVin4" CssClass="date-picker form-control" TextMode="Date" runat="server"></asp:TextBox>
+                                            </div>
+                                        </div>
+                                        <div class="item form-group">
+                                            <label class="col-form-label col-md-2 col-sm-2 label-align">
+                                                Vin 5
+                                            </label>
+                                            <div class="col-md-3 col-sm-3 ">
+                                                <asp:TextBox runat="server" ID="txt_Vin5" CssClass="form-control"></asp:TextBox>
+                                            </div>
+
+                                            <label class="col-form-label col-md-2 col-sm-2 label-align">
+                                                F. venci 5 
+                                            </label>
+                                            <div class="col-md-5 col-sm-5">
+                                                <asp:TextBox ID="txt_FecVin5" CssClass="date-picker form-control" TextMode="Date" runat="server"></asp:TextBox>
                                             </div>
                                         </div>
 
-
                                         <div class="ln_solid"></div>
-
                                         <div class="item form-group">
                                             <div class=" right col-md-12 col-sm-12 offset-md-12">
                                                 <asp:LinkButton runat="server" ID="btn_Registra" OnClick="btn_registra_Click" CssClass="btn btn-primary">
@@ -287,7 +314,6 @@
                                                 </asp:LinkButton>
                                             </div>
                                         </div>
-
                                     </asp:Panel>
                                 </form>
                             </div>
@@ -311,16 +337,12 @@
                                 </div>
 
                                 <asp:Panel runat="server">
-
-
                                     <asp:GridView ID="gvEmployeeDetails" runat="server" AutoGenerateColumns="false" ShowHeaderWhenEmpty="true" Width="100%"
                                         OnRowDataBound="gvEmployeeDetails_RowDataBound" DataKeyNames="ID_PRODUCTO" OnRowCommand="gvEmployeeDetails_RowCommand" BackColor="White" BorderColor="#ffffff" BorderStyle="None" BorderWidth="1px" CellPadding="2">
                                         <Columns>
 
                                             <asp:TemplateField HeaderText="Lista">
-
                                                 <ItemTemplate>
-
                                                     <div style="border: none;"></div>
                                                     <ul class="list-unstyled timeline" style="width: 100%; border: 1px solid #DBDBDB; margin-right: 5px;">
                                                         <li>
@@ -373,11 +395,9 @@
                                                             </div>
                                                         </li>
                                                     </ul>
-
                                                     <tr>
 
                                                         <td colspan="100%">
-
                                                             <div id="div<%# Eval("ID_PRODUCTO") %>" style="overflow: auto; display: none; position: relative; left: 15px; overflow: auto; top: -17px;">
 
                                                                 <asp:GridView ID="gv_Cuotas" runat="server" Width="95%" OnRowCommand="gv_Cuotas_RowCommand" AutoGenerateColumns="false" DataKeyNames="ID_PRODUCTO" CssClass="listoCuotas" BorderStyle="None" BorderWidth="1px" CellPadding="2">
@@ -387,17 +407,15 @@
                                                                                 <asp:Label ID="lblCuotasProduc" runat="server" Text='<%#DataBinder.Eval(Container.DataItem, "ID_PRODUCTO_ASOCIADO") %>'></asp:Label>
                                                                             </ItemTemplate>
                                                                         </asp:TemplateField>
-
-                                                                        <asp:TemplateField  HeaderText="ESTADO" ItemStyle-Width="100px"  >
+                                                                        <asp:TemplateField HeaderText="ESTADO" ItemStyle-Width="100px">
                                                                             <ItemTemplate>
-                                                                                <label class="" style="font-weight:bold; color: <%#DataBinder.Eval(Container.DataItem, "color")%> ">
+                                                                                <label class="" style="font-weight: bold; color: <%#DataBinder.Eval(Container.DataItem, "color")%>">
                                                                                     <%#DataBinder.Eval(Container.DataItem, "ESTADO") %>
                                                                                 </label>
                                                                                 <%--<asp:Label Text='<%#DataBinder.Eval(Container.DataItem, "ESTADO") %>' runat="server" />
                                                                                 <asp:Label ID="lbl_estado" runat="server" Text='<%#DataBinder.Eval(Container.DataItem, "ESTADO") %>' Font-Bold="true" ForeColor="Yellow"  ></asp:Label>--%>
                                                                             </ItemTemplate>
                                                                         </asp:TemplateField>
-
                                                                         <asp:BoundField DataField="FECHA_PROXIMO_PAGO" HeaderText="PROXIMO PAGO" DataFormatString="{0:dd/MM/yyyy}" ItemStyle-Width="120px" />
                                                                         <asp:BoundField DataField="COSTO" HeaderText="COSTO" ItemStyle-Width="80px" />
                                                                         <asp:BoundField DataField="OBSERVACION" HeaderText="OBSERVACION" />
@@ -430,7 +448,6 @@
                                         </Columns>
                                         <HeaderStyle BackColor="#0063A6" ForeColor="White" />
                                     </asp:GridView>
-
                                 </asp:Panel>
 
                             </div>
@@ -506,7 +523,6 @@
                         </div>
                     </div>
                 </div>
-
             </div>
 
             <ajaxToolkit:ModalPopupExtender ID="mpe_NuevaNota" runat="server" BackgroundCssClass="modalBackground" TargetControlID="btn_NuevaNota" PopupControlID="ModalPanel" OkControlID="btn_close" />
@@ -547,7 +563,7 @@
             <asp:HiddenField runat="server" ID="hf_Producto" />
             <asp:HiddenField runat="server" ID="pp" />
             <ajaxToolkit:ModalPopupExtender ID="mpe_Produc" runat="server" BackgroundCssClass="modalBackground" TargetControlID="pp" PopupControlID="pnl_NuevoPro" OkControlID="btn_close_V" />
-            <asp:Panel ID="pnl_NuevoPro" runat="server" Width="900PX">
+            <asp:Panel ID="pnl_NuevoPro" runat="server" CssClass="" Width="800PX" ScrollBars="Auto">
                 <div class="modal-dialog" runat="server" style="max-width: 800px !important;">
                     <div class="modal-content">
 
@@ -565,11 +581,12 @@
                                 <ContentTemplate>
 
                                     <div class="" role="main">
+                                        <span class="section">Información del seguro</span>
+
                                         <div class="item form-group">
                                             <label class="col-form-label col-md-2 col-sm-2 label-align stile_label">
                                                 Producto <span class="required" style="color: red">*</span>
                                             </label>
-
                                             <div class="col-md-3 col-sm-3 ">
                                                 <asp:DropDownList ID="bl_TipoProducto" AutoPostBack="true" OnSelectedIndexChanged="bl_TipoProducto_SelectedIndexChanged" runat="server" CssClass="form-control" DataTextField="PRODUCTO" DataValueField="ID_PRODUCTO">
                                                 </asp:DropDownList>
@@ -584,7 +601,6 @@
                                             </div>
 
                                             <div runat="server" id="div_estad" class=" col-md-4 col-sm-4">
-
                                                 <label class="col-form-label col-md-6 col-sm-6 label-align stile_label">
                                                     Estado Seguro <span class="required" style="color: red">*</span>
                                                 </label>
@@ -593,10 +609,9 @@
                                                     </asp:DropDownList>
                                                 </div>
                                             </div>
-
                                         </div>
 
-                                        <div class="item form-group">
+                                        <div runat="server" id="dv_poliza" class="item form-group">
                                             <label class="col-form-label col-md-2 col-sm-2 label-align stile_label" for="last-name">
                                                 Núm. Poliza <span class="required" style="color: red">*</span>
                                             </label>
@@ -604,8 +619,10 @@
                                                 <asp:TextBox runat="server" ID="txt_numPoliza" CssClass="form-control" required=""></asp:TextBox>
                                             </div>
                                         </div>
+
                                         <div class="item form-group">
-                                            <label class="col-form-label col-md-2 col-sm-2 label-align stile_label">
+                                            <asp:Label Text="Fecha Factura" ID="lbl_fechaFactura" Visible="false" CssClass="col-form-label col-md-2 col-sm-2 label-align stile_label" runat="server" />
+                                            <label runat="server" id="lbl_fechaInicio" class="col-form-label col-md-2 col-sm-2 label-align stile_label">
                                                 Fecha Inicio <span class="required" style="color: red">*</span>
                                             </label>
                                             <div class="col-md-4 col-sm-4 ">
@@ -619,7 +636,8 @@
                                                 <asp:TextBox ID="txt_fechCaduci" CssClass="date-picker form-control" TextMode="Date" runat="server"></asp:TextBox>
                                             </div>
                                         </div>
-                                        <div class="item form-group">
+
+                                        <div class="item form-group" runat="server" id="dv_Compania">
                                             <label class="col-form-label col-md-2 col-sm-2 label-align stile_label" for="last-name">
                                                 Comp. Seg<span class="required" style="color: red">*</span>
                                             </label>
@@ -635,6 +653,10 @@
                                                 <asp:TextBox runat="server" ID="txt_CodInterno" AutoCompleteType="Email" CssClass="form-control"></asp:TextBox>
                                             </div>
                                         </div>
+
+                                        <br />
+                                        <span class="section">Información del cliente</span>
+
                                         <div class="item form-group">
                                             <label class="col-form-label col-md-2 col-sm-2 label-align stile_label" for="last-name">
                                                 Auxiliar 
@@ -650,34 +672,28 @@
                                                 <asp:TextBox runat="server" ID="txt_NombreCliente" Enabled="false" CssClass="form-control" required=""></asp:TextBox>
                                             </div>
                                         </div>
+
                                         <div class="item form-group">
                                             <label class="col-form-label col-md-2 col-sm-2 label-align stile_label" for="last-name">
-                                                Premium 
+                                                Empresa 
                                             </label>
-                                            <div class="col-md-3 col-sm-3">
-                                                <asp:TextBox runat="server" ID="txt_valor" TextMode="Number" CssClass="form-control"></asp:TextBox>
-                                            </div>
 
-                                            <label class="col-form-label label-align stile_label" style="width: 68px !important;" for="last-name">
-                                                Costo 
-                                            </label>
-                                            <div class="col-md-2 col-sm-2 ">
-                                                <asp:TextBox runat="server" ID="txt_Costo" TextMode="Number" CssClass="form-control"></asp:TextBox>
-                                            </div>
-
-                                            <label class="col-form-label col-md-1 col-sm-1 label-align stile_label" for="last-name">
-                                                Adicional 
-                                            </label>
-                                            <div class="col-md-3 col-sm-3 ">
-                                                <asp:TextBox runat="server" ID="txt_SerAdicional" TextMode="Number" CssClass="form-control"></asp:TextBox>
+                                            <div class="col-md-10 col-sm-10">
+                                                <asp:TextBox ID="txtx_NombreEmpresa" Enabled="false" CssClass="form-control" runat="server"></asp:TextBox>
                                             </div>
                                         </div>
+
+
+
+                                        <br />
+                                        <span class="section">Información de pago</span>
+
                                         <div class="item form-group">
                                             <label class="col-form-label col-md-2 col-sm-2 label-align stile_label" for="last-name">
-                                                Cash out
+                                                Efectivo 
                                             </label>
-                                            <div class="col-md-2 col-sm-2">
-                                                <asp:TextBox runat="server" ID="txt_CashOut" TextMode="Number" CssClass="form-control"></asp:TextBox>
+                                            <div class="col-md-3 col-sm-3 ">
+                                                <asp:TextBox runat="server" ID="txt_pagoEfectivo" TextMode="Number" CssClass="form-control"></asp:TextBox>
                                             </div>
 
                                             <label class="col-form-label label-align stile_label" style="width: 68px !important;" for="last-name">
@@ -688,18 +704,47 @@
                                             </div>
 
                                             <label class="col-form-label col-md-1 col-sm-1 label-align stile_label" for="last-name">
-                                                Efectivo 
-                                            </label>
-                                            <div class="col-md-3 col-sm-3 ">
-                                                <asp:TextBox runat="server" ID="txt_pagoEfectivo" TextMode="Number" CssClass="form-control"></asp:TextBox>
-                                            </div>
-                                        </div>
-                                        <div class="item form-group">
-                                            <label class="col-form-label col-md-2 col-sm-2 label-align stile_label" for="last-name">
                                                 Recargo 
                                             </label>
-                                            <div class="col-md-3 col-sm-3">
+                                            <div class="col-md-2 col-sm-2">
                                                 <asp:TextBox runat="server" ID="txt_recargo" TextMode="Number" Enabled="false" CssClass="form-control"></asp:TextBox>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="item form-group">
+
+
+
+                                            <label class="col-form-label col-md-2 col-sm-2 label-align stile_label" style="width: 68px !important;" for="last-name">
+                                                Costo 
+                                            </label>
+                                            <div class="col-md-3 col-sm-3">
+                                                <asp:TextBox runat="server" ID="txt_Costo" TextMode="Number" CssClass="form-control"></asp:TextBox>
+                                            </div>
+
+                                            <label class="col-form-label col-md-1 col-sm-1 label-align stile_label" for="last-name">
+                                                Adicional 
+                                            </label>
+                                            <div class="col-md-2 col-sm-2 ">
+                                                <asp:TextBox runat="server" ID="txt_SerAdicional" TextMode="Number" CssClass="form-control"></asp:TextBox>
+                                            </div>
+
+                                            <label class="col-form-label  label-align stile_label" for="last-name">
+                                                Premium 
+                                            </label>
+                                            <div class="col-md-3 col-sm-3">
+                                                <asp:TextBox runat="server" ID="txt_valor" TextMode="Number" CssClass="form-control"></asp:TextBox>
+                                            </div>
+
+                                        </div>
+                                        <div class="item form-group">
+
+                                            <label class="col-form-label col-md-2 col-sm-2 label-align stile_label" for="last-name">
+                                                Cash out
+                                            </label>
+                                            <div class="col-md-3 col-sm-3">
+                                                <asp:TextBox runat="server" ID="txt_CashOut" TextMode="Number" CssClass="form-control"></asp:TextBox>
                                             </div>
 
                                             <label class="col-form-label label-align stile_label" style="width: 130px !important;" for="last-name">
@@ -740,29 +785,18 @@
                                             <div class="col-md-4 col-sm-4 ">
                                                 <asp:TextBox ID="txt_proximoPago" CssClass="date-picker form-control" TextMode="Date" runat="server"></asp:TextBox>
                                             </div>
-
-                                            <label class="col-form-label col-md-2 col-sm-2 label-align stile_label" for="last-name">
-                                                Empresa 
-                                            </label>
-
-                                            <div class="col-md-4 col-sm-4 ">
-                                                <asp:TextBox ID="txtx_NombreEmpresa" Enabled="false" CssClass="form-control" runat="server"></asp:TextBox>
-                                            </div>
-
                                         </div>
-                                        <div class="item form-group">
 
+                                        <div class="item form-group">
                                             <label class="col-form-label col-md-2 col-sm-2 label-align stile_label" for="last-name">
                                                 Archivo <span class="required" style="color: red">*</span>
                                             </label>
-
-                                            <div class="col-md-6 col-sm-6 ">
+                                            <div class="col-md-9 col-sm-9 ">
                                                 <asp:FileUpload ID="FileUpload1" runat="server" CssClass="form-control" />
-
                                             </div>
 
 
-                                            <div class="col-md-2 col-sm-2 ">
+                                            <div class=" ">
                                                 <asp:CheckBox ID="cb_prospecto" Text="  Prospecto  " runat="server" />
                                             </div>
 
@@ -947,12 +981,6 @@
             <asp:AsyncPostBackTrigger ControlID="gvCustomers" EventName="RowDataBound" />
         </Triggers>--%>
     </asp:UpdatePanel>
-
-
-
-
-
-
 
 
 </asp:Content>

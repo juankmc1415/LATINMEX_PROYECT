@@ -21,22 +21,22 @@ namespace LATINMEX.Datos.CLIENTES
                 command.CommandType = System.Data.CommandType.StoredProcedure;
                 command.CommandTimeout = _commandTimeout;
 
-                command.Parameters.Add(new System.Data.SqlClient.SqlParameter("@NOMBRES", System.Data.SqlDbType.NVarChar));
-                command.Parameters["@NOMBRES"].Value = cliente.NOMBRES;
+                command.Parameters.Add(new System.Data.SqlClient.SqlParameter("@PRIMER_NOMBRE", System.Data.SqlDbType.NVarChar));
+                command.Parameters["@PRIMER_NOMBRE"].Value = cliente.PRIMER_NOMBRE;
 
-                command.Parameters.Add(new System.Data.SqlClient.SqlParameter("@PRIMER_APELLIDO", System.Data.SqlDbType.NVarChar));
-                command.Parameters["@PRIMER_APELLIDO"].Value = cliente.PRIMER_APELLIDO;
-
-                command.Parameters.Add(new System.Data.SqlClient.SqlParameter("@SEGUNDO_APELLIDO", System.Data.SqlDbType.NVarChar));
-                if (string.IsNullOrEmpty(cliente.SEGUNDO_APELLIDO) || string.IsNullOrWhiteSpace(cliente.SEGUNDO_APELLIDO))
+                command.Parameters.Add(new System.Data.SqlClient.SqlParameter("@SEGUNDO_NOMBRE", System.Data.SqlDbType.NVarChar));
+                if (string.IsNullOrEmpty(cliente.SEGUNDO_NOMBRE) || string.IsNullOrWhiteSpace(cliente.SEGUNDO_NOMBRE))
                 {
-                    command.Parameters["@SEGUNDO_APELLIDO"].Value = DBNull.Value;
+                    command.Parameters["@SEGUNDO_NOMBRE"].Value = DBNull.Value;
                 }
                 else
                 {
-                    command.Parameters["@SEGUNDO_APELLIDO"].Value = cliente.SEGUNDO_APELLIDO;
+                    command.Parameters["@SEGUNDO_NOMBRE"].Value = cliente.SEGUNDO_NOMBRE;
                 }
-               
+
+                command.Parameters.Add(new System.Data.SqlClient.SqlParameter("@APELLIDOS", System.Data.SqlDbType.NVarChar));
+                command.Parameters["@APELLIDOS"].Value = cliente.APELLIDOS;
+
                 command.Parameters.Add(new System.Data.SqlClient.SqlParameter("@CORREO", System.Data.SqlDbType.NVarChar));
                 if (string.IsNullOrEmpty(cliente.CORREO) || string.IsNullOrWhiteSpace(cliente.CORREO))
                 {
@@ -151,7 +151,48 @@ namespace LATINMEX.Datos.CLIENTES
                 {
                     command.Parameters["@FECHA_VIN_3"].Value = cliente.FECHA_VIN_3;
                 }
-                
+
+                command.Parameters.Add(new System.Data.SqlClient.SqlParameter("@VIN_4", System.Data.SqlDbType.NVarChar));
+                if (string.IsNullOrEmpty(cliente.VIN_4) || string.IsNullOrWhiteSpace(cliente.VIN_4))
+                {
+                    command.Parameters["@VIN_4"].Value = DBNull.Value;
+                }
+                else
+                {
+                    command.Parameters["@VIN_4"].Value = cliente.VIN_4;
+                }
+
+                command.Parameters.Add(new System.Data.SqlClient.SqlParameter("@FECHA_VIN_4", System.Data.SqlDbType.DateTime));
+                if (cliente.FECHA_VIN_4 == null)
+                {
+                    command.Parameters["@FECHA_VIN_4"].Value = DBNull.Value;
+                }
+                else
+                {
+                    command.Parameters["@FECHA_VIN_4"].Value = cliente.FECHA_VIN_4;
+                }
+
+
+                command.Parameters.Add(new System.Data.SqlClient.SqlParameter("@VIN_5", System.Data.SqlDbType.NVarChar));
+                if (string.IsNullOrEmpty(cliente.VIN_5) || string.IsNullOrWhiteSpace(cliente.VIN_5))
+                {
+                    command.Parameters["@VIN_5"].Value = DBNull.Value;
+                }
+                else
+                {
+                    command.Parameters["@VIN_5"].Value = cliente.VIN_5;
+                }
+
+                command.Parameters.Add(new System.Data.SqlClient.SqlParameter("@FECHA_VIN_5", System.Data.SqlDbType.DateTime));
+                if (cliente.FECHA_VIN_5 == null)
+                {
+                    command.Parameters["@FECHA_VIN_5"].Value = DBNull.Value;
+                }
+                else
+                {
+                    command.Parameters["@FECHA_VIN_5"].Value = cliente.FECHA_VIN_5;
+                }
+
 
                 command.Parameters.Add(new System.Data.SqlClient.SqlParameter("@ID_USUARIO_CREACION", System.Data.SqlDbType.Int));
                 command.Parameters["@ID_USUARIO_CREACION"].Value = cliente.ID_USUARIO_CREACION;
@@ -199,21 +240,23 @@ namespace LATINMEX.Datos.CLIENTES
                 command.Parameters.Add(new System.Data.SqlClient.SqlParameter("@ID_CLIENTE", System.Data.SqlDbType.Int));
                 command.Parameters["@ID_CLIENTE"].Value = ID_CLIENTE;
 
-                command.Parameters.Add(new System.Data.SqlClient.SqlParameter("@NOMBRES", System.Data.SqlDbType.NVarChar));
-                command.Parameters["@NOMBRES"].Value = cliente.NOMBRES;
+                command.Parameters.Add(new System.Data.SqlClient.SqlParameter("@PRIMER_NOMBRE", System.Data.SqlDbType.NVarChar));
+                command.Parameters["@PRIMER_NOMBRE"].Value = cliente.PRIMER_NOMBRE;
 
-                command.Parameters.Add(new System.Data.SqlClient.SqlParameter("@PRIMER_APELLIDO", System.Data.SqlDbType.NVarChar));
-                command.Parameters["@PRIMER_APELLIDO"].Value = cliente.PRIMER_APELLIDO;
-
-                command.Parameters.Add(new System.Data.SqlClient.SqlParameter("@SEGUNDO_APELLIDO", System.Data.SqlDbType.NVarChar));
-                if (string.IsNullOrEmpty(cliente.SEGUNDO_APELLIDO) || string.IsNullOrWhiteSpace(cliente.SEGUNDO_APELLIDO))
+                command.Parameters.Add(new System.Data.SqlClient.SqlParameter("@SEGUNDO_NOMBRE", System.Data.SqlDbType.NVarChar));
+                if (string.IsNullOrEmpty(cliente.SEGUNDO_NOMBRE) || string.IsNullOrWhiteSpace(cliente.SEGUNDO_NOMBRE))
                 {
-                    command.Parameters["@SEGUNDO_APELLIDO"].Value = DBNull.Value;
+                    command.Parameters["@SEGUNDO_NOMBRE"].Value = DBNull.Value;
                 }
                 else
                 {
-                    command.Parameters["@SEGUNDO_APELLIDO"].Value = cliente.SEGUNDO_APELLIDO;
+                    command.Parameters["@SEGUNDO_NOMBRE"].Value = cliente.SEGUNDO_NOMBRE;
                 }
+
+                command.Parameters.Add(new System.Data.SqlClient.SqlParameter("@APELLIDOS", System.Data.SqlDbType.NVarChar));
+                command.Parameters["@APELLIDOS"].Value = cliente.APELLIDOS;
+
+               
 
                 command.Parameters.Add(new System.Data.SqlClient.SqlParameter("@CORREO", System.Data.SqlDbType.NVarChar));
                 if (string.IsNullOrEmpty(cliente.CORREO) || string.IsNullOrWhiteSpace(cliente.CORREO))
@@ -326,6 +369,47 @@ namespace LATINMEX.Datos.CLIENTES
                 else
                 {
                     command.Parameters["@FECHA_VIN_3"].Value = cliente.FECHA_VIN_3;
+                }
+
+                command.Parameters.Add(new System.Data.SqlClient.SqlParameter("@VIN_4", System.Data.SqlDbType.NVarChar));
+                if (string.IsNullOrEmpty(cliente.VIN_4) || string.IsNullOrWhiteSpace(cliente.VIN_4))
+                {
+                    command.Parameters["@VIN_4"].Value = DBNull.Value;
+                }
+                else
+                {
+                    command.Parameters["@VIN_4"].Value = cliente.VIN_4;
+                }
+
+                command.Parameters.Add(new System.Data.SqlClient.SqlParameter("@FECHA_VIN_4", System.Data.SqlDbType.DateTime));
+                if (cliente.FECHA_VIN_4 == null)
+                {
+                    command.Parameters["@FECHA_VIN_4"].Value = DBNull.Value;
+                }
+                else
+                {
+                    command.Parameters["@FECHA_VIN_4"].Value = cliente.FECHA_VIN_4;
+                }
+
+
+                command.Parameters.Add(new System.Data.SqlClient.SqlParameter("@VIN_5", System.Data.SqlDbType.NVarChar));
+                if (string.IsNullOrEmpty(cliente.VIN_5) || string.IsNullOrWhiteSpace(cliente.VIN_5))
+                {
+                    command.Parameters["@VIN_5"].Value = DBNull.Value;
+                }
+                else
+                {
+                    command.Parameters["@VIN_5"].Value = cliente.VIN_5;
+                }
+
+                command.Parameters.Add(new System.Data.SqlClient.SqlParameter("@FECHA_VIN_5", System.Data.SqlDbType.DateTime));
+                if (cliente.FECHA_VIN_5 == null)
+                {
+                    command.Parameters["@FECHA_VIN_5"].Value = DBNull.Value;
+                }
+                else
+                {
+                    command.Parameters["@FECHA_VIN_5"].Value = cliente.FECHA_VIN_5;
                 }
 
 

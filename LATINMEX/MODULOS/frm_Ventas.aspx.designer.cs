@@ -69,31 +69,49 @@ namespace LATINMEX.MODULOS.VENTAS
         protected global::System.Web.UI.WebControls.Panel pnll_info1;
 
         /// <summary>
-        /// txt_Nombre control.
+        /// txt_PrimerNombre control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txt_Nombre;
+        protected global::System.Web.UI.WebControls.TextBox txt_PrimerNombre;
 
         /// <summary>
-        /// txt_PrimerApellido control.
+        /// txt_SegundoNombre control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txt_PrimerApellido;
+        protected global::System.Web.UI.WebControls.TextBox txt_SegundoNombre;
 
         /// <summary>
-        /// txt_SegunApellido control.
+        /// txt_Apellidos control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txt_SegunApellido;
+        protected global::System.Web.UI.WebControls.TextBox txt_Apellidos;
+
+        /// <summary>
+        /// txt_IDconducion control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txt_IDconducion;
+
+        /// <summary>
+        /// txt_fechaNacimiento control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txt_fechaNacimiento;
 
         /// <summary>
         /// txt_Corre control.
@@ -148,24 +166,6 @@ namespace LATINMEX.MODULOS.VENTAS
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Panel pnll_info2;
-
-        /// <summary>
-        /// txt_fechaNacimiento control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txt_fechaNacimiento;
-
-        /// <summary>
-        /// txt_IDconducion control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txt_IDconducion;
 
         /// <summary>
         /// txt_Ciudad control.
@@ -256,6 +256,42 @@ namespace LATINMEX.MODULOS.VENTAS
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txt_FecVin3;
+
+        /// <summary>
+        /// txt_Vin4 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txt_Vin4;
+
+        /// <summary>
+        /// txt_FecVin4 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txt_FecVin4;
+
+        /// <summary>
+        /// txt_Vin5 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txt_Vin5;
+
+        /// <summary>
+        /// txt_FecVin5 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txt_FecVin5;
 
         /// <summary>
         /// btn_Registra control.
@@ -456,6 +492,15 @@ namespace LATINMEX.MODULOS.VENTAS
         protected global::System.Web.UI.WebControls.DropDownList BL_EstadosProdu;
 
         /// <summary>
+        /// dv_poliza control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl dv_poliza;
+
+        /// <summary>
         /// txt_numPoliza control.
         /// </summary>
         /// <remarks>
@@ -463,6 +508,24 @@ namespace LATINMEX.MODULOS.VENTAS
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txt_numPoliza;
+
+        /// <summary>
+        /// lbl_fechaFactura control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbl_fechaFactura;
+
+        /// <summary>
+        /// lbl_fechaInicio control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl lbl_fechaInicio;
 
         /// <summary>
         /// txt_FechInicio control.
@@ -481,6 +544,15 @@ namespace LATINMEX.MODULOS.VENTAS
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txt_fechCaduci;
+
+        /// <summary>
+        /// dv_Compania control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl dv_Compania;
 
         /// <summary>
         /// bl_CompaniaSe control.
@@ -519,13 +591,40 @@ namespace LATINMEX.MODULOS.VENTAS
         protected global::System.Web.UI.WebControls.TextBox txt_NombreCliente;
 
         /// <summary>
-        /// txt_valor control.
+        /// txtx_NombreEmpresa control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txt_valor;
+        protected global::System.Web.UI.WebControls.TextBox txtx_NombreEmpresa;
+
+        /// <summary>
+        /// txt_pagoEfectivo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txt_pagoEfectivo;
+
+        /// <summary>
+        /// txt_tarjetaCedito control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txt_tarjetaCedito;
+
+        /// <summary>
+        /// txt_recargo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txt_recargo;
 
         /// <summary>
         /// txt_Costo control.
@@ -546,6 +645,15 @@ namespace LATINMEX.MODULOS.VENTAS
         protected global::System.Web.UI.WebControls.TextBox txt_SerAdicional;
 
         /// <summary>
+        /// txt_valor control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txt_valor;
+
+        /// <summary>
         /// txt_CashOut control.
         /// </summary>
         /// <remarks>
@@ -553,33 +661,6 @@ namespace LATINMEX.MODULOS.VENTAS
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txt_CashOut;
-
-        /// <summary>
-        /// txt_tarjetaCedito control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txt_tarjetaCedito;
-
-        /// <summary>
-        /// txt_pagoEfectivo control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txt_pagoEfectivo;
-
-        /// <summary>
-        /// txt_recargo control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txt_recargo;
 
         /// <summary>
         /// bl_Tipopago control.
@@ -607,15 +688,6 @@ namespace LATINMEX.MODULOS.VENTAS
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txt_proximoPago;
-
-        /// <summary>
-        /// txtx_NombreEmpresa control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtx_NombreEmpresa;
 
         /// <summary>
         /// FileUpload1 control.

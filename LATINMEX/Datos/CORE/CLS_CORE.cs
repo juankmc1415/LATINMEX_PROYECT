@@ -105,9 +105,9 @@ namespace LATINMEX.Datos.CORE
 
         public class LTM_CLIENTE
         {
-            public string NOMBRES { get; set; }
-            public string PRIMER_APELLIDO { get; set; }
-            public string SEGUNDO_APELLIDO { get; set; }
+            public string PRIMER_NOMBRE { get; set; }
+            public string SEGUNDO_NOMBRE { get; set; }
+            public string APELLIDOS { get; set; }            
             public string CORREO { get; set; }
             public string TELEFONO_MOVIL { get; set; }
             public string DIRECCION_RESIDENCIA { get; set; }
@@ -124,6 +124,12 @@ namespace LATINMEX.Datos.CORE
             public DateTime? FECHA_VIN_2 { get; set; }
             public string VIN_3 { get; set; }
             public DateTime? FECHA_VIN_3 { get; set; }
+
+            public string VIN_4 { get; set; }
+            public DateTime? FECHA_VIN_4 { get; set; }
+
+            public string VIN_5 { get; set; }
+            public DateTime? FECHA_VIN_5 { get; set; }
 
             public int ID_USUARIO_CREACION { get; set; }
             

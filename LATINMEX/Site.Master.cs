@@ -8,6 +8,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using LATINMEX.Datos.CORE;
 using LATINMEX.Datos.MASTER;
+using LATINMEX.Datos.PRODUCTOS;
 
 namespace LATINMEX
 {
@@ -19,7 +20,7 @@ namespace LATINMEX
             {
                 lbl_FechaIngreso.Text = $"In: {Convert.ToString(DateTime.Now)}";
                 Datos_Usuario();
-
+                Lista_Empresa();
                 DateTime FechaNacimiento = DateTime.Now;
                 txt_FecPagoGasto.Text = FechaNacimiento.ToString("yyyy-MM-dd");
 
@@ -42,6 +43,19 @@ namespace LATINMEX
             }
         }
 
+        private void Lista_Empresa()
+        {
+            CLS_PRODUCTOS cls_Prod = new CLS_PRODUCTOS();
+            DataTable dataCompa = cls_Prod.SP_15_GET_COMPANIAS();
+            if (dataCompa != null && dataCompa.Rows.Count > 0)
+            {
+                dataCompa.Rows.RemoveAt(0);
+
+                gv_ListaEmpresas.DataSource = dataCompa;
+                gv_ListaEmpresas.DataBind();
+
+            }
+        }
         protected void LinkButton1_Click(object sender, EventArgs e)
         {
 

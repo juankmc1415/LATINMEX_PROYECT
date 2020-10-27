@@ -75,9 +75,10 @@ namespace LATINMEX.MODULOS.VENTAS
             }
 
             LTM_CLIENTE cliente = new LTM_CLIENTE();
-            cliente.NOMBRES = txt_Nombre.Text;
-            cliente.PRIMER_APELLIDO = txt_PrimerApellido.Text;
-            cliente.SEGUNDO_APELLIDO = txt_SegunApellido.Text;
+            cliente.PRIMER_NOMBRE = txt_PrimerNombre.Text;
+            cliente.SEGUNDO_NOMBRE = txt_SegundoNombre.Text;
+            cliente.APELLIDOS = txt_Apellidos.Text;
+            
             cliente.CORREO = txt_Corre.Text;
             cliente.TELEFONO_MOVIL = txt_Telefono.Text;
             cliente.DIRECCION_RESIDENCIA = txt_DirecResidencia.Text;
@@ -120,6 +121,26 @@ namespace LATINMEX.MODULOS.VENTAS
                 cliente.FECHA_VIN_3 = null;
             }
 
+            cliente.VIN_4 = txt_Vin4.Text;
+            if (!String.IsNullOrEmpty(txt_FecVin4.Text) && !string.IsNullOrWhiteSpace(txt_FecVin4.Text))
+            {
+                cliente.FECHA_VIN_4 = Convert.ToDateTime(txt_FecVin4.Text);
+            }
+            else
+            {
+                cliente.FECHA_VIN_4 = null;
+            }
+
+            cliente.VIN_5 = txt_Vin5.Text;
+            if (!String.IsNullOrEmpty(txt_FecVin5.Text) && !string.IsNullOrWhiteSpace(txt_FecVin5.Text))
+            {
+                cliente.FECHA_VIN_5 = Convert.ToDateTime(txt_FecVin5.Text);
+            }
+            else
+            {
+                cliente.FECHA_VIN_5 = null;
+            }
+
             cliente.ID_USUARIO_CREACION = Convert.ToInt32(Session["userID"].ToString());
             cliente.ID_USUARIO_ACTUALIZACION = Convert.ToInt32(Session["userID"].ToString());
             cliente.FECHA_CREACION = DateTime.Now;
@@ -132,7 +153,7 @@ namespace LATINMEX.MODULOS.VENTAS
             {
                 CLS_AUDITORIA audi = new CLS_AUDITORIA();
                 string IP = Request.UserHostAddress;
-                string nombreCliente = $"{txt_Nombre.Text} {txt_PrimerApellido.Text} {txt_SegunApellido.Text}";
+                string nombreCliente = $"{txt_PrimerNombre.Text} {txt_SegundoNombre.Text} {txt_Apellidos.Text}";
                 audi.SP_02_INSERTAR_AUDITORIA("REGISTRAR CLIENTE", $"El usuario {Session["nombre_usuario"]} regitro al cliente {nombreCliente}", "LOGIN", IP, Convert.ToInt32(Session["userID"].ToString()));
 
 
@@ -171,9 +192,9 @@ namespace LATINMEX.MODULOS.VENTAS
             }
 
             LTM_CLIENTE cliente = new LTM_CLIENTE();
-            cliente.NOMBRES = txt_Nombre.Text;
-            cliente.PRIMER_APELLIDO = txt_PrimerApellido.Text;
-            cliente.SEGUNDO_APELLIDO = txt_SegunApellido.Text;
+            cliente.PRIMER_NOMBRE = txt_PrimerNombre.Text;
+            cliente.SEGUNDO_NOMBRE = txt_SegundoNombre.Text;
+            cliente.APELLIDOS = txt_Apellidos.Text;
             cliente.CORREO = txt_Corre.Text;
             cliente.TELEFONO_MOVIL = txt_Telefono.Text;
             cliente.DIRECCION_RESIDENCIA = txt_DirecResidencia.Text;
@@ -211,6 +232,27 @@ namespace LATINMEX.MODULOS.VENTAS
             {
                 cliente.FECHA_VIN_3 = null;
             }
+
+            cliente.VIN_4 = txt_Vin4.Text;
+            if (!String.IsNullOrEmpty(txt_FecVin4.Text) && !string.IsNullOrWhiteSpace(txt_FecVin4.Text))
+            {
+                cliente.FECHA_VIN_4 = Convert.ToDateTime(txt_FecVin4.Text);
+            }
+            else
+            {
+                cliente.FECHA_VIN_4 = null;
+            }
+
+            cliente.VIN_5 = txt_Vin5.Text;
+            if (!String.IsNullOrEmpty(txt_FecVin5.Text) && !string.IsNullOrWhiteSpace(txt_FecVin5.Text))
+            {
+                cliente.FECHA_VIN_5 = Convert.ToDateTime(txt_FecVin5.Text);
+            }
+            else
+            {
+                cliente.FECHA_VIN_5 = null;
+            }
+
             cliente.ID_USUARIO_ACTUALIZACION = Convert.ToInt32(Session["userID"].ToString());
             cliente.FECHA_ACTULIZACION = DateTime.Now;
 
@@ -221,7 +263,7 @@ namespace LATINMEX.MODULOS.VENTAS
             {
                 CLS_AUDITORIA audi = new CLS_AUDITORIA();
                 string IP = Request.UserHostAddress;
-                string nombreCliente = $"{txt_Nombre.Text} {txt_PrimerApellido.Text} {txt_SegunApellido.Text}";
+                string nombreCliente = $"{txt_PrimerNombre.Text} {txt_SegundoNombre.Text} {txt_Apellidos.Text}";
 
                 audi.SP_02_INSERTAR_AUDITORIA("ACTUALIZAR CLIENTE", $"El usuario {Session["nombre_usuario"]} actualizo los datos del cliente {nombreCliente}", "VENTAS", IP, Convert.ToInt32(Session["userID"].ToString()));
 
@@ -246,9 +288,6 @@ namespace LATINMEX.MODULOS.VENTAS
             txt_nota.Value = "";
             mpe_NuevaNota.Show();
             OcultarControles("O_MENSAGE");
-            //HOLA MUNDO
-            //JUAN
-
         }
 
         protected void btn_cerrar_Click(object sender, EventArgs e)
@@ -290,7 +329,7 @@ namespace LATINMEX.MODULOS.VENTAS
 
                 CLS_AUDITORIA audi = new CLS_AUDITORIA();
                 string IP = Request.UserHostAddress;
-                string nombreCliente = $"{txt_Nombre.Text} {txt_PrimerApellido.Text} {txt_SegunApellido.Text}";
+                string nombreCliente = $"{txt_PrimerNombre.Text} {txt_SegundoNombre.Text} {txt_Apellidos.Text}";
                 audi.SP_02_INSERTAR_AUDITORIA("CREAR NOTA", $"El usuario {Session["nombre_usuario"]} creo una nota al cliente {nombreCliente}", "VENTAS", IP, Convert.ToInt32(Session["userID"].ToString()));
 
                 NotasCliente(idCliente);
@@ -334,7 +373,7 @@ namespace LATINMEX.MODULOS.VENTAS
 
                     CLS_AUDITORIA audi = new CLS_AUDITORIA();
                     string IP = Request.UserHostAddress;
-                    string nombreCliente = $"{txt_Nombre.Text} {txt_PrimerApellido.Text} {txt_SegunApellido.Text}";
+                    string nombreCliente = $"{txt_PrimerNombre.Text} {txt_SegundoNombre.Text} {txt_Apellidos.Text}";
                     audi.SP_02_INSERTAR_AUDITORIA("ELIMINAR NOTA", $"El usuario {Session["nombre_usuario"]} elimino la nota '{id}' del cliente {nombreCliente}", "VENTAS", IP, Convert.ToInt32(Session["userID"].ToString()));
 
                     NotasCliente(idCliente);
@@ -495,7 +534,7 @@ namespace LATINMEX.MODULOS.VENTAS
             {
                 CLS_AUDITORIA audi = new CLS_AUDITORIA();
                 string IP = Request.UserHostAddress;
-                string nombreCliente = $"{txt_Nombre.Text} {txt_PrimerApellido.Text} {txt_SegunApellido.Text}";
+                string nombreCliente = $"{txt_PrimerNombre.Text} {txt_SegundoNombre.Text} {txt_Apellidos.Text}";
 
                 audi.SP_02_INSERTAR_AUDITORIA("REGRISTAR PRODUCTO", $"El usuario {Session["nombre_usuario"]} registro un nuevo producto asociado al cliente cliente {nombreCliente}", "VENTAS", IP, Convert.ToInt32(Session["userID"].ToString()));
 
@@ -543,11 +582,22 @@ namespace LATINMEX.MODULOS.VENTAS
             if (bl_TipoProducto.SelectedItem.Text == "SEGURO")
             {
                 div_estad.Visible = true;
+                dv_poliza.Visible = true;
+                lbl_fechaInicio.Visible = true;
+                lbl_fechaFactura.Visible = false;
+
+                dv_Compania.Visible = true;
                 EstadosProductos(Convert.ToInt32(id));
             }
             else
             {
+                dv_poliza.Visible = false;
                 div_estad.Visible = false;
+
+                lbl_fechaInicio.Visible = false;
+                lbl_fechaFactura.Visible = true;
+
+                dv_Compania.Visible = false;
             }
         }
 
@@ -590,13 +640,13 @@ namespace LATINMEX.MODULOS.VENTAS
                 }
 
                 //datos de venta
-                txt_NombreCliente.Text = $"{data.Tables[0].Rows[0]["NOMBRES"].ToString()} {data.Tables[0].Rows[0]["PRIMER_APELLIDO"].ToString()}";
+                txt_NombreCliente.Text = $"{data.Tables[0].Rows[0]["PRIMER_NOMBRE"].ToString()} {data.Tables[0].Rows[0]["APELLIDOS"].ToString()}";
                 txt_NombreAuxiliar.Text = $"{ Session["nombre_usuario"]}";
                 txtx_NombreEmpresa.Text = data.Tables[0].Rows[0]["NOMBRE_EMPRESA"].ToString();
 
-                txt_Nombre.Text = data.Tables[0].Rows[0]["NOMBRES"].ToString();
-                txt_PrimerApellido.Text = data.Tables[0].Rows[0]["PRIMER_APELLIDO"].ToString();
-                txt_SegunApellido.Text = data.Tables[0].Rows[0]["SEGUNDO_APELLIDO"].ToString();
+                txt_PrimerNombre.Text = data.Tables[0].Rows[0]["PRIMER_NOMBRE"].ToString();
+                txt_SegundoNombre.Text = data.Tables[0].Rows[0]["SEGUNDO_NOMBRE"].ToString();
+                txt_Apellidos.Text = data.Tables[0].Rows[0]["APELLIDOS"].ToString();
                 txt_Corre.Text = data.Tables[0].Rows[0]["CORREO"].ToString();
                 txt_Telefono.Text = data.Tables[0].Rows[0]["TELEFONO_MOVIL"].ToString();
                 txt_DirecResidencia.Text = data.Tables[0].Rows[0]["DIRECCION_RESIDENCIA"].ToString();
@@ -610,22 +660,42 @@ namespace LATINMEX.MODULOS.VENTAS
                 txt_Estado.Text = data.Tables[0].Rows[0]["ESTADO"].ToString();
                 txt_CodigoPostal.Text = data.Tables[0].Rows[0]["CODIGO_POSTAL"].ToString();
                 txt_NombreEmpresa.Text = data.Tables[0].Rows[0]["NOMBRE_EMPRESA"].ToString();
+
                 txt_Vin1.Text = data.Tables[0].Rows[0]["VIN_1"].ToString();
-
-                DateTime FECHA_VIN_1 = Convert.ToDateTime(data.Tables[0].Rows[0]["FECHA_VIN_1"]);
-                txt_FecVin1.Text = FECHA_VIN_1.ToString("yyyy-MM-dd");
-
+                if (!String.IsNullOrEmpty(data.Tables[0].Rows[0]["FECHA_VIN_1"].ToString()) && !String.IsNullOrWhiteSpace(data.Tables[0].Rows[0]["FECHA_VIN_1"].ToString()))
+                {
+                    DateTime FECHA_VIN_1 = Convert.ToDateTime(data.Tables[0].Rows[0]["FECHA_VIN_1"]);
+                    txt_FecVin1.Text = FECHA_VIN_1.ToString("yyyy-MM-dd");
+                }
+                
                 txt_Vin2.Text = data.Tables[0].Rows[0]["VIN_2"].ToString();
-
-                DateTime FECHA_VIN_2 = Convert.ToDateTime(data.Tables[0].Rows[0]["FECHA_VIN_2"]);
-                txt_FecVin2.Text = FECHA_VIN_2.ToString("yyyy-MM-dd");
+                if (!String.IsNullOrEmpty(data.Tables[0].Rows[0]["FECHA_VIN_2"].ToString()) && !String.IsNullOrWhiteSpace(data.Tables[0].Rows[0]["FECHA_VIN_2"].ToString()))
+                {
+                    DateTime FECHA_VIN_2 = Convert.ToDateTime(data.Tables[0].Rows[0]["FECHA_VIN_2"]);
+                    txt_FecVin2.Text = FECHA_VIN_2.ToString("yyyy-MM-dd");
+                }
 
                 txt_Vin3.Text = data.Tables[0].Rows[0]["VIN_3"].ToString();
+                if (!String.IsNullOrEmpty(data.Tables[0].Rows[0]["FECHA_VIN_3"].ToString()) && !String.IsNullOrWhiteSpace(data.Tables[0].Rows[0]["FECHA_VIN_3"].ToString()))
+                {
+                    DateTime FECHA_VIN_3 = Convert.ToDateTime(data.Tables[0].Rows[0]["FECHA_VIN_3"]);
+                    txt_FecVin3.Text = FECHA_VIN_3.ToString("yyyy-MM-dd");
+                }
 
-                DateTime FECHA_VIN_3 = Convert.ToDateTime(data.Tables[0].Rows[0]["FECHA_VIN_3"]);
-                txt_FecVin3.Text = FECHA_VIN_3.ToString("yyyy-MM-dd");
+                txt_Vin4.Text = data.Tables[0].Rows[0]["VIN_4"].ToString();
+                if (!String.IsNullOrEmpty(data.Tables[0].Rows[0]["FECHA_VIN_4"].ToString()) && !String.IsNullOrWhiteSpace(data.Tables[0].Rows[0]["FECHA_VIN_4"].ToString()))
+                {
+                    DateTime FECHA_VIN_4 = Convert.ToDateTime(data.Tables[0].Rows[0]["FECHA_VIN_4"]);
+                    txt_FecVin4.Text = FECHA_VIN_4.ToString("yyyy-MM-dd");
+                }
 
-
+                txt_Vin5.Text = data.Tables[0].Rows[0]["VIN_5"].ToString();
+                if (!String.IsNullOrEmpty(data.Tables[0].Rows[0]["FECHA_VIN_5"].ToString()) && !String.IsNullOrWhiteSpace(data.Tables[0].Rows[0]["FECHA_VIN_5"].ToString()))
+                {
+                    DateTime FECHA_VIN_5 = Convert.ToDateTime(data.Tables[0].Rows[0]["FECHA_VIN_5"]);
+                    txt_FecVin5.Text = FECHA_VIN_5.ToString("yyyy-MM-dd");
+                }
+                
             }
 
         }
@@ -799,7 +869,6 @@ namespace LATINMEX.MODULOS.VENTAS
                 bl_CompaniaSe.DataSource = dataCompa;
                 bl_CompaniaSe.DataBind();
 
-
                 txt_CodInterno.Text = dataCompa.Rows[0]["CODIGO_INTERNO"].ToString();
             }
         }
@@ -919,15 +988,17 @@ namespace LATINMEX.MODULOS.VENTAS
 
             if (tipo == "Nuevo_usuario")
             {
-                if (string.IsNullOrEmpty(txt_Nombre.Text) || string.IsNullOrWhiteSpace(txt_Nombre.Text))
+                if (string.IsNullOrEmpty(txt_PrimerNombre.Text) || string.IsNullOrWhiteSpace(txt_PrimerNombre.Text))
                 {
+                    txt_PrimerNombre.Focus();
                     res.Message = "El nombre del cliente es un campo obligatorio.";
                     res.Succ = false;
                     return res;
                 }
 
-                if (string.IsNullOrEmpty(txt_PrimerApellido.Text) || string.IsNullOrWhiteSpace(txt_PrimerApellido.Text))
+                if (string.IsNullOrEmpty(txt_Apellidos.Text) || string.IsNullOrWhiteSpace(txt_Apellidos.Text))
                 {
+                    txt_Apellidos.Focus();
                     res.Message = "El apellido del cliente es un campo obligatorio.";
                     res.Succ = false;
                     return res;
@@ -1260,7 +1331,7 @@ namespace LATINMEX.MODULOS.VENTAS
             {
                 CLS_AUDITORIA audi = new CLS_AUDITORIA();
                 string IP = Request.UserHostAddress;
-                string nombreCliente = $"{txt_Nombre.Text} {txt_PrimerApellido.Text} {txt_SegunApellido.Text}";
+                string nombreCliente = $"{txt_PrimerNombre.Text} {txt_SegundoNombre.Text} {txt_Apellidos.Text}";
 
                 audi.SP_02_INSERTAR_AUDITORIA("ACTUALIZAR PRODUCTO", $"El usuario {Session["nombre_usuario"]} actualizo el producto nuevo producto asociado al cliente cliente {nombreCliente}", "VENTAS", IP, Convert.ToInt32(Session["userID"].ToString()));
 
@@ -1369,7 +1440,7 @@ namespace LATINMEX.MODULOS.VENTAS
 
                 CLS_AUDITORIA audi = new CLS_AUDITORIA();
                 string IP = Request.UserHostAddress;
-                string nombreCliente = $"{txt_Nombre.Text} {txt_PrimerApellido.Text} {txt_SegunApellido.Text}";
+                string nombreCliente = $"{txt_PrimerNombre.Text} {txt_SegundoNombre.Text} {txt_Apellidos.Text}";
                 audi.SP_02_INSERTAR_AUDITORIA("ACTUALIZAR CUOTA", $"El usuario {Session["nombre_usuario"]} actualizo el valor de una cuota {nombreCliente}", "VENTAS", IP, Convert.ToInt32(Session["userID"].ToString()));
 
 
