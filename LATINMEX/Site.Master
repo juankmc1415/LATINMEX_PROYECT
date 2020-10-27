@@ -261,6 +261,7 @@
             </div>
         </asp:Panel>
 
+
         <ajaxToolkit:ModalPopupExtender ID="mpe_NuevoGastos" BackgroundCssClass="modalBackground" runat="server" TargetControlID="LinkButton1" PopupControlID="ModalGastos" OkControlID="btn_closeG" />
         <asp:Panel ID="ModalGastos" CssClass="modalpopup" runat="server" Width="700px">
             <div class="modal-dialog" runat="server" style="max-width: 650px !important;">
