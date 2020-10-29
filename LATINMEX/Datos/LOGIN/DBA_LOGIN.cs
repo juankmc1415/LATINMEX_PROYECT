@@ -111,5 +111,7 @@ namespace LATINMEX.Datos.LOGIN
             }
             return result;
         }// fin SP_04_GET_DATOS_USUARIO
+
+       
     }
 }

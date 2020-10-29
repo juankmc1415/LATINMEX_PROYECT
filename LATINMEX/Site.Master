@@ -170,8 +170,12 @@
                                 </li>
 
                                 <li>
-                                    <asp:Button runat="server" ID="btn_Iniciar" CssClass="btn btn-success btn-sm" Text="Check In" />
-                                    <%-- <a class="reset_pass" href="#">Lost your password?</a>--%>
+                                    <asp:LinkButton runat="server" ID="btn_Iniciar" OnClick="btn_Iniciar_Click" ToolTip="Check In" CssClass="btn btn-success btn-sm">
+                                        <i class="fa fa-clock-o" aria-hidden="true"></i> Check In
+                                    </asp:LinkButton>
+                                    <asp:LinkButton runat="server" ID="btn_finalizar" OnClick="btn_finalizar_Click" Visible="false" ToolTip="Finalize" CssClass="btn btn-danger btn-sm">
+                                        <i class="fa fa-clock-o" aria-hidden="true"></i> Finalize
+                                    </asp:LinkButton>
                                 </li>
 
                             </ul>
@@ -195,7 +199,6 @@
 
                         <asp:Label runat="server" ID="lbl_FechaIngreso" Font-Size="19px" Font-Bold="true" CssClass="alert alert-success alert-dismissible col-12"></asp:Label>
 
-                        <%-- <asp:Label runat="server" ID="lbl_FechaIngreso" Text="In 12/20/2020 23:54"></asp:Label>--%>
                         -  JA CORPORATION
                     </div>
                     <div class="clearfix"></div>
@@ -225,8 +228,8 @@
 
                                 <asp:GridView ID="gv_ListaEmpresas" runat="server" Width="100%" AutoGenerateColumns="False" DataKeyNames="ID_COMPANIA" CssClass="listoCuotas" CellPadding="3" BackColor="White" BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px">
                                     <Columns>
-                                        <asp:BoundField DataField="NOMBRE" HeaderText="COMPAÑIA"> 
-                                             <ItemStyle  />
+                                        <asp:BoundField DataField="NOMBRE" HeaderText="COMPAÑIA">
+                                            <ItemStyle />
                                         </asp:BoundField>
                                         <asp:BoundField DataField="CODIGO_INTERNO" HeaderText="CODIGI INTERNO" ItemStyle-Width="200px">
                                             <ItemStyle Width="200px" Font-Size="Medium" />
@@ -235,7 +238,7 @@
                                             <ItemTemplate>
                                                 <a href='<%#DataBinder.Eval(Container.DataItem, "URL_COMPANIA") %>' target="_blank">View</a>
                                             </ItemTemplate>
-                                            <ItemStyle Width="95px"  Font-Size="Medium"  />
+                                            <ItemStyle Width="95px" Font-Size="Medium" />
                                         </asp:TemplateField>
                                     </Columns>
                                     <FooterStyle BackColor="White" ForeColor="#000066" />
@@ -260,7 +263,6 @@
                 </div>
             </div>
         </asp:Panel>
-
 
         <ajaxToolkit:ModalPopupExtender ID="mpe_NuevoGastos" BackgroundCssClass="modalBackground" runat="server" TargetControlID="LinkButton1" PopupControlID="ModalGastos" OkControlID="btn_closeG" />
         <asp:Panel ID="ModalGastos" CssClass="modalpopup" runat="server" Width="700px">

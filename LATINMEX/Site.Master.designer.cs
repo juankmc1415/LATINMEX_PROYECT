@@ -111,7 +111,16 @@ namespace LATINMEX
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btn_Iniciar;
+        protected global::System.Web.UI.WebControls.LinkButton btn_Iniciar;
+
+        /// <summary>
+        /// btn_finalizar control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton btn_finalizar;
 
         /// <summary>
         /// MainContent control.

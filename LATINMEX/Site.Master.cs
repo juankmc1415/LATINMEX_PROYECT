@@ -18,7 +18,8 @@ namespace LATINMEX
         {
             if (!IsPostBack)
             {
-                lbl_FechaIngreso.Text = $"In: {Convert.ToString(DateTime.Now)}";
+                Validar_Tiempo();
+               
                 Datos_Usuario();
                 Lista_Empresa();
                 DateTime FechaNacimiento = DateTime.Now;
@@ -27,7 +28,7 @@ namespace LATINMEX
                 txt_fechRegistroGasto.Text = FechaNacimiento.ToString("yyyy-MM-dd");
 
             }
-            
+
         }
         private void Datos_Usuario()
         {
@@ -56,6 +57,7 @@ namespace LATINMEX
 
             }
         }
+
         protected void LinkButton1_Click(object sender, EventArgs e)
         {
 
@@ -85,10 +87,10 @@ namespace LATINMEX
                 if (resul > 0)
                 {
 
-                    //CLS_AUDITORIA audi = new CLS_AUDITORIA();
-                    //string IP = Request.UserHostAddress;
-                    //string nombreCliente = $"{txt_Nombre.Text} {txt_PrimerApellido.Text} {txt_SegunApellido.Text}";
-                    //audi.SP_02_INSERTAR_AUDITORIA("CREAR NOTA", $"El usuario {Session["nombre_usuario"]} creo una nota al cliente {nombreCliente}", "VENTAS", IP, Convert.ToInt32(Session["userID"].ToString()));
+                    CLS_AUDITORIA audi = new CLS_AUDITORIA();
+                    string IP = Request.UserHostAddress;
+
+                    audi.SP_02_INSERTAR_AUDITORIA("CREAR NOTA", $"El usuario {Session["nombre_usuario"]} creo un nuevo gasto", "MASTER", IP, Convert.ToInt32(Session["userID"].ToString()));
 
                     //NotasCliente(idCliente);
 
@@ -105,7 +107,80 @@ namespace LATINMEX
             {
 
             }
-           
+
+        }
+
+        protected void btn_Iniciar_Click(object sender, EventArgs e)
+        {
+
+            CLS_MASTER master = new CLS_MASTER();
+            int resul = master.SP_25_INICIAR_TIEMPO(Convert.ToInt32(Session["userID"].ToString()));
+
+            if (resul > 0)
+            {
+                CLS_AUDITORIA audi = new CLS_AUDITORIA();
+                string IP = Request.UserHostAddress;
+                audi.SP_02_INSERTAR_AUDITORIA("INICIAR TIEMPO", $"El usuario {Session["nombre_usuario"]} inicio su tiempo de acceso en la plataforma", "MASTER", IP, Convert.ToInt32(Session["userID"].ToString()));
+            }
+            else
+            {
+
+                //Message_danger.Text = "Error al crear nota, por favor revise los datos";
+                //Message_danger.Visible = true;
+            }
+            Validar_Tiempo();
+        }
+
+        protected void btn_finalizar_Click(object sender, EventArgs e)
+        {
+
+
+            CLS_MASTER master = new CLS_MASTER();
+            int resul = master.SP_26_FINALIZAR_TIEMPO(Convert.ToInt32(Session["userID"].ToString()));
+
+            if (resul > 0)
+            {
+                CLS_AUDITORIA audi = new CLS_AUDITORIA();
+                string IP = Request.UserHostAddress;
+                audi.SP_02_INSERTAR_AUDITORIA("FINALIZAR TIEMPO", $"El usuario {Session["nombre_usuario"]} finalizi su tiempo de acceso en la plataforma", "MASTER", IP, Convert.ToInt32(Session["userID"].ToString()));
+            }
+            else
+            {
+
+                //Message_danger.Text = "Error al crear nota, por favor revise los datos";
+                //Message_danger.Visible = true;
+            }
+            Validar_Tiempo();
+        }
+
+        private void Validar_Tiempo()
+        {
+            int idUser = Convert.ToInt32(Session["userID"].ToString());
+            CLS_MASTER master = new CLS_MASTER();
+            int result = master.FS_01_GUI_CHECK_TIEMPO(idUser);
+
+            if (result != -1)
+            {
+                btn_Iniciar.Visible = false;
+                btn_finalizar.Visible = true;
+
+                DataTable dataTiempo = new DataTable();
+                dataTiempo = master.SP_27_GET_TIEMPO(idUser);
+
+                if (dataTiempo != null && dataTiempo.Rows.Count > 0)
+                {
+                    string fecha = $"{dataTiempo.Rows[0]["FECHA_HORA_INICIO"].ToString()}";
+                    lbl_FechaIngreso.Text = $"In: {fecha}";
+                    lbl_FechaIngreso.CssClass = "alert alert-success alert-dismissible col-12";
+                }
+            }
+            else
+            {
+                btn_Iniciar.Visible = true;
+                btn_finalizar.Visible = false;
+                lbl_FechaIngreso.Text = $"In: {Convert.ToString(DateTime.Now)}";
+                lbl_FechaIngreso.CssClass = "alert alert-danger alert-dismissible col-12";
+            }
         }
     }
 }
