@@ -161,10 +161,25 @@ namespace LATINMEX.Datos.CORE
             public string TIPO_PAGO { get; set; }
             public int? NUMERO_CUOTAS { get; set; }
             public DateTime? FECHA_PROXIMO_PAGO { get; set; }
+            public decimal? INTSALLMENTFEE { get; set; }
             public string NOMBRE_EMPRESA { get; set; }
             public bool PROSPECTO { get; set; }
+
+            public DateTime? FECHA_RETIRO { get; set; }
+            public decimal? RESERVA { get; set; }
+            public decimal? VALOR_TRAMITE { get; set; }
+            public decimal? COSTO_TERCEROS { get; set; }
+            public decimal? VALOR_SERVICIO { get; set; }
+            public decimal? VALOR_TOTAL { get; set; }
+            public decimal? EXCEDENTE_IMPUESTO { get; set; }
+            public decimal? EXCEDENTE_TRAMITE { get; set; }
+            public decimal? TOTAL_COBRAR { get; set; }
             public string OBSERVACION { get; set; }
-            
+            public string ESTADO_INTERNO { get; set; }
+
+            public string PAGO_COMPANIA { get; set; }
+            public decimal? VALOR_COMPANIA { get; set; }
+
         }
 
         public class Response

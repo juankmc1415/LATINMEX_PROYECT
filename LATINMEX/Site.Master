@@ -1,5 +1,7 @@
 ﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="LATINMEX.SiteMaster" %>
 
+<%@ Register TagPrefix="asp" Namespace="System.Web.UI" Assembly="System.Web"%>
+
 <!DOCTYPE html>
 
 <html lang="en">
@@ -54,9 +56,9 @@
 
 </head>
 <body class="nav-md">
-
-
+   
     <form id="form2" runat="server">
+
         <asp:ScriptManager ID="ScriptManager2" runat="server"></asp:ScriptManager>
 
         <div class="container body">
@@ -97,8 +99,8 @@
 
                                 <ul class="nav side-menu">
 
-                                    <li><a href="frm_Ventas.aspx?CLIENT_ID=12"><i class="fa fa-shopping-cart"></i>Módulo de Ventas</a></li>
-                                    <li><a href="frm_llamadas.aspx?CLIENT_ID=12"><i class="fa fa-phone"></i>Módulo de Llamadas</a></li>
+                                    <li><a href="frm_Ventas.aspx?CLIENT_ID=14"><i class="fa fa-shopping-cart"></i>Módulo de Ventas</a></li>
+                                    <li><a href="frm_llamadas.aspx?CLIENT_ID=14"><i class="fa fa-phone"></i>Módulo de Llamadas</a></li>
                                     <li><a href="frm_Informes.aspx"><i class="fa fa-file-text-o"></i>Informes</a></li>
                                     <li>
                                         <asp:LinkButton runat="server" ID="LinkButton1" OnClick="LinkButton1_Click" CssClass=" btn-default">
@@ -131,7 +133,7 @@
 
                         <nav class="nav navbar-nav">
 
-                            <ul class=" navbar-right">
+                            <ul class=" navbar-right" style="margin: 5px !important;">
 
                                 <asp:Label runat="server" Width="100"></asp:Label>
 
@@ -157,16 +159,20 @@
                                 </asp:LinkButton>
 
 
+
                                 <li class="nav-item dropdown open" style="padding-left: 15px;">
-                                    <a href="javascript:;" class="user-profile dropdown-toggle" aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown" aria-expanded="false">
-                                        <img src="/resources/images/img.png" alt="">
-                                        <asp:Label runat="server" ID="lbl_Nombre2" Text=""></asp:Label>
-                                    </a>
-                                    <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
+                                    <%--<a href="javascript:;" class="user-profile dropdown-toggle" aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown" aria-expanded="false">--%>
+                                        <%--<img src="/resources/images/img.png" alt="">--%>
+
+                                       <asp:Label runat="server" ID="lbl_Nombre2" Text=""></asp:Label><br />
+                                        <asp:Label runat="server" ID="lbl_FechaIngreso" Font-Size="13px" Text="Ingreso" Font-Bold="true" CssClass="badge badge-success col-12"></asp:Label>
+
+                                   <%-- </a>--%>
+                                    <%--<div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
                                         <a class="dropdown-item" href="javascript:;">Profile</a>
                                         <a class="dropdown-item" href="javascript:;">Help</a>
                                         <a class="dropdown-item" href="/LOGIN/LOGIN.aspx"><i class="fa fa-sign-out pull-right"></i>Salir</a>
-                                    </div>
+                                    </div>--%>
                                 </li>
 
                                 <li>
@@ -197,8 +203,9 @@
                 <footer>
                     <div class="sidebar-foote pull-right" style="position: inherit;">
 
-                        <asp:Label runat="server" ID="lbl_FechaIngreso" Font-Size="19px" Font-Bold="true" CssClass="alert alert-success alert-dismissible col-12"></asp:Label>
-
+                       <%-- <asp:Label runat="server" ID="lbl_FechaIngreso" Font-Size="19px" Font-Bold="true" CssClass="alert alert-success alert-dismissible col-12"></asp:Label>
+                        --%>
+                        
                         -  JA CORPORATION
                     </div>
                     <div class="clearfix"></div>

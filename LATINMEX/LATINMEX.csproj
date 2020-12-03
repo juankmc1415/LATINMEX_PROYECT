@@ -2628,6 +2628,8 @@
     <Content Include="Content\animate.css\animate-config.json" />
     <Content Include="Content\animate.css\bower.json" />
     <Content Include="Content\animate.css\package.json" />
+    <Content Include="Datos\CARGA_ARCHIVOS\QSM_ALT_DocumentHandler.ashx" />
+    <Content Include="Datos\CARGA_ARCHIVOS\QSM_ALT_ImageHandler.ashx" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="LOGIN\LOGIN.aspx" />
     <Content Include="MODULOS\Default.aspx" />
@@ -2678,11 +2680,18 @@
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Datos\CARGA_ARCHIVOS\QSM_ALT_DocumentHandler.ashx.cs">
+      <DependentUpon>QSM_ALT_DocumentHandler.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="Datos\CARGA_ARCHIVOS\QSM_ALT_ImageHandler.ashx.cs">
+      <DependentUpon>QSM_ALT_ImageHandler.ashx</DependentUpon>
+    </Compile>
     <Compile Include="Datos\CLIENTES\CLS_CLIENTE.cs" />
     <Compile Include="Datos\CLIENTES\CLS_NOTAS.cs" />
     <Compile Include="Datos\Conexion.cs" />
     <Compile Include="Datos\CORE\CLS_AUDITORIA.cs" />
     <Compile Include="Datos\CORE\CLS_CORE.cs" />
+    <Compile Include="Datos\LLAMADAS\CLS_LLAMADAS.cs" />
     <Compile Include="Datos\LOGIN\DBA_LOGIN.cs" />
     <Compile Include="Datos\MASTER\CLS_MASTER.cs" />
     <Compile Include="Datos\PRODUCTOS\CLS_PRODUCTOS.cs" />

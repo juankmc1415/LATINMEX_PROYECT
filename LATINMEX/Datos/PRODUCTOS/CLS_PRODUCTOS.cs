@@ -162,6 +162,36 @@ namespace LATINMEX.Datos.PRODUCTOS
             return result;
         }
 
+        public DataTable SP_34_GET_LISTA_ENDOSOS(string ID_PRODUCTO)
+        {
+            Conectar();
+            DataTable result = new DataTable();
+            try
+            {
+                System.Data.SqlClient.SqlCommand command = new System.Data.SqlClient.SqlCommand("SP_34_GET_LISTA_ENDOSOS", cnn);
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+                command.CommandTimeout = _commandTimeout;
+
+                command.Parameters.Add(new System.Data.SqlClient.SqlParameter("@ID_PRODUCTO", System.Data.SqlDbType.NVarChar));
+                command.Parameters["@ID_PRODUCTO"].Value = ID_PRODUCTO;
+
+                System.Data.SqlClient.SqlDataAdapter da = new System.Data.SqlClient.SqlDataAdapter(command);
+                da.Fill(result);
+
+                command.Dispose();
+            }
+            catch (Exception e)
+            {
+                result = null;
+                Console.WriteLine(e.StackTrace);
+            }
+            finally
+            {
+                Desconectar();
+            }
+            return result;
+        }
+
         public DataTable SP_18_GET_DATOS_PRODUCTO(string ID_PRODUCTO)
         {
             Conectar();
@@ -222,7 +252,7 @@ namespace LATINMEX.Datos.PRODUCTOS
             return result;
         }
 
-        public DataTable SP_15_GET_COMPANIAS()
+        public DataTable SP_15_GET_COMPANIAS(int ID_TIPO_PRODUCTO)
         {
             Conectar();
             DataTable result = new DataTable();
@@ -232,6 +262,8 @@ namespace LATINMEX.Datos.PRODUCTOS
                 command.CommandType = System.Data.CommandType.StoredProcedure;
                 command.CommandTimeout = _commandTimeout;
 
+                command.Parameters.Add(new System.Data.SqlClient.SqlParameter("@ID_TIPO_PRODUCTO", System.Data.SqlDbType.Int));
+                command.Parameters["@ID_TIPO_PRODUCTO"].Value = ID_TIPO_PRODUCTO;
 
                 System.Data.SqlClient.SqlDataAdapter da = new System.Data.SqlClient.SqlDataAdapter(command);
                 da.Fill(result);
@@ -250,10 +282,10 @@ namespace LATINMEX.Datos.PRODUCTOS
             return result;
         }
 
-        public int SP_14_INSERTAR_PRODUCTO(LTM_PRODUCTO pro)
+        public DataTable SP_14_INSERTAR_PRODUCTO(LTM_PRODUCTO pro)
         {
             Conectar();
-            int result;
+            DataTable result = new DataTable();
             try
             {
                 System.Data.SqlClient.SqlCommand command = new System.Data.SqlClient.SqlCommand("SP_14_INSERTAR_PRODUCTO", cnn);
@@ -327,7 +359,6 @@ namespace LATINMEX.Datos.PRODUCTOS
                     command.Parameters["@SERVICIO_ADICIONAL"].Value = pro.SERVICIO_ADICIONAL;
                 }
 
-
                 command.Parameters.Add(new System.Data.SqlClient.SqlParameter("@CASH_OUT", System.Data.SqlDbType.NVarChar));
                 if (string.IsNullOrEmpty(pro.CASH_OUT) || string.IsNullOrWhiteSpace(pro.CASH_OUT))
                 {
@@ -382,6 +413,15 @@ namespace LATINMEX.Datos.PRODUCTOS
                     command.Parameters["@NUMERO_CUOTAS"].Value = pro.NUMERO_CUOTAS;
                 }
 
+                command.Parameters.Add(new System.Data.SqlClient.SqlParameter("@INTSALLMENTFEE", System.Data.SqlDbType.Decimal));
+                if (pro.INTSALLMENTFEE == null)
+                {
+                    command.Parameters["@INTSALLMENTFEE"].Value = "0";
+                }
+                else
+                {
+                    command.Parameters["@INTSALLMENTFEE"].Value = pro.INTSALLMENTFEE;
+                }
 
                 command.Parameters.Add(new System.Data.SqlClient.SqlParameter("@FECHA_PROXIMO_PAGO", System.Data.SqlDbType.Date));
                 if (pro.FECHA_PROXIMO_PAGO == null)
@@ -413,6 +453,96 @@ namespace LATINMEX.Datos.PRODUCTOS
                     command.Parameters["@PROSPECTO"].Value = 0;
                 }
 
+                command.Parameters.Add(new System.Data.SqlClient.SqlParameter("@FECHA_RETIRO", System.Data.SqlDbType.Date));
+                if (pro.FECHA_RETIRO == null)
+                {
+                    command.Parameters["@FECHA_RETIRO"].Value = DBNull.Value;
+                }
+                else
+                {
+                    command.Parameters["@FECHA_RETIRO"].Value = pro.FECHA_RETIRO;
+                }
+
+                command.Parameters.Add(new System.Data.SqlClient.SqlParameter("@RESERVA", System.Data.SqlDbType.Decimal));
+                if (pro.RESERVA == null)
+                {
+                    command.Parameters["@RESERVA"].Value = DBNull.Value;
+                }
+                else
+                {
+                    command.Parameters["@RESERVA"].Value = pro.RESERVA;
+                }
+
+                command.Parameters.Add(new System.Data.SqlClient.SqlParameter("@VALOR_TRAMITE", System.Data.SqlDbType.Decimal));
+                if (pro.VALOR_TRAMITE == null)
+                {
+                    command.Parameters["@VALOR_TRAMITE"].Value = DBNull.Value;
+                }
+                else
+                {
+                    command.Parameters["@VALOR_TRAMITE"].Value = pro.VALOR_TRAMITE;
+                }
+
+                command.Parameters.Add(new System.Data.SqlClient.SqlParameter("@COSTO_TERCEROS", System.Data.SqlDbType.Decimal));
+                if (pro.COSTO_TERCEROS == null)
+                {
+                    command.Parameters["@COSTO_TERCEROS"].Value = DBNull.Value;
+                }
+                else
+                {
+                    command.Parameters["@COSTO_TERCEROS"].Value = pro.COSTO_TERCEROS;
+                }
+
+                command.Parameters.Add(new System.Data.SqlClient.SqlParameter("@VALOR_SERVICIO", System.Data.SqlDbType.Decimal));
+                if (pro.VALOR_SERVICIO == null)
+                {
+                    command.Parameters["@VALOR_SERVICIO"].Value = DBNull.Value;
+                }
+                else
+                {
+                    command.Parameters["@VALOR_SERVICIO"].Value = pro.VALOR_SERVICIO;
+                }
+
+                command.Parameters.Add(new System.Data.SqlClient.SqlParameter("@VALOR_TOTAL", System.Data.SqlDbType.Decimal));
+                if (pro.VALOR_TOTAL == null)
+                {
+                    command.Parameters["@VALOR_TOTAL"].Value = DBNull.Value;
+                }
+                else
+                {
+                    command.Parameters["@VALOR_TOTAL"].Value = pro.VALOR_TOTAL;
+                }
+
+                command.Parameters.Add(new System.Data.SqlClient.SqlParameter("@EXCEDENTE_IMPUESTO", System.Data.SqlDbType.Decimal));
+                if (pro.EXCEDENTE_IMPUESTO == null)
+                {
+                    command.Parameters["@EXCEDENTE_IMPUESTO"].Value = DBNull.Value;
+                }
+                else
+                {
+                    command.Parameters["@EXCEDENTE_IMPUESTO"].Value = pro.EXCEDENTE_IMPUESTO;
+                }
+
+                command.Parameters.Add(new System.Data.SqlClient.SqlParameter("@EXCEDENTE_TRAMITE", System.Data.SqlDbType.Decimal));
+                if (pro.EXCEDENTE_TRAMITE == null)
+                {
+                    command.Parameters["@EXCEDENTE_TRAMITE"].Value = DBNull.Value;
+                }
+                else
+                {
+                    command.Parameters["@EXCEDENTE_TRAMITE"].Value = pro.EXCEDENTE_TRAMITE;
+                }
+
+                command.Parameters.Add(new System.Data.SqlClient.SqlParameter("@TOTAL_COBRAR", System.Data.SqlDbType.Decimal));
+                if (pro.TOTAL_COBRAR == null)
+                {
+                    command.Parameters["@TOTAL_COBRAR"].Value = DBNull.Value;
+                }
+                else
+                {
+                    command.Parameters["@TOTAL_COBRAR"].Value = pro.TOTAL_COBRAR;
+                }
+
                 command.Parameters.Add(new System.Data.SqlClient.SqlParameter("@OBSERVACION", System.Data.SqlDbType.NVarChar));
                 if (string.IsNullOrEmpty(pro.OBSERVACION) || string.IsNullOrWhiteSpace(pro.OBSERVACION))
                 {
@@ -423,13 +553,179 @@ namespace LATINMEX.Datos.PRODUCTOS
                     command.Parameters["@OBSERVACION"].Value = pro.OBSERVACION;
                 }
 
-                result = command.ExecuteNonQuery();
+
+                command.Parameters.Add(new System.Data.SqlClient.SqlParameter("@PAGO_COMPANIA", System.Data.SqlDbType.NVarChar));
+                if (string.IsNullOrEmpty(pro.PAGO_COMPANIA) || string.IsNullOrWhiteSpace(pro.PAGO_COMPANIA))
+                {
+                    command.Parameters["@PAGO_COMPANIA"].Value = DBNull.Value;
+                }
+                else
+                {
+                    command.Parameters["@PAGO_COMPANIA"].Value = pro.PAGO_COMPANIA;
+                }
+
+                command.Parameters.Add(new System.Data.SqlClient.SqlParameter("@VALOR_COMPANIA", System.Data.SqlDbType.Decimal));
+                if (pro.VALOR_COMPANIA == null)
+                {
+                    command.Parameters["@VALOR_COMPANIA"].Value = DBNull.Value;
+                }
+                else
+                {
+                    command.Parameters["@VALOR_COMPANIA"].Value = pro.VALOR_COMPANIA;
+                }
+                //result = command.ExecuteNonQuery();
+                //command.Dispose();
+
+                System.Data.SqlClient.SqlDataAdapter da = new System.Data.SqlClient.SqlDataAdapter(command);
+                da.Fill(result);
+
+                //result = command.ExecuteNonQuery();
                 command.Dispose();
 
             }
             catch (Exception e)
             {
+                result = null;
+                Console.WriteLine(e.StackTrace);
+            }
+            finally
+            {
+                Desconectar();
+            }
+            return result;
+        }
+
+        public DataTable SP_29_GUARDAR_ARCHIVOS(object DATA_ARCHIVO, string NOMBRE_ARCHIVO, string TIPO_ARCHIVO)
+        {
+            Conectar();
+            DataTable result = new DataTable();
+            try
+            {
+                System.Data.SqlClient.SqlCommand command = new System.Data.SqlClient.SqlCommand("SP_29_GUARDAR_ARCHIVOS", cnn);
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+                command.CommandTimeout = _commandTimeout;
+
+                command.Parameters.Add(new System.Data.SqlClient.SqlParameter("@DATA_ARCHIVO", System.Data.SqlDbType.VarBinary));
+                command.Parameters["@DATA_ARCHIVO"].Value = DATA_ARCHIVO;
+
+                command.Parameters.Add(new System.Data.SqlClient.SqlParameter("@NOMBRE_ARCHIVO", SqlDbType.NVarChar));
+                command.Parameters["@NOMBRE_ARCHIVO"].Value = NOMBRE_ARCHIVO;
+
+                command.Parameters.Add(new System.Data.SqlClient.SqlParameter("@TIPO_ARCHIVO", SqlDbType.NVarChar));
+                command.Parameters["@TIPO_ARCHIVO"].Value = TIPO_ARCHIVO;
+
+                System.Data.SqlClient.SqlDataAdapter da = new System.Data.SqlClient.SqlDataAdapter(command);
+                da.Fill(result);
+
+                //result = command.ExecuteNonQuery();
+                command.Dispose();
+            }
+            catch (Exception e)
+            {
+                result = null;
+                Console.WriteLine(e.StackTrace);
+            }
+            finally
+            {
+                Desconectar();
+            }
+            return result;
+        }
+
+        public int SP_30_GUARDAR_FORMULARIO_ARCHIVOS(string ID_ARCHIVO, string ID_CLIENTE, string ID_PRODUCTO, string TIPO)
+        {
+            Conectar();
+            int result;
+            try
+            {
+                System.Data.SqlClient.SqlCommand command = new System.Data.SqlClient.SqlCommand("SP_30_GUARDAR_FORMULARIO_ARCHIVOS", cnn);
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+                command.CommandTimeout = _commandTimeout;
+
+                command.Parameters.Add(new System.Data.SqlClient.SqlParameter("@ID_ARCHIVO", System.Data.SqlDbType.NVarChar));
+                command.Parameters["@ID_ARCHIVO"].Value = ID_ARCHIVO;
+
+                command.Parameters.Add(new System.Data.SqlClient.SqlParameter("@ID_CLIENTE", System.Data.SqlDbType.NVarChar));
+                command.Parameters["@ID_CLIENTE"].Value = ID_CLIENTE;
+
+                command.Parameters.Add(new System.Data.SqlClient.SqlParameter("@ID_PRODUCTO", System.Data.SqlDbType.NVarChar));
+                command.Parameters["@ID_PRODUCTO"].Value = ID_PRODUCTO;
+
+                command.Parameters.Add(new System.Data.SqlClient.SqlParameter("@TIPO", System.Data.SqlDbType.NVarChar));
+                command.Parameters["@TIPO"].Value = TIPO;
+
+                result = command.ExecuteNonQuery();
+                command.Dispose();
+            }
+            catch (Exception e)
+            {
                 result = -1;
+                Console.WriteLine(e.StackTrace);
+            }
+            finally
+            {
+                Desconectar();
+            }
+            return result;
+        }
+
+        public DataTable SP_31_GET_ARCHIVOS_CLIENTE(string ID_CLIENTE, string ID_PRODUCTO, string TIPO)
+        {
+            Conectar();
+            DataTable result = new DataTable();
+            try
+            {
+                System.Data.SqlClient.SqlCommand command = new System.Data.SqlClient.SqlCommand("SP_31_GET_ARCHIVOS_CLIENTE", cnn);
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+                command.CommandTimeout = _commandTimeout;
+
+                command.Parameters.Add(new System.Data.SqlClient.SqlParameter("@ID_CLIENTE", System.Data.SqlDbType.NVarChar));
+                command.Parameters["@ID_CLIENTE"].Value = ID_CLIENTE;
+
+                command.Parameters.Add(new System.Data.SqlClient.SqlParameter("@ID_PRODUCTO", System.Data.SqlDbType.NVarChar));
+                command.Parameters["@ID_PRODUCTO"].Value = ID_PRODUCTO;
+
+                command.Parameters.Add(new System.Data.SqlClient.SqlParameter("@TIPO", System.Data.SqlDbType.NVarChar));
+                command.Parameters["@TIPO"].Value = TIPO;
+
+                System.Data.SqlClient.SqlDataAdapter da = new System.Data.SqlClient.SqlDataAdapter(command);
+                da.Fill(result);
+
+                command.Dispose();
+            }
+            catch (Exception e)
+            {
+                result = null;
+                Console.WriteLine(e.StackTrace);
+            }
+            finally
+            {
+                Desconectar();
+            }
+            return result;
+        }
+
+        public DataSet SP_32_GET_ARCHIVO(Int32 ID_ARCHIVO)
+        {
+            Conectar();
+            DataSet result = new DataSet();
+            try
+            {
+                System.Data.SqlClient.SqlCommand command = new System.Data.SqlClient.SqlCommand("SP_32_GET_ARCHIVO", cnn);
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+                command.CommandTimeout = _commandTimeout;
+
+                command.Parameters.Add(new System.Data.SqlClient.SqlParameter("@ID_ARCHIVO", System.Data.SqlDbType.NVarChar));
+                command.Parameters["@ID_ARCHIVO"].Value = ID_ARCHIVO;
+
+                System.Data.SqlClient.SqlDataAdapter da = new System.Data.SqlClient.SqlDataAdapter(command);
+                da.Fill(result);
+
+                command.Dispose();
+            }
+            catch (Exception e)
+            {
+                result = null;
                 Console.WriteLine(e.StackTrace);
             }
             finally
@@ -519,7 +815,6 @@ namespace LATINMEX.Datos.PRODUCTOS
                     command.Parameters["@SERVICIO_ADICIONAL"].Value = pro.SERVICIO_ADICIONAL;
                 }
 
-
                 command.Parameters.Add(new System.Data.SqlClient.SqlParameter("@CASH_OUT", System.Data.SqlDbType.NVarChar));
                 if (string.IsNullOrEmpty(pro.CASH_OUT) || string.IsNullOrWhiteSpace(pro.CASH_OUT))
                 {
@@ -529,7 +824,6 @@ namespace LATINMEX.Datos.PRODUCTOS
                 {
                     command.Parameters["@CASH_OUT"].Value = pro.CASH_OUT;
                 }
-
 
                 command.Parameters.Add(new System.Data.SqlClient.SqlParameter("@TARJETA_CREDITO", System.Data.SqlDbType.NVarChar));
                 if (pro.TARJETA_CREDITO == null)
@@ -574,6 +868,15 @@ namespace LATINMEX.Datos.PRODUCTOS
                     command.Parameters["@NUMERO_CUOTAS"].Value = pro.NUMERO_CUOTAS;
                 }
 
+                command.Parameters.Add(new System.Data.SqlClient.SqlParameter("@INTSALLMENTFEE", System.Data.SqlDbType.Decimal));
+                if (pro.INTSALLMENTFEE == null)
+                {
+                    command.Parameters["@INTSALLMENTFEE"].Value = DBNull.Value;
+                }
+                else
+                {
+                    command.Parameters["@INTSALLMENTFEE"].Value = pro.INTSALLMENTFEE;
+                }
 
                 command.Parameters.Add(new System.Data.SqlClient.SqlParameter("@FECHA_PROXIMO_PAGO", System.Data.SqlDbType.Date));
                 if (pro.FECHA_PROXIMO_PAGO == null)
@@ -605,6 +908,98 @@ namespace LATINMEX.Datos.PRODUCTOS
                     command.Parameters["@PROSPECTO"].Value = 0;
                 }
 
+
+                command.Parameters.Add(new System.Data.SqlClient.SqlParameter("@FECHA_RETIRO", System.Data.SqlDbType.Date));
+                if (pro.FECHA_RETIRO == null)
+                {
+                    command.Parameters["@FECHA_RETIRO"].Value = DBNull.Value;
+                }
+                else
+                {
+                    command.Parameters["@FECHA_RETIRO"].Value = pro.FECHA_RETIRO;
+                }
+
+                command.Parameters.Add(new System.Data.SqlClient.SqlParameter("@RESERVA", System.Data.SqlDbType.Decimal));
+                if (pro.RESERVA == null)
+                {
+                    command.Parameters["@RESERVA"].Value = DBNull.Value;
+                }
+                else
+                {
+                    command.Parameters["@RESERVA"].Value = pro.RESERVA;
+                }
+
+                command.Parameters.Add(new System.Data.SqlClient.SqlParameter("@VALOR_TRAMITE", System.Data.SqlDbType.Decimal));
+                if (pro.VALOR_TRAMITE == null)
+                {
+                    command.Parameters["@VALOR_TRAMITE"].Value = DBNull.Value;
+                }
+                else
+                {
+                    command.Parameters["@VALOR_TRAMITE"].Value = pro.VALOR_TRAMITE;
+                }
+
+                command.Parameters.Add(new System.Data.SqlClient.SqlParameter("@COSTO_TERCEROS", System.Data.SqlDbType.Decimal));
+                if (pro.COSTO_TERCEROS == null)
+                {
+                    command.Parameters["@COSTO_TERCEROS"].Value = DBNull.Value;
+                }
+                else
+                {
+                    command.Parameters["@COSTO_TERCEROS"].Value = pro.COSTO_TERCEROS;
+                }
+
+                command.Parameters.Add(new System.Data.SqlClient.SqlParameter("@VALOR_SERVICIO", System.Data.SqlDbType.Decimal));
+                if (pro.VALOR_SERVICIO == null)
+                {
+                    command.Parameters["@VALOR_SERVICIO"].Value = DBNull.Value;
+                }
+                else
+                {
+                    command.Parameters["@VALOR_SERVICIO"].Value = pro.VALOR_SERVICIO;
+                }
+
+                command.Parameters.Add(new System.Data.SqlClient.SqlParameter("@VALOR_TOTAL", System.Data.SqlDbType.Decimal));
+                if (pro.VALOR_TOTAL == null)
+                {
+                    command.Parameters["@VALOR_TOTAL"].Value = DBNull.Value;
+                }
+                else
+                {
+                    command.Parameters["@VALOR_TOTAL"].Value = pro.VALOR_TOTAL;
+                }
+
+                command.Parameters.Add(new System.Data.SqlClient.SqlParameter("@EXCEDENTE_IMPUESTO", System.Data.SqlDbType.Decimal));
+                if (pro.EXCEDENTE_IMPUESTO == null)
+                {
+                    command.Parameters["@EXCEDENTE_IMPUESTO"].Value = DBNull.Value;
+                }
+                else
+                {
+                    command.Parameters["@EXCEDENTE_IMPUESTO"].Value = pro.EXCEDENTE_IMPUESTO;
+                }
+
+                command.Parameters.Add(new System.Data.SqlClient.SqlParameter("@EXCEDENTE_TRAMITE", System.Data.SqlDbType.Decimal));
+                if (pro.EXCEDENTE_TRAMITE == null)
+                {
+                    command.Parameters["@EXCEDENTE_TRAMITE"].Value = DBNull.Value;
+                }
+                else
+                {
+                    command.Parameters["@EXCEDENTE_TRAMITE"].Value = pro.EXCEDENTE_TRAMITE;
+                }
+
+                command.Parameters.Add(new System.Data.SqlClient.SqlParameter("@TOTAL_COBRAR", System.Data.SqlDbType.Decimal));
+                if (pro.TOTAL_COBRAR == null)
+                {
+                    command.Parameters["@TOTAL_COBRAR"].Value = DBNull.Value;
+                }
+                else
+                {
+                    command.Parameters["@TOTAL_COBRAR"].Value = pro.TOTAL_COBRAR;
+                }
+
+
                 command.Parameters.Add(new System.Data.SqlClient.SqlParameter("@OBSERVACION", System.Data.SqlDbType.NVarChar));
                 if (string.IsNullOrEmpty(pro.OBSERVACION) || string.IsNullOrWhiteSpace(pro.OBSERVACION))
                 {
@@ -613,6 +1008,16 @@ namespace LATINMEX.Datos.PRODUCTOS
                 else
                 {
                     command.Parameters["@OBSERVACION"].Value = pro.OBSERVACION;
+                }
+
+                command.Parameters.Add(new System.Data.SqlClient.SqlParameter("@ESTADO_INTERNO", System.Data.SqlDbType.NVarChar));
+                if (string.IsNullOrEmpty(pro.ESTADO_INTERNO) || string.IsNullOrWhiteSpace(pro.ESTADO_INTERNO))
+                {
+                    command.Parameters["@ESTADO_INTERNO"].Value = DBNull.Value;
+                }
+                else
+                {
+                    command.Parameters["@ESTADO_INTERNO"].Value = pro.ESTADO_INTERNO;
                 }
 
                 result = command.ExecuteNonQuery();
@@ -630,7 +1035,7 @@ namespace LATINMEX.Datos.PRODUCTOS
             return result;
         }
 
-        public int SP_23_ACTUALIZAR_CUOTAS(string ID_PRODUCTO, string ID_PRODUCTO_ASOCIADO, string ESTADO, decimal VALOR_CUOTA, decimal VALOR_TERJETA, decimal VALOR_EFECTIVO, decimal VALOR_RECARGO, string OBSERVACION, int ID_USUARIO)
+        public int SP_23_ACTUALIZAR_CUOTAS(string ID_PRODUCTO, string ID_PRODUCTO_ASOCIADO, string ESTADO, decimal VALOR_CUOTA, decimal VALOR_TERJETA, decimal VALOR_EFECTIVO, decimal VALOR_RECARGO, string OBSERVACION, int ID_USUARIO, int PAGO_INFERIOR, decimal COSTO_ADICIONAL, string PAGO_COMPANIA, decimal VALOR_COMPANIA)
         {
             Conectar();
             int result;
@@ -647,7 +1052,15 @@ namespace LATINMEX.Datos.PRODUCTOS
                 command.Parameters["@ID_PRODUCTO_ASOCIADO"].Value = ID_PRODUCTO_ASOCIADO;
 
                 command.Parameters.Add(new System.Data.SqlClient.SqlParameter("@ESTADO", System.Data.SqlDbType.NVarChar));
-                command.Parameters["@ESTADO"].Value = ESTADO;
+                if (string.IsNullOrEmpty(ESTADO) || string.IsNullOrWhiteSpace(ESTADO))
+                {
+                    command.Parameters["@ESTADO"].Value = DBNull.Value;
+                }
+                else
+                {
+                    command.Parameters["@ESTADO"].Value = ESTADO;
+                }
+
 
                 command.Parameters.Add(new System.Data.SqlClient.SqlParameter("@VALOR_CUOTA", System.Data.SqlDbType.Decimal));
                 command.Parameters["@VALOR_CUOTA"].Value = VALOR_CUOTA;
@@ -670,6 +1083,53 @@ namespace LATINMEX.Datos.PRODUCTOS
                 {
                     command.Parameters["@OBSERVACION"].Value = OBSERVACION;
                 }
+
+                command.Parameters.Add(new System.Data.SqlClient.SqlParameter("@ID_USUARIO", System.Data.SqlDbType.Int));
+                command.Parameters["@ID_USUARIO"].Value = ID_USUARIO;
+
+                command.Parameters.Add(new System.Data.SqlClient.SqlParameter("@PAGO_INFERIOR", System.Data.SqlDbType.Int));
+                command.Parameters["@PAGO_INFERIOR"].Value = PAGO_INFERIOR;
+
+                command.Parameters.Add(new System.Data.SqlClient.SqlParameter("@COSTO_ADICIONAL", System.Data.SqlDbType.Decimal));
+                command.Parameters["@COSTO_ADICIONAL"].Value = COSTO_ADICIONAL;
+
+                command.Parameters.Add(new System.Data.SqlClient.SqlParameter("@PAGO_COMPANIA", System.Data.SqlDbType.NVarChar));
+                command.Parameters["@PAGO_COMPANIA"].Value = PAGO_COMPANIA;
+
+                command.Parameters.Add(new System.Data.SqlClient.SqlParameter("@VALOR_COMPANIA", System.Data.SqlDbType.Decimal));
+                command.Parameters["@VALOR_COMPANIA"].Value = VALOR_COMPANIA;
+
+                result = command.ExecuteNonQuery();
+                command.Dispose();
+
+            }
+            catch (Exception e)
+            {
+                result = -1;
+                Console.WriteLine(e.StackTrace);
+            }
+            finally
+            {
+                Desconectar();
+            }
+            return result;
+        }
+
+        public int SP_33_INSERTAR_ENDOSO(int ID_PRODUCTO, int ESTADO_PRODUCTO, int ID_USUARIO)
+        {
+            Conectar();
+            int result;
+            try
+            {
+                System.Data.SqlClient.SqlCommand command = new System.Data.SqlClient.SqlCommand("SP_33_INSERTAR_ENDOSO", cnn);
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+                command.CommandTimeout = _commandTimeout;
+
+                command.Parameters.Add(new System.Data.SqlClient.SqlParameter("@ID_PRODUCTO", System.Data.SqlDbType.Int));
+                command.Parameters["@ID_PRODUCTO"].Value = ID_PRODUCTO;
+
+                command.Parameters.Add(new System.Data.SqlClient.SqlParameter("@ESTADO_PRODUCTO", System.Data.SqlDbType.Int));
+                command.Parameters["@ESTADO_PRODUCTO"].Value = ESTADO_PRODUCTO;
 
                 command.Parameters.Add(new System.Data.SqlClient.SqlParameter("@ID_USUARIO", System.Data.SqlDbType.Int));
                 command.Parameters["@ID_USUARIO"].Value = ID_USUARIO;

@@ -47,7 +47,7 @@ namespace LATINMEX
         private void Lista_Empresa()
         {
             CLS_PRODUCTOS cls_Prod = new CLS_PRODUCTOS();
-            DataTable dataCompa = cls_Prod.SP_15_GET_COMPANIAS();
+            DataTable dataCompa = cls_Prod.SP_15_GET_COMPANIAS(0);
             if (dataCompa != null && dataCompa.Rows.Count > 0)
             {
                 dataCompa.Rows.RemoveAt(0);
@@ -155,7 +155,8 @@ namespace LATINMEX
 
         private void Validar_Tiempo()
         {
-            int idUser = Convert.ToInt32(Session["userID"].ToString());
+
+            int idUser = 1;//Convert.ToInt32(Session["userID"].ToString());
             CLS_MASTER master = new CLS_MASTER();
             int result = master.FS_01_GUI_CHECK_TIEMPO(idUser);
 
@@ -171,7 +172,7 @@ namespace LATINMEX
                 {
                     string fecha = $"{dataTiempo.Rows[0]["FECHA_HORA_INICIO"].ToString()}";
                     lbl_FechaIngreso.Text = $"In: {fecha}";
-                    lbl_FechaIngreso.CssClass = "alert alert-success alert-dismissible col-12";
+                    lbl_FechaIngreso.CssClass = "badge badge-success col-12";
                 }
             }
             else
@@ -179,7 +180,7 @@ namespace LATINMEX
                 btn_Iniciar.Visible = true;
                 btn_finalizar.Visible = false;
                 lbl_FechaIngreso.Text = $"In: {Convert.ToString(DateTime.Now)}";
-                lbl_FechaIngreso.CssClass = "alert alert-danger alert-dismissible col-12";
+                lbl_FechaIngreso.CssClass = "badge badge-danger col-12";
             }
         }
     }

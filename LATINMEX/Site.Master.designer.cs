@@ -105,6 +105,15 @@ namespace LATINMEX
         protected global::System.Web.UI.WebControls.Label lbl_Nombre2;
 
         /// <summary>
+        /// lbl_FechaIngreso control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbl_FechaIngreso;
+
+        /// <summary>
         /// btn_Iniciar control.
         /// </summary>
         /// <remarks>
@@ -130,15 +139,6 @@ namespace LATINMEX
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.ContentPlaceHolder MainContent;
-
-        /// <summary>
-        /// lbl_FechaIngreso control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl_FechaIngreso;
 
         /// <summary>
         /// hf_Empresas control.
