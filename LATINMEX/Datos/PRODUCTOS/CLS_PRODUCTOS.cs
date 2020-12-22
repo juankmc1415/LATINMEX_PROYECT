@@ -222,6 +222,36 @@ namespace LATINMEX.Datos.PRODUCTOS
             return result;
         }
 
+        public DataTable SP_18_GET_DATOS_PRODUCTO_ENDOSO(string ID_PRODUCTO)
+        {
+            Conectar();
+            DataTable result = new DataTable();
+            try
+            {
+                System.Data.SqlClient.SqlCommand command = new System.Data.SqlClient.SqlCommand("SP_18_GET_DATOS_PRODUCTO_ENDOSO", cnn);
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+                command.CommandTimeout = _commandTimeout;
+
+                command.Parameters.Add(new System.Data.SqlClient.SqlParameter("@ID_PRODUCTO", System.Data.SqlDbType.NVarChar));
+                command.Parameters["@ID_PRODUCTO"].Value = ID_PRODUCTO;
+
+                System.Data.SqlClient.SqlDataAdapter da = new System.Data.SqlClient.SqlDataAdapter(command);
+                da.Fill(result);
+
+                command.Dispose();
+            }
+            catch (Exception e)
+            {
+                result = null;
+                Console.WriteLine(e.StackTrace);
+            }
+            finally
+            {
+                Desconectar();
+            }
+            return result;
+        }
+
         public DataTable SP_22_GET_DETALLES_CUOTA(string ID_CUOTA)
         {
             Conectar();
@@ -735,7 +765,7 @@ namespace LATINMEX.Datos.PRODUCTOS
             return result;
         }
 
-        public int SP_19_ACTUALIZAR_PRODUCTO(LTM_PRODUCTO pro, string ID_PRODUCTO)
+        public int SP_19_ACTUALIZAR_PRODUCTO(LTM_PRODUCTO pro, string ID_PRODUCTO, string ESTADO_ENDOSO, string ESTADO_RENOVADO)
         {
             Conectar();
             int result;
@@ -1020,6 +1050,37 @@ namespace LATINMEX.Datos.PRODUCTOS
                     command.Parameters["@ESTADO_INTERNO"].Value = pro.ESTADO_INTERNO;
                 }
 
+                command.Parameters.Add(new System.Data.SqlClient.SqlParameter("@VALOR_COMPANIA", System.Data.SqlDbType.Decimal));
+                if (pro.VALOR_COMPANIA == null)
+                {
+                    command.Parameters["@VALOR_COMPANIA"].Value = DBNull.Value;
+                }
+                else
+                {
+                    command.Parameters["@VALOR_COMPANIA"].Value = pro.VALOR_COMPANIA;
+                }
+
+                command.Parameters.Add(new System.Data.SqlClient.SqlParameter("@ESTADO_ENDOSO", System.Data.SqlDbType.NVarChar));
+                if (string.IsNullOrEmpty(ESTADO_ENDOSO) || string.IsNullOrWhiteSpace(ESTADO_ENDOSO))
+                {
+                    command.Parameters["@ESTADO_ENDOSO"].Value = DBNull.Value;
+                }
+                else
+                {
+                    command.Parameters["@ESTADO_ENDOSO"].Value = ESTADO_ENDOSO;
+                }
+
+                command.Parameters.Add(new System.Data.SqlClient.SqlParameter("@ESTADO_RENOVADO", System.Data.SqlDbType.NVarChar));
+                if (string.IsNullOrEmpty(ESTADO_RENOVADO) || string.IsNullOrWhiteSpace(ESTADO_RENOVADO))
+                {
+                    command.Parameters["@ESTADO_RENOVADO"].Value = DBNull.Value;
+                }
+                else
+                {
+                    command.Parameters["@ESTADO_RENOVADO"].Value = ESTADO_RENOVADO;
+                }
+                
+
                 result = command.ExecuteNonQuery();
                 command.Dispose();
             }
@@ -1035,7 +1096,7 @@ namespace LATINMEX.Datos.PRODUCTOS
             return result;
         }
 
-        public int SP_23_ACTUALIZAR_CUOTAS(string ID_PRODUCTO, string ID_PRODUCTO_ASOCIADO, string ESTADO, decimal VALOR_CUOTA, decimal VALOR_TERJETA, decimal VALOR_EFECTIVO, decimal VALOR_RECARGO, string OBSERVACION, int ID_USUARIO, int PAGO_INFERIOR, decimal COSTO_ADICIONAL, string PAGO_COMPANIA, decimal VALOR_COMPANIA)
+        public int SP_23_ACTUALIZAR_CUOTAS(string ID_PRODUCTO, string ID_PRODUCTO_ASOCIADO, string ESTADO, decimal VALOR_CUOTA, decimal VALOR_TERJETA, decimal VALOR_EFECTIVO, decimal VALOR_RECARGO, string OBSERVACION, int ID_USUARIO, int PAGO_INFERIOR, decimal COSTO_ADICIONAL, string PAGO_COMPANIA, decimal VALOR_COMPANIA, decimal VALORE_REINSTALACION, decimal VALORE_CUOTA_COMPANIA)
         {
             Conectar();
             int result;
@@ -1099,6 +1160,12 @@ namespace LATINMEX.Datos.PRODUCTOS
                 command.Parameters.Add(new System.Data.SqlClient.SqlParameter("@VALOR_COMPANIA", System.Data.SqlDbType.Decimal));
                 command.Parameters["@VALOR_COMPANIA"].Value = VALOR_COMPANIA;
 
+                command.Parameters.Add(new System.Data.SqlClient.SqlParameter("@VALORE_REINSTALACION", System.Data.SqlDbType.Decimal));
+                command.Parameters["@VALORE_REINSTALACION"].Value = VALORE_REINSTALACION;
+
+                command.Parameters.Add(new System.Data.SqlClient.SqlParameter("@VALORE_RECARGO_COMPANIA", System.Data.SqlDbType.Decimal));
+                command.Parameters["@VALORE_RECARGO_COMPANIA"].Value = VALORE_CUOTA_COMPANIA;
+
                 result = command.ExecuteNonQuery();
                 command.Dispose();
 
@@ -1115,7 +1182,7 @@ namespace LATINMEX.Datos.PRODUCTOS
             return result;
         }
 
-        public int SP_33_INSERTAR_ENDOSO(int ID_PRODUCTO, int ESTADO_PRODUCTO, int ID_USUARIO)
+        public int SP_33_INSERTAR_ENDOSO(int ID_PRODUCTO, int ESTADO_PRODUCTO, int ID_USUARIO, int ESTADO_ENDOSO)
         {
             Conectar();
             int result;
@@ -1134,6 +1201,9 @@ namespace LATINMEX.Datos.PRODUCTOS
                 command.Parameters.Add(new System.Data.SqlClient.SqlParameter("@ID_USUARIO", System.Data.SqlDbType.Int));
                 command.Parameters["@ID_USUARIO"].Value = ID_USUARIO;
 
+                command.Parameters.Add(new System.Data.SqlClient.SqlParameter("@ESTADO_ENDOSO", System.Data.SqlDbType.Int));
+                command.Parameters["@ESTADO_ENDOSO"].Value = ESTADO_ENDOSO;
+
                 result = command.ExecuteNonQuery();
                 command.Dispose();
 
@@ -1141,6 +1211,46 @@ namespace LATINMEX.Datos.PRODUCTOS
             catch (Exception e)
             {
                 result = -1;
+                Console.WriteLine(e.StackTrace);
+            }
+            finally
+            {
+                Desconectar();
+            }
+            return result;
+        }
+
+        public DataTable SP_35_INSERTAR_REINSTALCION(int ID_PRODUCTO, int ESTADO_PRODUCTO, int ID_USUARIO)
+        {
+            Conectar();
+            DataTable result = new DataTable();
+            try
+            {
+                System.Data.SqlClient.SqlCommand command = new System.Data.SqlClient.SqlCommand("SP_35_INSERTAR_REINSTALCION", cnn);
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+                command.CommandTimeout = _commandTimeout;
+
+                command.Parameters.Add(new System.Data.SqlClient.SqlParameter("@ID_PRODUCTO", System.Data.SqlDbType.Int));
+                command.Parameters["@ID_PRODUCTO"].Value = ID_PRODUCTO;
+
+                command.Parameters.Add(new System.Data.SqlClient.SqlParameter("@ESTADO_PRODUCTO", System.Data.SqlDbType.Int));
+                command.Parameters["@ESTADO_PRODUCTO"].Value = ESTADO_PRODUCTO;
+
+                command.Parameters.Add(new System.Data.SqlClient.SqlParameter("@ID_USUARIO", System.Data.SqlDbType.Int));
+                command.Parameters["@ID_USUARIO"].Value = ID_USUARIO;
+
+                System.Data.SqlClient.SqlDataAdapter da = new System.Data.SqlClient.SqlDataAdapter(command);
+                da.Fill(result);
+
+                command.Dispose();
+
+                //result = command.ExecuteNonQuery();
+                //command.Dispose();
+
+            }
+            catch (Exception e)
+            {
+                result = null;
                 Console.WriteLine(e.StackTrace);
             }
             finally

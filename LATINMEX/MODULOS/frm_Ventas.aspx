@@ -46,7 +46,7 @@
         }
 
         .listoEndosos {
-            background-color: #09865252;
+            background-color: #0952862b;
             border-color: #8d9fb9;
             border-width: 1px;
             border-style: None;
@@ -360,8 +360,6 @@
 
                                                                 <div class="tags">
                                                                     <a href="JavaScript:divexpandcollapse('div<%# Eval("ID_PRODUCTO") %>');">
-
-
                                                                         <span style="-webkit-border-radius: 2px; display: block; float: right; padding: 5px 9px; text-decoration: none; margin-right: -15px; font-weight: 500; margin-bottom: 5px; font-family: helvetica; background: <%#DataBinder.Eval(Container.DataItem, "color")%>">
                                                                             <%--<img id="imgdiv<%# Eval("ID_PRODUCTO") %>" width="9px" border="0" src="/resources/images/plus.gif" alt="" />--%>
                                                                             <asp:Label runat="server" Font-Bold="true" ForeColor="WHITE" Text='<%# Eval("ESTADO_INTERNO") %>'></asp:Label>
@@ -369,6 +367,7 @@
                                                                     </a>
                                                                 </div>
                                                                 <asp:Label ID="lbl_IdProducto" Visible="false" runat="server" Text='<%#DataBinder.Eval(Container.DataItem, "ID_PRODUCTO") %>'></asp:Label>
+                                                                <asp:Label ID="lbl_estadProduc" Visible="false" runat="server" Text='<%#DataBinder.Eval(Container.DataItem, "ESTADO_SEGURO") %>'></asp:Label>
                                                                 <div class="block_content">
 
                                                                     <h2 class="title">Producto:
@@ -378,9 +377,10 @@
                                                                     </h2>
 
                                                                     <h4>Inicio:
-                                                                            <asp:Label runat="server" Font-Bold="true" Text='<%#  Convert.ToDateTime(Eval("FECHA_INICIO")).ToString("yyyy-MM-dd") %>'></asp:Label>
+                                                                            <asp:Label runat="server" Font-Bold="true" Text='<%#  Convert.ToDateTime(Eval("FECHA_INICIO")).ToString("MM-dd-yyyy") %>'></asp:Label>
                                                                         &nbsp; Caducidad
-                                                                            <asp:Label runat="server" Font-Bold="true" Text='<%# Convert.ToDateTime(Eval("FECHA_CADUCIDAD")).ToString("yyyy-MM-dd") %>'></asp:Label>
+                                                                            <asp:Label runat="server" Font-Bold="true" Text='<%# Convert.ToDateTime(Eval("FECHA_CADUCIDAD")).ToString("MM-dd-yyyy") %>'></asp:Label>
+
                                                                     </h4>
 
                                                                     <p class="excerpt" style="font-size: 15px; margin-top: -9px; margin-bottom: -8px; padding: 1px 2px 1px;">
@@ -413,7 +413,7 @@
                                                         <td colspan="100%">
                                                             <div id="div<%# Eval("ID_PRODUCTO") %>" style="overflow: auto; display: none; position: relative; left: 15px; overflow: auto; top: -17px;">
 
-                                                                <asp:GridView ID="gv_Endosos" runat="server" Width="95%"  AutoGenerateColumns="false" DataKeyNames="ID_ENDOSO" CssClass="listoEndosos" BorderStyle="None" BorderWidth="1px" CellPadding="2">
+                                                                <asp:GridView ID="gv_Endosos" runat="server" Width="95%" OnRowCommand="gv_Endosos_RowCommand" AutoGenerateColumns="false" DataKeyNames="ID_ENDOSO" CssClass="listoEndosos" BorderStyle="None" BorderWidth="1px" CellPadding="2">
                                                                     <Columns>
                                                                         <asp:TemplateField HeaderText="Salary ID" Visible="false">
                                                                             <ItemTemplate>
@@ -423,18 +423,27 @@
 
                                                                         <asp:TemplateField HeaderText="ESTADO" ItemStyle-Width="90px">
                                                                             <ItemTemplate>
-                                                                                <label class="" style="font-weight: bold; ">
+                                                                             <%--   <label class="" style="font-weight: bold;">
+                                                                                    <%#DataBinder.Eval(Container.DataItem, "ESTADO") %>
+                                                                                </label>--%>
+
+                                                                                 <label class="" style="font-weight: bold; color: <%#DataBinder.Eval(Container.DataItem, "color")%>">
                                                                                     <%#DataBinder.Eval(Container.DataItem, "ESTADO") %>
                                                                                 </label>
+
+                                                                                  <asp:Label ID="lbl_IdProducto_p" Visible="false" runat="server" Text='<%#DataBinder.Eval(Container.DataItem, "ID_PRODUCTO") %>'></asp:Label>
+                                                                                  <asp:Label ID="lbl_IdProducto_endoso" Visible="false" runat="server" Text='<%#DataBinder.Eval(Container.DataItem, "ID_ENDOSO") %>'></asp:Label>
+                                                                                  <asp:Label ID="lbl_estadProduc_endoso" Visible="false" runat="server" Text='<%#DataBinder.Eval(Container.DataItem, "ESTADO_SEGURO") %>'></asp:Label>
+
                                                                             </ItemTemplate>
                                                                         </asp:TemplateField>
 
-                                                                        <asp:BoundField DataField="VALOR_PRODUCTO" HeaderText="PREMIUM" ItemStyle-Width="70px" />
-                                                                        <asp:BoundField DataField="COSTO" HeaderText="COSTO"/>
-                                                                        <asp:BoundField DataField="SERVICIO_ADICIONAL" HeaderText="ADICIONAL" />
-                                                                        <asp:BoundField DataField="PAGO_EFECTIVO" HeaderText="EFECTIVO"  />
-                                                                        <asp:BoundField DataField="TARJETA_CREDITO" HeaderText="TARJETA"  />
-                                                                        <asp:BoundField DataField="RECARGO" HeaderText="RECARGO"  />
+                                                                        <asp:BoundField DataField="PREMIUN_INI" HeaderText="PREMIUM INI." />
+                                                                        <asp:BoundField DataField="PREMIUM_ADICIONAL" HeaderText="PREMIUM ADICI." />
+                                                                        <asp:BoundField DataField="CASH_IN" HeaderText="CASH IN" />
+                                                                        <asp:BoundField DataField="ADICIONAL" HeaderText="ADICIONAL" />
+                                                                        <asp:BoundField DataField="COMP_ENDOSO" HeaderText="DIFERENCIA" />
+                                                                        <asp:BoundField DataField="FECHA_ACTUALIZACION" HeaderText="FECHA" DataFormatString="{0:MM/dd/yyyy}" />
 
                                                                         <asp:TemplateField ItemStyle-Width="40">
                                                                             <ItemTemplate>
@@ -447,7 +456,7 @@
                                                                         </asp:TemplateField>
                                                                     </Columns>
                                                                 </asp:GridView>
-                                                              
+
 
                                                                 <asp:GridView ID="gv_Cuotas" runat="server" Width="95%" OnRowCommand="gv_Cuotas_RowCommand" AutoGenerateColumns="false" DataKeyNames="ID_PRODUCTO" CssClass="listoCuotas" BorderStyle="None" BorderWidth="1px" CellPadding="2">
                                                                     <Columns>
@@ -465,11 +474,12 @@
                                                                                 <asp:Label ID="lbl_estado" runat="server" Text='<%#DataBinder.Eval(Container.DataItem, "ESTADO") %>' Font-Bold="true" ForeColor="Yellow"  ></asp:Label>--%>
                                                                             </ItemTemplate>
                                                                         </asp:TemplateField>
-                                                                        <asp:BoundField DataField="FECHA_PROXIMO_PAGO" HeaderText="PMO. PAGO" DataFormatString="{0:dd/MM/yyyy}" ItemStyle-Width="100px" />
-                                                                        <asp:BoundField DataField="COSTO" HeaderText="CUOTA" ItemStyle-Width="70px" />
-                                                                        <asp:BoundField DataField="COSTO_CUOTA" HeaderText="COSTO" ItemStyle-Width="70px" />
-                                                                        <asp:BoundField DataField="ABONO" HeaderText="ABONO" ItemStyle-Width="70px" />
-                                                                        <asp:BoundField DataField="VALOR_COMPANIA" HeaderText="COMPAÑIA" ItemStyle-Width="70px" />
+                                                                        <asp:BoundField DataField="FECHA_PROXIMO_PAGO" HeaderText="PMO. PAGO" DataFormatString="{0:MM/dd/yyyy}" ItemStyle-Width="80px" />
+                                                                        <asp:BoundField DataField="COSTO" HeaderText="CUOTA" ItemStyle-Width="60px" />
+                                                                        <asp:BoundField DataField="COSTO_CUOTA" HeaderText="COSTO" ItemStyle-Width="60px" />
+                                                                        <asp:BoundField DataField="ABONO" HeaderText="ABONO" ItemStyle-Width="60px" />
+                                                                        <asp:BoundField DataField="VALOR_COMPANIA" HeaderText="COMPAÑIA" ItemStyle-Width="65px" />
+                                                                        <asp:BoundField DataField="CASH_IN" HeaderText="CASH IN" ItemStyle-Width="65px" />
                                                                         <asp:BoundField DataField="OBSERVACION" HeaderText="OBSERVACION" />
                                                                         <asp:TemplateField ItemStyle-Width="95">
                                                                             <ItemTemplate>
@@ -530,7 +540,7 @@
                                                                 <p style="font-size: 15px;">
                                                                     <asp:Label runat="server" Font-Bold="true" Text='<%# Eval("USUARIO") %>'></asp:Label>
                                                                     <label style="width: 10px"></label>
-                                                                    <small><%# Eval("FECHA_CREACION") %> </small>
+                                                                    <small><%# Convert.ToDateTime(Eval("FECHA_CREACION")).ToString("dd-MM-yyyy hh:mm:ss") %> </small>
                                                                     <br />
                                                                     <%# Eval("DESCRIPCION") %>
                                                                     <br />
@@ -591,13 +601,14 @@
                 </asp:Panel>
 
                 <asp:HiddenField runat="server" ID="hf_Producto" />
+                <asp:HiddenField runat="server" ID="hf_estado_producto" />
+                <asp:HiddenField runat="server" ID="hf_estado_endoso" />
+                <asp:HiddenField runat="server" ID="hf_estado_renovado" />
                 <asp:HiddenField runat="server" ID="pp" />
                 <ajaxToolkit:ModalPopupExtender ID="mpe_Produc" runat="server" BackgroundCssClass="modalBackground" TargetControlID="pp" PopupControlID="pnl_NuevoPro" OkControlID="btn_close_V" />
                 <asp:Panel ID="pnl_NuevoPro" runat="server" CssClass="" Width="800PX" ScrollBars="Auto">
                     <div class="modal-dialog" runat="server" style="max-width: 800px !important;">
-
                         <div class="modal-content">
-
                             <div class="modal-header" style="height: 48px">
                                 <div class="left">
                                     <h2>
@@ -635,7 +646,7 @@
                                                         Estado Seguro <span class="required" style="color: red">*</span>
                                                     </label>
                                                     <div class="col-md-6 col-sm-6">
-                                                        <asp:DropDownList ID="BL_EstadosProdu"  AutoPostBack="true" OnSelectedIndexChanged="BL_EstadosProdu_SelectedIndexChanged" runat="server" CssClass="form-control" DataTextField="ESTADO_SEGURO" DataValueField="ID_ESTADO_SEGURO">
+                                                        <asp:DropDownList ID="BL_EstadosProdu"  OnSelectedIndexChanged="BL_EstadosProdu_SelectedIndexChanged" runat="server" CssClass="form-control" DataTextField="ESTADO_SEGURO" DataValueField="ID_ESTADO_SEGURO">
                                                         </asp:DropDownList>
                                                     </div>
                                                 </div>
@@ -655,6 +666,7 @@
                                                 </label>
                                                 <div class="col-md-4 col-sm-4 ">
                                                     <asp:TextBox ID="txt_FechInicio" CssClass="date-picker form-control" TextMode="Date" runat="server"></asp:TextBox>
+                                                    <ajaxToolkit:CalendarExtender ID="txt_Fech" TargetControlID="txt_FechInicio" Format="MM/dd/yyyy" runat="server"></ajaxToolkit:CalendarExtender>
                                                 </div>
 
                                                 <label class="col-form-label col-md-2 col-sm-2 label-align stile_label">
@@ -907,10 +919,10 @@
                                                 <div class="col-md-2 col-sm-2 ">
                                                 </div>
                                                 <div class="col-md-4 col-sm-4">
-                                                    <asp:CheckBox ID="cbx_PagoCompania" AutoPostBack="true" OnCheckedChanged="cbx_PagoCompania_CheckedChanged1"  Text="Pago a la compañia de seguros" CssClass="col-form-label label-align stile_label" runat="server" />
+                                                    <asp:CheckBox ID="cbx_PagoCompania" AutoPostBack="true" OnCheckedChanged="cbx_PagoCompania_CheckedChanged1" Text="Pago a la compañia de seguros" CssClass="col-form-label label-align stile_label" runat="server" />
                                                 </div>
 
-                                                 <div class="col-md-4 col-sm-4">
+                                                <div class="col-md-4 col-sm-4">
                                                     <asp:TextBox ID="txt_pagoCompania" Enabled="false" TextMode="Number" CssClass="form-control" runat="server"></asp:TextBox>
                                                 </div>
                                             </div>
@@ -935,12 +947,14 @@
 
                                         <asp:PostBackTrigger ControlID="btn_aceptar" />
                                         <asp:PostBackTrigger ControlID="btn_ActualizarProduto" />
+                                        <asp:PostBackTrigger ControlID="btn_ActualizarEndoso" />
                                     </Triggers>
                                 </asp:UpdatePanel>
 
                             </div>
                             <div class="modal-footer">
                                 <asp:Button runat="server" ID="btn_ActualizarProduto" CssClass="btn btn-success" Text="Actualizar" OnClick="btn_ActualizarProduto_Click" />
+                                <asp:Button runat="server" ID="btn_ActualizarEndoso" CssClass="btn btn-success" Text="Actualizar Endoso" OnClick="btn_ActualizarEndoso_Click" />
                                 <asp:Button runat="server" ID="btn_aceptar" CssClass="btn btn-success" Text="Aceptar" OnClick="btn_aceptar_Click" />
                                 <asp:Button runat="server" ID="btn_imprimir" CssClass="btn btn-primary" Text="Imprimir  " OnClick="btn_imprimir_Click" />
 
@@ -949,8 +963,6 @@
                                 </asp:LinkButton>
                             </div>
                         </div>
-
-                        <%--</form>--%>
                     </div>
                 </asp:Panel>
 
@@ -975,7 +987,6 @@
 
                                 <asp:UpdatePanel runat="server" ID="UpdatePanel2">
                                     <ContentTemplate>
-
                                         <div class="" role="main">
 
                                             <%-- <span class="section">Información de la cuota</span>--%>
@@ -1088,24 +1099,40 @@
 
                                             </div>
 
+                                            
+
                                             <div class="item form-group">
+
                                                 <div class="col-md-2 col-sm-2 ">
                                                 </div>
                                                 <div>
-                                                    <asp:CheckBox ID="cbx_Renovacion" Text="  Renovación" CssClass="col-form-label label-align stile_label" runat="server" />
+                                                    <asp:CheckBox ID="cbx_pagocompaniaCuota" AutoPostBack="true" OnCheckedChanged="cbx_pagocompania_CheckedChanged" Text="  Pago a la compañia de seguros" CssClass="col-form-label label-align stile_label" runat="server" />
+                                                </div>
+
+                                                <div class="col-md-4 col-sm-4">
+                                                    <asp:TextBox ID="txt_pago_CompaniaCuota" Enabled="false" TextMode="Number" CssClass="form-control" runat="server"></asp:TextBox>
                                                 </div>
                                             </div>
 
                                             <div class="item form-group">
-
                                                 <div class="col-md-2 col-sm-2 ">
                                                 </div>
-                                                <div >
-                                                    <asp:CheckBox ID="cbx_pagocompaniaCuota" AutoPostBack="true" OnCheckedChanged="cbx_pagocompania_CheckedChanged"  Text="  Pago a la compañia de seguros" CssClass="col-form-label label-align stile_label" runat="server" />
+                                                <div style="width:196px;">
+                                                    <asp:CheckBox ID="cbx_Reinstalacion" AutoPostBack="true" OnCheckedChanged="cbx_Reinstalacion_CheckedChanged" Text="Reinstalación" CssClass="col-form-label label-align stile_label" runat="server" />
                                                 </div>
-
                                                  <div class="col-md-4 col-sm-4">
-                                                    <asp:TextBox ID="txt_pago_CompaniaCuota" Enabled="false" TextMode="Number" CssClass="form-control" runat="server"></asp:TextBox>
+                                                    <asp:TextBox ID="txt_Reinstalacion" Enabled="false" TextMode="Number" CssClass="form-control" runat="server"></asp:TextBox>
+                                                </div>
+                                            </div>
+
+                                            <div class="item form-group">
+                                                <div class="col-md-2 col-sm-2 ">
+                                                </div>
+                                                <div style="width:196px;">
+                                                    <asp:CheckBox ID="cbx_RecargoCompania" AutoPostBack="true" OnCheckedChanged="cbx_RecargoCompania_CheckedChanged" Text="Recargo Compañia" CssClass="col-form-label label-align stile_label" runat="server" />
+                                                </div>
+                                                 <div class="col-md-4 col-sm-4">
+                                                    <asp:TextBox ID="txt_recargoCompania" Enabled="false" TextMode="Number" CssClass="form-control" runat="server"></asp:TextBox>
                                                 </div>
                                             </div>
 

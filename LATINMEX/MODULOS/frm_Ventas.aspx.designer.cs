@@ -420,6 +420,33 @@ namespace LATINMEX.MODULOS.VENTAS
         protected global::System.Web.UI.WebControls.HiddenField hf_Producto;
 
         /// <summary>
+        /// hf_estado_producto control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hf_estado_producto;
+
+        /// <summary>
+        /// hf_estado_endoso control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hf_estado_endoso;
+
+        /// <summary>
+        /// hf_estado_renovado control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hf_estado_renovado;
+
+        /// <summary>
         /// pp control.
         /// </summary>
         /// <remarks>
@@ -535,6 +562,15 @@ namespace LATINMEX.MODULOS.VENTAS
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txt_FechInicio;
+
+        /// <summary>
+        /// txt_Fech control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.CalendarExtender txt_Fech;
 
         /// <summary>
         /// txt_fechCaduci control.
@@ -897,6 +933,15 @@ namespace LATINMEX.MODULOS.VENTAS
         protected global::System.Web.UI.WebControls.Button btn_ActualizarProduto;
 
         /// <summary>
+        /// btn_ActualizarEndoso control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btn_ActualizarEndoso;
+
+        /// <summary>
         /// btn_aceptar control.
         /// </summary>
         /// <remarks>
@@ -1104,15 +1149,6 @@ namespace LATINMEX.MODULOS.VENTAS
         protected global::System.Web.UI.WebControls.CheckBox cbx_PagoInferior;
 
         /// <summary>
-        /// cbx_Renovacion control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox cbx_Renovacion;
-
-        /// <summary>
         /// cbx_pagocompaniaCuota control.
         /// </summary>
         /// <remarks>
@@ -1129,6 +1165,42 @@ namespace LATINMEX.MODULOS.VENTAS
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txt_pago_CompaniaCuota;
+
+        /// <summary>
+        /// cbx_Reinstalacion control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox cbx_Reinstalacion;
+
+        /// <summary>
+        /// txt_Reinstalacion control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txt_Reinstalacion;
+
+        /// <summary>
+        /// cbx_RecargoCompania control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox cbx_RecargoCompania;
+
+        /// <summary>
+        /// txt_recargoCompania control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txt_recargoCompania;
 
         /// <summary>
         /// txt_ObservacionCuota control.

@@ -437,7 +437,7 @@ namespace LATINMEX.MODULOS.LLAMADAS
             }
 
 
-            int resul = cls_produ.SP_23_ACTUALIZAR_CUOTAS(idProducto, idCuota, estado, valorCuota, valorTarjeta, valorEfectivo, valorRecargo, observacion, idUser, p_inf, 0,"False",0);
+            int resul = cls_produ.SP_23_ACTUALIZAR_CUOTAS(idProducto, idCuota, estado, valorCuota, valorTarjeta, valorEfectivo, valorRecargo, observacion, idUser, p_inf, 0,"False",0,0,0);
 
             if (resul > 0)
             {
