@@ -1274,6 +1274,7 @@ namespace LATINMEX.MODULOS.VENTAS
                 }
             }
 
+
             if (hf_estado_endoso.Value != "POR_ACTUALIZAR")
             {
                 if (Convert.ToDecimal(txt_Costo.Text) >= Convert.ToDecimal(txt_valor.Text))
