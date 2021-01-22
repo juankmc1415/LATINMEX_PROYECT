@@ -1,6 +1,8 @@
 ﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="LATINMEX.SiteMaster" %>
 
 <%@ Register TagPrefix="asp" Namespace="System.Web.UI" Assembly="System.Web"%>
+<%--<%@ Register Assembly="Microsoft.ReportViewer.WebForms, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" Namespace="Microsoft.Reporting.WebForms" TagPrefix="rsweb" %>--%>
+
 
 <!DOCTYPE html>
 

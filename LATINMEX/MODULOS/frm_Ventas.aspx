@@ -2,8 +2,10 @@
 
 <%@ Import Namespace="System.Data" %>
 
-<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+<%@ Register Assembly="Microsoft.ReportViewer.WebForms, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" Namespace="Microsoft.Reporting.WebForms" TagPrefix="rsweb" %>
 
+
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 
     <style>
         .stile_label {
@@ -103,9 +105,21 @@
                     <asp:Label runat="server" ID="Message_warning" Visible="false" Font-Size="19px" Font-Bold="true" CssClass="alert alert-warning alert-dismissible col-12"></asp:Label>
                     <asp:Label runat="server" ID="Message_danger" Visible="false" Font-Size="19px" Font-Bold="true" CssClass="alert alert-danger alert-dismissible  col-12"></asp:Label>
 
+
+                    <div class="col-md-12 col-sm-12 ">
+                     panel de consultas
+
+                        <br />
+                        <asp:Button runat="server" Text="Lilia" />
+                        <asp:Button runat="server" Text="Juan" />
+                        </div>
+
                     <div class="col-md-4 col-sm-4 ">
                         <div class="x_panel">
 
+
+
+                           
                             <div class="x_title">
                                 <h2>
                                     <asp:Label runat="server" ForeColor="#73879C" Text="Datos del Cliente"></asp:Label>
@@ -119,7 +133,7 @@
 
                                     <div class="item form-group">
                                         <label class="col-form-label col-md-4 col-sm-4 label-align" for="first-name">
-                                            Primer nombre <span class="required" style="color: red">*</span>
+                                            First Name <span class="required" style="color: red">*</span>
                                         </label>
                                         <div class="col-md-7 col-sm-7 ">
                                             <asp:TextBox runat="server" ID="txt_PrimerNombre" CssClass="form-control" required=""></asp:TextBox>
@@ -127,7 +141,7 @@
                                     </div>
                                     <div class="item form-group">
                                         <label class="col-form-label col-md-4 col-sm-4 label-align" for="first-name">
-                                            Segundo Nombre 
+                                            Middle Nmae
                                         </label>
                                         <div class="col-md-7 col-sm-7 ">
                                             <asp:TextBox runat="server" ID="txt_SegundoNombre" CssClass="form-control"></asp:TextBox>
@@ -135,7 +149,7 @@
                                     </div>
                                     <div class="item form-group">
                                         <label class="col-form-label col-md-4 col-sm-4 label-align" for="last-name">
-                                            Apellidos <span class="required" style="color: red">*</span>
+                                            Last Name(s) <span class="required" style="color: red">*</span>
                                         </label>
                                         <div class="col-md-7 col-sm-7 ">
                                             <asp:TextBox runat="server" ID="txt_Apellidos" CssClass="form-control" required=""></asp:TextBox>
@@ -143,7 +157,7 @@
                                     </div>
                                     <div class="item form-group">
                                         <label class="col-form-label col-md-4 col-sm-4 label-align" for="last-name">
-                                            ID. de Conducción <span class="required" style="color: red">*</span>
+                                            Dl/ID Number <span class="required" style="color: red">*</span>
                                         </label>
                                         <div class="col-md-7 col-sm-7 ">
                                             <asp:TextBox runat="server" ID="txt_IDconducion" CssClass="form-control" required=""></asp:TextBox>
@@ -151,16 +165,15 @@
                                     </div>
                                     <div class="item form-group">
                                         <label class="col-form-label col-md-4 col-sm-4 label-align">
-                                            Fecha Nacimiento <span class="required" style="color: red">*</span>
+                                            Date of Birth <span class="required" style="color: red">*</span>
                                         </label>
                                         <div class="col-md-7 col-sm-7 ">
                                             <asp:TextBox ID="txt_fechaNacimiento" CssClass="date-picker form-control" TextMode="Date" runat="server"></asp:TextBox>
-
                                         </div>
                                     </div>
                                     <div class="item form-group">
                                         <label class="col-form-label col-md-4 col-sm-4 label-align" for="last-name">
-                                            Correo 
+                                            Email 
                                         </label>
                                         <div class="col-md-7 col-sm-7 ">
                                             <asp:TextBox runat="server" ID="txt_Corre" AutoCompleteType="Email" CssClass="form-control"></asp:TextBox>
@@ -168,7 +181,7 @@
                                     </div>
                                     <div class="item form-group">
                                         <label class="col-form-label col-md-4 col-sm-4 label-align" for="last-name">
-                                            Tel. Movil <span class="required" style="color: red">*</span>
+                                            Phone Number <span class="required" style="color: red">*</span>
                                         </label>
                                         <div class="col-md-7 col-sm-7 ">
                                             <asp:TextBox runat="server" ID="txt_Telefono" CssClass="form-control" required=""></asp:TextBox>
@@ -176,7 +189,7 @@
                                     </div>
                                     <div class="item form-group">
                                         <label class="col-form-label col-md-4 col-sm-4 label-align" for="last-name">
-                                            D. Residencia <span class="required" style="color: red">*</span>
+                                            Adress <span class="required" style="color: red">*</span>
                                         </label>
                                         <div class="col-md-7 col-sm-7 ">
                                             <asp:TextBox runat="server" ID="txt_DirecResidencia" CssClass="form-control" required=""></asp:TextBox>
@@ -184,7 +197,7 @@
                                     </div>
                                     <div class="item form-group">
                                         <label class="col-form-label col-md-4 col-sm-4 label-align" for="last-name">
-                                            D. Correspondencia 
+                                            Mailing Adress 
                                         </label>
                                         <div class="col-md-7 col-sm-7 ">
                                             <asp:TextBox runat="server" ID="txt_DireCorrespond" CssClass="form-control"></asp:TextBox>
@@ -199,7 +212,7 @@
 
                                     <div class="item form-group">
                                         <label class="col-form-label col-md-4 col-sm-4 label-align" for="last-name">
-                                            Ciudad <span class="required" style="color: red">*</span>
+                                            City <span class="required" style="color: red">*</span>
                                         </label>
                                         <div class="col-md-7 col-sm-7">
                                             <asp:TextBox runat="server" ID="txt_Ciudad" CssClass="form-control" required=""></asp:TextBox>
@@ -207,7 +220,7 @@
                                     </div>
                                     <div class="item form-group">
                                         <label class="col-form-label col-md-4 col-sm-4 label-align" for="last-name">
-                                            Estado <span class="required" style="color: red">*</span>
+                                            State <span class="required" style="color: red">*</span>
                                         </label>
                                         <div class="col-md-7 col-sm-7 ">
                                             <asp:TextBox runat="server" ID="txt_Estado" CssClass="form-control" required=""></asp:TextBox>
@@ -215,7 +228,7 @@
                                     </div>
                                     <div class="item form-group">
                                         <label class="col-form-label col-md-4 col-sm-4 label-align" for="last-name">
-                                            Codg. Postal <span class="required" style="color: red">*</span>
+                                            Zip. Code <span class="required" style="color: red">*</span>
                                         </label>
                                         <div class="col-md-7 col-sm-7 ">
                                             <asp:TextBox runat="server" ID="txt_CodigoPostal" CssClass="form-control" required=""></asp:TextBox>
@@ -223,7 +236,7 @@
                                     </div>
                                     <div class="item form-group">
                                         <label class="col-form-label col-md-4 col-sm-4 label-align" for="last-name">
-                                            Nombre de la Empresa 
+                                            Business Name
                                         </label>
                                         <div class="col-md-8 col-sm-8 ">
                                             <asp:TextBox runat="server" ID="txt_NombreEmpresa" CssClass="form-control"></asp:TextBox>
@@ -316,7 +329,7 @@
                                             </asp:LinkButton>
 
                                             <asp:LinkButton runat="server" ID="btn_Actualizar" OnClick="btn_Actualizar_Click" CssClass="btn btn-success">
-                                                        <i class="fa fa-edit" aria-hidden="true"></i>Actualizar
+                                                        <i class="fa fa-edit" aria-hidden="true"></i>Save
                                             </asp:LinkButton>
 
                                             <asp:LinkButton runat="server" ID="btn_OcultarInfo" OnClick="btn_OcultarInfo_Click" CssClass="btn btn-primary">
@@ -325,6 +338,8 @@
                                         </div>
                                     </div>
                                 </asp:Panel>
+
+                               
                                 <%-- </form>--%>
                             </div>
                         </div>
@@ -341,176 +356,213 @@
 
                                 <div class="col-sm-12 ">
                                     <asp:LinkButton runat="server" ID="btn_nuevoProducto" OnClick="btn_nuevoProducto_Click" CssClass="btn btn-sm btn-primary">
-                                        <i class="fa fa-plus-square" aria-hidden="true"></i> Agregar producto
+                                        <i class="fa fa-plus-square" aria-hidden="true"></i> Add Product
                                     </asp:LinkButton>
                                     <asp:Button ID="btn_nuevoProducto1" Visible="false" class="btn btn-sm btn-primary" OnClick="btn_nuevoProducto_Click" runat="server" Text="Agregar producto" />
                                 </div>
 
-                                <asp:Panel runat="server">
-                                    <asp:GridView ID="gvEmployeeDetails" runat="server" AutoGenerateColumns="false" ShowHeaderWhenEmpty="true" Width="100%"
-                                        OnRowDataBound="gvEmployeeDetails_RowDataBound" DataKeyNames="ID_PRODUCTO" OnRowCommand="gvEmployeeDetails_RowCommand" BackColor="White" BorderColor="#ffffff" BorderStyle="None" BorderWidth="1px" CellPadding="2">
-                                        <Columns>
+                                <asp:UpdatePanel runat="server" ID="UpdatePanel4">
+                                    <ContentTemplate>
 
-                                            <asp:TemplateField HeaderText="Lista">
-                                                <ItemTemplate>
-                                                    <div style="border: none;"></div>
-                                                    <ul class="list-unstyled timeline" style="width: 100%; border: 1px solid #DBDBDB; margin-right: 5px;">
-                                                        <li>
-                                                            <div class="block" style="padding: 5px 5px -3px 4px;">
+                                        <asp:Panel runat="server">
+                                            <asp:GridView ID="gvEmployeeDetails" runat="server" AutoGenerateColumns="false" ShowHeaderWhenEmpty="true" Width="100%"
+                                                OnRowDataBound="gvEmployeeDetails_RowDataBound" DataKeyNames="ID_PRODUCTO" OnRowCommand="gvEmployeeDetails_RowCommand" BackColor="White" BorderColor="#ffffff" BorderStyle="None" BorderWidth="1px" CellPadding="2">
+                                                <Columns>
 
-                                                                <div class="tags">
-                                                                    <a href="JavaScript:divexpandcollapse('div<%# Eval("ID_PRODUCTO") %>');">
-                                                                        <span style="-webkit-border-radius: 2px; display: block; float: right; padding: 5px 9px; text-decoration: none; margin-right: -15px; font-weight: 500; margin-bottom: 5px; font-family: helvetica; background: <%#DataBinder.Eval(Container.DataItem, "color")%>">
-                                                                            <%--<img id="imgdiv<%# Eval("ID_PRODUCTO") %>" width="9px" border="0" src="/resources/images/plus.gif" alt="" />--%>
-                                                                            <asp:Label runat="server" Font-Bold="true" ForeColor="WHITE" Text='<%# Eval("ESTADO_INTERNO") %>'></asp:Label>
-                                                                        </span>
-                                                                    </a>
-                                                                </div>
-                                                                <asp:Label ID="lbl_IdProducto" Visible="false" runat="server" Text='<%#DataBinder.Eval(Container.DataItem, "ID_PRODUCTO") %>'></asp:Label>
-                                                                <asp:Label ID="lbl_estadProduc" Visible="false" runat="server" Text='<%#DataBinder.Eval(Container.DataItem, "ESTADO_SEGURO") %>'></asp:Label>
-                                                                <div class="block_content">
+                                                    <asp:TemplateField HeaderText="Lista">
+                                                        <ItemTemplate>
+                                                            <div style="border: none;"></div>
+                                                            <ul class="list-unstyled timeline" style="width: 100%; border: 1px solid #DBDBDB; margin-right: 5px;">
+                                                                <li>
+                                                                    <div class="block" style="padding: 5px 5px -3px 4px;">
 
-                                                                    <h2 class="title">Producto:
+                                                                        <div class="tags">
+                                                                            <a href="JavaScript:divexpandcollapse('div<%# Eval("ID_PRODUCTO") %>');">
+                                                                                <span style="-webkit-border-radius: 2px; display: block; float: right; padding: 5px 9px; text-decoration: none; margin-right: -15px; font-weight: 500; margin-bottom: 5px; font-family: helvetica; background: <%#DataBinder.Eval(Container.DataItem, "color")%>">
+                                                                                    <%--<img id="imgdiv<%# Eval("ID_PRODUCTO") %>" width="9px" border="0" src="/resources/images/plus.gif" alt="" />--%>
+                                                                                    <asp:Label runat="server" Font-Bold="true" ForeColor="WHITE" Text='<%# Eval("ESTADO_INTERNO") %>'></asp:Label>
+                                                                                </span>
+                                                                            </a>
+                                                                        </div>
+                                                                        <asp:Label ID="lbl_IdProducto" Visible="false" runat="server" Text='<%#DataBinder.Eval(Container.DataItem, "ID_PRODUCTO") %>'></asp:Label>
+                                                                        <asp:Label ID="lbl_estadProduc" Visible="false" runat="server" Text='<%#DataBinder.Eval(Container.DataItem, "ESTADO_SEGURO") %>'></asp:Label>
+                                                                        <div class="block_content">
+
+                                                                            <h2 class="title">Product:
                                                                             <asp:Label runat="server" Font-Bold="true" Text='<%# Eval("PRODUCTO") %>'></asp:Label>
-                                                                        &nbsp; &nbsp; &nbsp;Categoria:
+                                                                                &nbsp; &nbsp; &nbsp;Line of Business:
                                                                             <asp:Label runat="server" Font-Bold="true" Text='<%# Eval("CATEGORIA") %>'></asp:Label>
-                                                                    </h2>
+                                                                            </h2>
 
-                                                                    <h4>Inicio:
+                                                                            <h4>Effective date:
                                                                             <asp:Label runat="server" Font-Bold="true" Text='<%#  Convert.ToDateTime(Eval("FECHA_INICIO")).ToString("MM-dd-yyyy") %>'></asp:Label>
-                                                                        &nbsp; Caducidad
+                                                                                &nbsp; Expiration Date
                                                                             <asp:Label runat="server" Font-Bold="true" Text='<%# Convert.ToDateTime(Eval("FECHA_CADUCIDAD")).ToString("MM-dd-yyyy") %>'></asp:Label>
 
-                                                                    </h4>
+                                                                            </h4>
 
-                                                                    <p class="excerpt" style="font-size: 15px; margin-top: -9px; margin-bottom: -8px; padding: 1px 2px 1px;">
-                                                                        <asp:Label Text="Tipo de pago:" Font-Bold="true" runat="server" />
-                                                                        &nbsp;&nbsp;<%# Eval("TIPO_PAGO") %>
-                                                                        <br />
-                                                                        <%# Eval("OBSERVACION") %>
-                                                                    </p>
+                                                                            <p class="excerpt" style="font-size: 15px; margin-top: -9px; margin-bottom: -8px; padding: 1px 2px 1px;">
+                                                                                <asp:Label Text="Payment Type:" Font-Bold="true" runat="server" />
+                                                                                &nbsp;&nbsp;<%# Eval("TIPO_PAGO") %><br /><%# Eval("OBSERVACION") %></p>
 
-                                                                    <div class="actionBar" style="padding: 3px 2px 1px !important;">
+                                                                            <div class="actionBar" style="padding: 3px 2px 1px !important;">
 
-                                                                        <asp:LinkButton runat="server" ID="btn_verProducto" ToolTip="Ver detalles" CommandName="VerProducto" CssClass="btn btn-sm btn-success">
+                                                                                <asp:LinkButton runat="server" ID="btn_verProducto" ToolTip="Ver detalles" CommandName="VerProducto" CssClass="btn btn-sm btn-success">
                                                                             <i class="fa fa-eye" aria-hidden="true"></i>                                                                             
-                                                                        </asp:LinkButton>
+                                                                                </asp:LinkButton>
 
-                                                                        <asp:LinkButton runat="server" ID="btn_ImprimirProduc" ToolTip="Imprimir" CommandName="ImprimirProducto" CssClass="btn btn-sm btn-secondary">
+                                                                                <asp:LinkButton runat="server" ID="btn_ImprimirProduc" ToolTip="Imprimir" CommandName="ImprimirProducto" CssClass="btn btn-sm btn-secondary">
                                                                             <i class="fa fa-print" aria-hidden="true"></i> 
-                                                                        </asp:LinkButton>
+                                                                                </asp:LinkButton>
 
-                                                                        <asp:LinkButton runat="server" ID="btn_cargarArchivos" ToolTip="Ver archivos" CommandName="VerArchivos" CssClass="btn btn-sm btn-default">
+                                                                                <asp:LinkButton runat="server" ID="btn_cargarArchivos" ToolTip="Ver archivos" CommandName="VerArchivos" CssClass="btn btn-sm btn-default">
                                                                             <i class="fa fa-paperclip" aria-hidden="true"></i> 
-                                                                        </asp:LinkButton>
+                                                                                </asp:LinkButton>
 
+                                                                            </div>
+                                                                        </div>
                                                                     </div>
-                                                                </div>
-                                                            </div>
-                                                        </li>
-                                                    </ul>
-                                                    <tr>
-                                                        <td colspan="100%">
-                                                            <div id="div<%# Eval("ID_PRODUCTO") %>" style="overflow: auto; display: none; position: relative; left: 15px; overflow: auto; top: -17px;">
+                                                                </li>
+                                                            </ul>
+                                                            <tr>
+                                                                <td colspan="100%">
+                                                                    <div id="div<%# Eval("ID_PRODUCTO") %>" style="overflow: auto; display: none; position: relative; left: 15px; overflow: auto; top: -17px;">
 
-                                                                <asp:GridView ID="gv_Endosos" runat="server" Width="95%" OnRowCommand="gv_Endosos_RowCommand" AutoGenerateColumns="false" DataKeyNames="ID_ENDOSO" CssClass="listoEndosos" BorderStyle="None" BorderWidth="1px" CellPadding="2">
-                                                                    <Columns>
-                                                                        <asp:TemplateField HeaderText="Salary ID" Visible="false">
-                                                                            <ItemTemplate>
-                                                                                <asp:Label ID="lbl_Endoso_1" runat="server" Text='<%#DataBinder.Eval(Container.DataItem, "ID_ENDOSO") %>'></asp:Label>
-                                                                            </ItemTemplate>
-                                                                        </asp:TemplateField>
+                                                                        <asp:GridView ID="gv_Endosos" runat="server" Width="95%" OnRowCommand="gv_Endosos_RowCommand" AutoGenerateColumns="false" DataKeyNames="ID_ENDOSO" CssClass="listoEndosos" BorderStyle="None" BorderWidth="1px" CellPadding="2">
+                                                                            <Columns>
+                                                                                <asp:TemplateField HeaderText="Salary ID" Visible="false">
+                                                                                    <ItemTemplate>
+                                                                                        <asp:Label ID="lbl_Endoso_1" runat="server" Text='<%#DataBinder.Eval(Container.DataItem, "ID_ENDOSO") %>'></asp:Label>
+                                                                                    </ItemTemplate>
+                                                                                </asp:TemplateField>
 
-                                                                        <asp:TemplateField HeaderText="ESTADO" ItemStyle-Width="90px">
-                                                                            <ItemTemplate>
-                                                                             <%--   <label class="" style="font-weight: bold;">
+                                                                                <asp:TemplateField HeaderText="STATUS" ItemStyle-Width="90px">
+                                                                                    <ItemTemplate>
+                                                                                        <%--   <label class="" style="font-weight: bold;">
                                                                                     <%#DataBinder.Eval(Container.DataItem, "ESTADO") %>
                                                                                 </label>--%>
 
-                                                                                 <label class="" style="font-weight: bold; color: <%#DataBinder.Eval(Container.DataItem, "color")%>">
-                                                                                    <%#DataBinder.Eval(Container.DataItem, "ESTADO") %>
-                                                                                </label>
+                                                                                        <label class="" style="font-weight: bold; color: <%#DataBinder.Eval(Container.DataItem, "color")%>">
+                                                                                            <%#DataBinder.Eval(Container.DataItem, "ESTADO") %>
+                                                                                        </label>
 
-                                                                                  <asp:Label ID="lbl_IdProducto_p" Visible="false" runat="server" Text='<%#DataBinder.Eval(Container.DataItem, "ID_PRODUCTO") %>'></asp:Label>
-                                                                                  <asp:Label ID="lbl_IdProducto_endoso" Visible="false" runat="server" Text='<%#DataBinder.Eval(Container.DataItem, "ID_ENDOSO") %>'></asp:Label>
-                                                                                  <asp:Label ID="lbl_estadProduc_endoso" Visible="false" runat="server" Text='<%#DataBinder.Eval(Container.DataItem, "ESTADO_SEGURO") %>'></asp:Label>
+                                                                                        <asp:Label ID="lbl_IdProducto_p" Visible="false" runat="server" Text='<%#DataBinder.Eval(Container.DataItem, "ID_PRODUCTO") %>'></asp:Label>
+                                                                                        <asp:Label ID="lbl_IdProducto_endoso" Visible="false" runat="server" Text='<%#DataBinder.Eval(Container.DataItem, "ID_ENDOSO") %>'></asp:Label>
+                                                                                        <asp:Label ID="lbl_estadProduc_endoso" Visible="false" runat="server" Text='<%#DataBinder.Eval(Container.DataItem, "ESTADO_SEGURO") %>'></asp:Label>
 
-                                                                            </ItemTemplate>
-                                                                        </asp:TemplateField>
+                                                                                    </ItemTemplate>
+                                                                                </asp:TemplateField>
 
-                                                                        <asp:BoundField DataField="PREMIUN_INI" HeaderText="PREMIUM INI." />
-                                                                        <asp:BoundField DataField="PREMIUM_ADICIONAL" HeaderText="PREMIUM ADICI." />
-                                                                        <asp:BoundField DataField="CASH_IN" HeaderText="CASH IN" />
-                                                                        <asp:BoundField DataField="ADICIONAL" HeaderText="ADICIONAL" />
-                                                                        <asp:BoundField DataField="COMP_ENDOSO" HeaderText="DIFERENCIA" />
-                                                                        <asp:BoundField DataField="FECHA_ACTUALIZACION" HeaderText="FECHA" DataFormatString="{0:MM/dd/yyyy}" />
+                                                                                <asp:BoundField DataField="PREMIUN_INI" HeaderText="Premium" />
+                                                                                <asp:BoundField DataField="PREMIUM_ADICIONAL" HeaderText="Additional Premiun" />
+                                                                                <asp:BoundField DataField="CASH_IN" HeaderText="Total Paid" />
+                                                                                <asp:BoundField DataField="ADICIONAL" HeaderText="Additional Service" />
+                                                                                <asp:BoundField DataField="COMP_ENDOSO" HeaderText="Note" />
+                                                                                <asp:BoundField DataField="FECHA_ACTUALIZACION" HeaderText="Date" DataFormatString="{0:MM/dd/yyyy}" />
 
-                                                                        <asp:TemplateField ItemStyle-Width="40">
-                                                                            <ItemTemplate>
+                                                                                <asp:TemplateField ItemStyle-Width="40">
+                                                                                    <ItemTemplate>
 
-                                                                                <asp:LinkButton runat="server" ID="btn_verEndoso" ToolTip="Ver detalles" CommandName="VerEndoso" Width="20" Height="20" CssClass="btn btn-sm btn-default">
+                                                                                        <asp:LinkButton runat="server" ID="btn_verEndoso" ToolTip="Ver detalles" CommandName="VerEndoso" Width="20" Height="20" CssClass="btn btn-sm btn-default">
                                                                                     <i class="fa fa-eye" aria-hidden="true"></i>                                                                             
-                                                                                </asp:LinkButton>
+                                                                                        </asp:LinkButton>
 
-                                                                            </ItemTemplate>
-                                                                        </asp:TemplateField>
-                                                                    </Columns>
-                                                                </asp:GridView>
+                                                                                    </ItemTemplate>
+                                                                                </asp:TemplateField>
+                                                                            </Columns>
+                                                                        </asp:GridView>
 
+                                                                        <asp:GridView ID="gv_Cuotas" runat="server" Width="95%" OnRowCommand="gv_Cuotas_RowCommand" AutoGenerateColumns="false" DataKeyNames="ID_PRODUCTO" CssClass="listoCuotas" BorderStyle="None" BorderWidth="1px" CellPadding="2">
+                                                                            <Columns>
+                                                                                <asp:TemplateField HeaderText="Salary ID" Visible="false">
+                                                                                    <ItemTemplate>
+                                                                                        <asp:Label ID="lblCuotasProduc" runat="server" Text='<%#DataBinder.Eval(Container.DataItem, "ID_PRODUCTO_ASOCIADO") %>'></asp:Label>
+                                                                                    </ItemTemplate>
+                                                                                </asp:TemplateField>
+                                                                                <asp:TemplateField HeaderText="STATUS" ItemStyle-Width="90px">
+                                                                                    <ItemTemplate>
+                                                                                        <label class="" style="font-weight: bold; color: <%#DataBinder.Eval(Container.DataItem, "color")%>">
+                                                                                            <%#DataBinder.Eval(Container.DataItem, "ESTADO") %>
+                                                                                        </label>
+                                                                                    </ItemTemplate>
+                                                                                </asp:TemplateField>
+                                                                                <asp:BoundField DataField="FECHA_PROXIMO_PAGO" HeaderText="Due Date" DataFormatString="{0:MM/dd/yyyy}" ItemStyle-Width="80px" />
+                                                                                <asp:BoundField DataField="COSTO" HeaderText="Amount" ItemStyle-Width="60px" />
+                                                                                <asp:BoundField DataField="COSTO_CUOTA" HeaderText="Cost" ItemStyle-Width="60px" />
+                                                                                <asp:BoundField DataField="ABONO" HeaderText="Credit" ItemStyle-Width="60px" />
+                                                                                <asp:BoundField DataField="VALOR_COMPANIA" HeaderText="Direct (Company)" ItemStyle-Width="65px" />
+                                                                                <asp:BoundField DataField="CASH_IN" HeaderText="PAID" ItemStyle-Width="65px" />
+                                                                                <asp:BoundField DataField="OBSERVACION" HeaderText="Note" />
+                                                                                <asp:TemplateField ItemStyle-Width="95">
+                                                                                    <ItemTemplate>
 
-                                                                <asp:GridView ID="gv_Cuotas" runat="server" Width="95%" OnRowCommand="gv_Cuotas_RowCommand" AutoGenerateColumns="false" DataKeyNames="ID_PRODUCTO" CssClass="listoCuotas" BorderStyle="None" BorderWidth="1px" CellPadding="2">
-                                                                    <Columns>
-                                                                        <asp:TemplateField HeaderText="Salary ID" Visible="false">
-                                                                            <ItemTemplate>
-                                                                                <asp:Label ID="lblCuotasProduc" runat="server" Text='<%#DataBinder.Eval(Container.DataItem, "ID_PRODUCTO_ASOCIADO") %>'></asp:Label>
-                                                                            </ItemTemplate>
-                                                                        </asp:TemplateField>
-                                                                        <asp:TemplateField HeaderText="ESTADO" ItemStyle-Width="90px">
-                                                                            <ItemTemplate>
-                                                                                <label class="" style="font-weight: bold; color: <%#DataBinder.Eval(Container.DataItem, "color")%>">
-                                                                                    <%#DataBinder.Eval(Container.DataItem, "ESTADO") %>
-                                                                                </label>
-                                                                                <%--<asp:Label Text='<%#DataBinder.Eval(Container.DataItem, "ESTADO") %>' runat="server" />
-                                                                                <asp:Label ID="lbl_estado" runat="server" Text='<%#DataBinder.Eval(Container.DataItem, "ESTADO") %>' Font-Bold="true" ForeColor="Yellow"  ></asp:Label>--%>
-                                                                            </ItemTemplate>
-                                                                        </asp:TemplateField>
-                                                                        <asp:BoundField DataField="FECHA_PROXIMO_PAGO" HeaderText="PMO. PAGO" DataFormatString="{0:MM/dd/yyyy}" ItemStyle-Width="80px" />
-                                                                        <asp:BoundField DataField="COSTO" HeaderText="CUOTA" ItemStyle-Width="60px" />
-                                                                        <asp:BoundField DataField="COSTO_CUOTA" HeaderText="COSTO" ItemStyle-Width="60px" />
-                                                                        <asp:BoundField DataField="ABONO" HeaderText="ABONO" ItemStyle-Width="60px" />
-                                                                        <asp:BoundField DataField="VALOR_COMPANIA" HeaderText="COMPAÑIA" ItemStyle-Width="65px" />
-                                                                        <asp:BoundField DataField="CASH_IN" HeaderText="CASH IN" ItemStyle-Width="65px" />
-                                                                        <asp:BoundField DataField="OBSERVACION" HeaderText="OBSERVACION" />
-                                                                        <asp:TemplateField ItemStyle-Width="95">
-                                                                            <ItemTemplate>
-
-                                                                                <asp:LinkButton runat="server" ID="btn_verProducto" ToolTip="Ver detalles" CommandName="VerCuota" Width="20" Height="20" CssClass="btn btn-sm btn-default">
+                                                                                        <asp:LinkButton runat="server" ID="btn_verProducto" ToolTip="Ver detalles" CommandName="VerCuota" Width="20" Height="20" CssClass="btn btn-sm btn-default">
                                                                                     <i class="fa fa-eye" aria-hidden="true"></i>                                                                             
-                                                                                </asp:LinkButton>
+                                                                                        </asp:LinkButton>
 
-                                                                                <asp:LinkButton runat="server" ID="btn_ImprimirProduc" ToolTip="Imprimir" CommandName="ImprimirCuota" Width="20" Height="20" CssClass="btn btn-sm btn-default">
+                                                                                        <asp:LinkButton runat="server" ID="btn_ImprimirProduc" ToolTip="Imprimir" CommandName="ImprimirCuota" Width="20" Height="20" CssClass="btn btn-sm btn-default">
                                                                                     <i class="fa fa-print" aria-hidden="true"></i> 
-                                                                                </asp:LinkButton>
+                                                                                        </asp:LinkButton>
 
-                                                                                <asp:LinkButton runat="server" ID="btn_cargarArchivos" ToolTip="Ver archivos" CommandName="VerArchivosCuota" Width="20" Height="20" CssClass="btn btn-sm btn-default">
+                                                                                        <asp:LinkButton runat="server" ID="btn_cargarArchivos" ToolTip="Ver archivos" CommandName="VerArchivosCuota" Width="20" Height="20" CssClass="btn btn-sm btn-default">
                                                                                      <i class="fa fa-paperclip" aria-hidden="true"></i> 
-                                                                                </asp:LinkButton>
+                                                                                        </asp:LinkButton>
 
-                                                                            </ItemTemplate>
-                                                                        </asp:TemplateField>
-                                                                    </Columns>
-                                                                </asp:GridView>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                </ItemTemplate>
-                                            </asp:TemplateField>
+                                                                                    </ItemTemplate>
+                                                                                </asp:TemplateField>
+                                                                            </Columns>
+                                                                        </asp:GridView>
 
-                                        </Columns>
-                                        <HeaderStyle BackColor="#0063A6" ForeColor="White" />
-                                    </asp:GridView>
-                                </asp:Panel>
+                                                                        <asp:GridView ID="gv_cuotas_DMV" runat="server" Width="95%" OnRowCommand="gv_cuotas_DMV_RowCommand" AutoGenerateColumns="false" DataKeyNames="ID_COUTAS_DMV" CssClass="listoEndosos" BorderStyle="None" BorderWidth="1px" CellPadding="2">
+                                                                            <Columns>
+                                                                                <asp:TemplateField HeaderText="Salary ID" Visible="false">
+                                                                                    <ItemTemplate>
+                                                                                        <asp:Label ID="lbl_COUTAS_DMV_1" runat="server" Text='<%#DataBinder.Eval(Container.DataItem, "ID_COUTAS_DMV") %>'></asp:Label>
+                                                                                    </ItemTemplate>
+                                                                                </asp:TemplateField>
 
+                                                                                <asp:TemplateField HeaderText="Operación">
+                                                                                    <ItemTemplate>
+                                                                                        <label class="" style="font-weight: bold; color: <%#DataBinder.Eval(Container.DataItem, "color")%>">
+                                                                                            <%#DataBinder.Eval(Container.DataItem, "TIPO_PAGO") %>
+                                                                                        </label>
+                                                                                    </ItemTemplate>
+                                                                                </asp:TemplateField>
+
+                                                                                <asp:BoundField DataField="VALOR_PAGO_EFECTIVO" HeaderText="VALOR EFECTIVO" />
+                                                                                <asp:BoundField DataField="VALOR_PAGO_TARJETA" HeaderText="V. TARJETA CREDITO" />
+                                                                                <asp:BoundField DataField="VALOR_SERVICIO" HeaderText="VALOR SERVICIO" />
+                                                                                <asp:BoundField DataField="FECHA" HeaderText="FECHA" DataFormatString="{0:MM/dd/yyyy}" />
+                                                                                <asp:BoundField DataField="OBSERVACION" HeaderText="OBSERVACION" />
+
+                                                                                <asp:TemplateField ItemStyle-Width="40">
+                                                                                    <ItemTemplate>
+
+                                                                                        <asp:LinkButton runat="server" ID="btn_verEndoso" ToolTip="Ver detalles" CommandName="VerCuotaDMV" Width="20" Height="20" CssClass="btn btn-sm btn-default">
+                                                                                    <i class="fa fa-eye" aria-hidden="true"></i>                                                                             
+                                                                                        </asp:LinkButton>
+
+                                                                                    </ItemTemplate>
+                                                                                </asp:TemplateField>
+                                                                            </Columns>
+                                                                        </asp:GridView>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
+
+                                                </Columns>
+                                                <HeaderStyle BackColor="#0063A6" ForeColor="White" />
+                                            </asp:GridView>
+                                        </asp:Panel>
+
+                                    </ContentTemplate>
+                                    <Triggers>
+                                          <%--<asp:AsyncPostBackTrigger ControlID="cbx_pagocompania" EventName="CheckedChanged" />--%>
+                                        <%--<asp:PostBackTrigger ControlID="btn_ImprimirProduc" />--%>
+                                    </Triggers>
+                                </asp:UpdatePanel>
                             </div>
                         </div>
                     </div>
@@ -540,7 +592,7 @@
                                                                 <p style="font-size: 15px;">
                                                                     <asp:Label runat="server" Font-Bold="true" Text='<%# Eval("USUARIO") %>'></asp:Label>
                                                                     <label style="width: 10px"></label>
-                                                                    <small><%# Convert.ToDateTime(Eval("FECHA_CREACION")).ToString("dd-MM-yyyy hh:mm:ss") %> </small>
+                                                                    <small><%# Eval("FECHA_CREACION")  %> </small>
                                                                     <br />
                                                                     <%# Eval("DESCRIPCION") %>
                                                                     <br />
@@ -612,7 +664,7 @@
                             <div class="modal-header" style="height: 48px">
                                 <div class="left">
                                     <h2>
-                                        <asp:Label runat="server" ForeColor="#73879C" Text="Agrega Producto"></asp:Label>
+                                        <asp:Label runat="server" ForeColor="#73879C" Text="Product"></asp:Label>
                                     </h2>
                                 </div>
                                 <button id="btn_close_V" type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
@@ -622,11 +674,11 @@
                                 <asp:UpdatePanel runat="server" ID="test">
                                     <ContentTemplate>
                                         <div class="" role="main">
-                                            <span class="section">Información del seguro</span>
+                                            <span class="section">Product Details</span>
 
                                             <div class="item form-group">
                                                 <label class="col-form-label col-md-2 col-sm-2 label-align stile_label">
-                                                    Producto <span class="required" style="color: red">*</span>
+                                                    Product <span class="required" style="color: red">*</span>
                                                 </label>
                                                 <div class="col-md-3 col-sm-3 ">
                                                     <asp:DropDownList ID="bl_TipoProducto" AutoPostBack="true" OnSelectedIndexChanged="bl_TipoProducto_SelectedIndexChanged" runat="server" CssClass="form-control" DataTextField="PRODUCTO" DataValueField="ID_PRODUCTO">
@@ -634,7 +686,7 @@
                                                 </div>
 
                                                 <label class="col-form-label col-md-1 col-sm-1 label-align stile_label">
-                                                    Categoria
+                                                    Line of Business
                                                 </label>
                                                 <div class="col-md-2 col-sm-2 ">
                                                     <asp:DropDownList ID="bl_CatProduc" AutoPostBack="true" OnSelectedIndexChanged="bl_CatProduc_SelectedIndexChanged" runat="server" CssClass="form-control" DataTextField="TIPO_PRODUCTO" DataValueField="ID_TIPO_PRODUCTO">
@@ -643,17 +695,17 @@
 
                                                 <div runat="server" id="div_estad" class=" col-md-4 col-sm-4">
                                                     <label class="col-form-label col-md-6 col-sm-6 label-align stile_label">
-                                                        Estado Seguro <span class="required" style="color: red">*</span>
+                                                        Policy Status <span class="required" style="color: red">*</span>
                                                     </label>
                                                     <div class="col-md-6 col-sm-6">
-                                                        <asp:DropDownList ID="BL_EstadosProdu"  OnSelectedIndexChanged="BL_EstadosProdu_SelectedIndexChanged" runat="server" CssClass="form-control" DataTextField="ESTADO_SEGURO" DataValueField="ID_ESTADO_SEGURO">
+                                                        <asp:DropDownList ID="BL_EstadosProdu" OnSelectedIndexChanged="BL_EstadosProdu_SelectedIndexChanged" runat="server" CssClass="form-control" DataTextField="ESTADO_SEGURO" DataValueField="ID_ESTADO_SEGURO">
                                                         </asp:DropDownList>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div runat="server" id="dv_poliza" class="item form-group">
                                                 <label class="col-form-label col-md-2 col-sm-2 label-align stile_label" for="last-name">
-                                                    Núm. Poliza <span class="required" style="color: red">*</span>
+                                                    Policy Number <span class="required" style="color: red">*</span>
                                                 </label>
                                                 <div class="col-md-10 col-sm-10 ">
                                                     <asp:TextBox runat="server" ID="txt_numPoliza" CssClass="form-control" required=""></asp:TextBox>
@@ -662,7 +714,7 @@
                                             <div class="item form-group">
                                                 <asp:Label Text="Fecha Factura" ID="lbl_fechaFactura" Visible="false" CssClass="col-form-label col-md-2 col-sm-2 label-align stile_label" runat="server" />
                                                 <label runat="server" id="lbl_fechaInicio" class="col-form-label col-md-2 col-sm-2 label-align stile_label">
-                                                    Fecha Inicio <span class="required" style="color: red">*</span>
+                                                    Effective Date <span class="required" style="color: red">*</span>
                                                 </label>
                                                 <div class="col-md-4 col-sm-4 ">
                                                     <asp:TextBox ID="txt_FechInicio" CssClass="date-picker form-control" TextMode="Date" runat="server"></asp:TextBox>
@@ -670,7 +722,7 @@
                                                 </div>
 
                                                 <label class="col-form-label col-md-2 col-sm-2 label-align stile_label">
-                                                    F. Caducidad <span class="required" style="color: red">*</span>
+                                                    Expiration D. <span class="required" style="color: red">*</span>
                                                 </label>
                                                 <div class="col-md-4 col-sm-4 ">
                                                     <asp:TextBox ID="txt_fechCaduci" CssClass="date-picker form-control" TextMode="Date" runat="server"></asp:TextBox>
@@ -678,7 +730,7 @@
                                             </div>
                                             <div class="item form-group" runat="server" id="dv_Compania">
                                                 <label class="col-form-label col-md-2 col-sm-2 label-align stile_label" for="last-name">
-                                                    Comp. Seg<span class="required" style="color: red">*</span>
+                                                    Insurance Company<span class="required" style="color: red">*</span>
                                                 </label>
                                                 <div class="col-md-4 col-sm-4 ">
                                                     <asp:DropDownList ID="bl_CompaniaSe" AutoPostBack="true" OnSelectedIndexChanged="bl_CompaniaSe_SelectedIndexChanged" runat="server" CssClass="form-control" DataTextField="NOMBRE" DataValueField="CODIGO_INTERNO">
@@ -686,7 +738,7 @@
                                                 </div>
 
                                                 <label class="col-form-label col-md-2 col-sm-2 label-align stile_label" for="last-name">
-                                                    Codigo Interno 
+                                                    Agency Code 
                                                 </label>
                                                 <div class="col-md-4 col-sm-4 ">
                                                     <asp:TextBox runat="server" ID="txt_CodInterno" AutoCompleteType="Email" CssClass="form-control"></asp:TextBox>
@@ -715,14 +767,14 @@
 
                                             <div class="item form-group">
                                                 <label class="col-form-label col-md-2 col-sm-2 label-align stile_label" for="last-name">
-                                                    Auxiliar 
+                                                    Employee 
                                                 </label>
                                                 <div class="col-md-4 col-sm-4 ">
                                                     <asp:TextBox runat="server" ID="txt_NombreAuxiliar" Enabled="false" AutoCompleteType="Email" CssClass="form-control"></asp:TextBox>
                                                 </div>
 
                                                 <label class="col-form-label col-md-1 col-sm-1 label-align stile_label" for="last-name">
-                                                    Cliente 
+                                                    Client 
                                                 </label>
                                                 <div class="col-md-5 col-sm-5">
                                                     <asp:TextBox runat="server" ID="txt_NombreCliente" Enabled="false" CssClass="form-control" required=""></asp:TextBox>
@@ -730,7 +782,7 @@
                                             </div>
                                             <div class="item form-group">
                                                 <label class="col-form-label col-md-2 col-sm-2 label-align stile_label" for="last-name">
-                                                    Empresa 
+                                                    Business Name 
                                                 </label>
 
                                                 <div class="col-md-10 col-sm-10">
@@ -740,23 +792,6 @@
 
 
                                             <span class="section">Información de pago Inicial</span>
-
-                                            <div class="item form-group" runat="server" id="dv_ValorTramite" visible="false">
-                                                <label class="col-form-label col-md-2 col-sm-2 label-align stile_label" for="last-name">
-                                                    Valor Impuestos 
-                                                </label>
-                                                <div class="col-md-4 col-sm-4">
-                                                    <asp:TextBox runat="server" ID="txt_ValorTramite" TextMode="Number" CssClass="form-control"></asp:TextBox>
-                                                </div>
-
-                                                <label class="col-form-label col-md-2 col-sm-2 label-align stile_label" style="width: 68px !important;" for="last-name">
-                                                    Excedente Impuesto
-                                                </label>
-                                                <div class="col-md-4 col-sm-4">
-                                                    <asp:TextBox runat="server" ID="txt_ValorTerceros" TextMode="Number" CssClass="form-control"></asp:TextBox>
-                                                </div>
-                                            </div>
-
 
                                             <div class="item form-group">
                                                 <label class="col-form-label col-md-2 col-sm-2 label-align stile_label" for="last-name">
@@ -797,29 +832,6 @@
                                                 </div>
                                             </div>
 
-                                            <div class="item form-group" runat="server" id="dv_Impuestos" visible="false">
-                                                <label class="col-form-label col-md-2 col-sm-2 label-align stile_label" for="last-name">
-                                                    Devolución 
-                                                </label>
-                                                <div class="col-md-3 col-sm-3 ">
-                                                    <asp:TextBox runat="server" ID="txt_Impuesto" TextMode="Number" CssClass="form-control"></asp:TextBox>
-                                                </div>
-
-                                                <label class="col-form-label label-align stile_label" style="width: 68px !important;" for="last-name">
-                                                    Excedente tramite
-                                                </label>
-                                                <div class="col-md-3 col-sm-3 ">
-                                                    <asp:TextBox runat="server" ID="txt_Exc_tramite" TextMode="Number" CssClass="form-control"></asp:TextBox>
-                                                </div>
-
-                                                <label class="col-form-label col-md-1 col-sm-1 label-align stile_label" for="last-name">
-                                                    Total a cobrar 
-                                                </label>
-                                                <div class="col-md-2 col-sm-2">
-                                                    <asp:TextBox runat="server" ID="txt_totalCobrar" TextMode="Number" CssClass="form-control"></asp:TextBox>
-                                                </div>
-                                            </div>
-
                                             <div class="item form-group" runat="server" id="dv_CostosSeguro" visible="true">
 
                                                 <label class="col-form-label col-md-2 col-sm-2 label-align stile_label" style="width: 68px !important;" for="last-name">
@@ -842,9 +854,9 @@
                                                 <div class="col-md-3 col-sm-3">
                                                     <asp:TextBox runat="server" ID="txt_valor" AutoPostBack="true" OnTextChanged="txt_valor_TextChanged" TextMode="Number" CssClass="form-control"></asp:TextBox>
                                                 </div>
-
                                             </div>
-                                            <div class="item form-group">
+
+                                            <div class="item form-group" id="dv_tipoPago" runat="server">
 
                                                 <label class="col-form-label col-md-2 col-sm-2 label-align stile_label" for="last-name">
                                                     Cash out
@@ -978,7 +990,7 @@
                             <div class="modal-header" style="height: 48px">
                                 <div class="left">
                                     <h2>
-                                        <asp:Label runat="server" ForeColor="#73879C" Text="DETALLES CUOTA"></asp:Label>
+                                        <asp:Label runat="server" ForeColor="#73879C" Text="Payment details"></asp:Label>
                                     </h2>
                                 </div>
                                 <button id="btn_close_C" type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
@@ -993,21 +1005,21 @@
 
                                             <div class="item form-group">
                                                 <label class="col-form-label col-md-2 col-sm-2 label-align stile_label">
-                                                    Producto
+                                                    Product
                                                 </label>
                                                 <div class="col-md-2 col-sm-2 ">
                                                     <asp:TextBox ID="txt_Cuotas_producto" Enabled="false" CssClass="date-picker form-control" runat="server"></asp:TextBox>
                                                 </div>
 
                                                 <label class=" col-form-label label-align stile_label">
-                                                    Catergoria
+                                                    Line of Business
                                                 </label>
                                                 <div class="col-md-3 col-sm-3 ">
                                                     <asp:TextBox ID="txt_Cuotas_Categoria" Enabled="false" CssClass="date-picker form-control" runat="server"></asp:TextBox>
                                                 </div>
 
                                                 <label class="col-form-label  label-align stile_label">
-                                                    Es. Seguro
+                                                    Policy Status
                                                 </label>
                                                 <div class="col-md-3 col-sm-3 ">
                                                     <asp:TextBox ID="txt_Cuotas_EstadoSeguro" Enabled="false" CssClass="date-picker form-control" runat="server"></asp:TextBox>
@@ -1016,14 +1028,14 @@
 
                                             <div class="item form-group">
                                                 <label class="col-form-label col-md-2 col-sm-2 label-align stile_label">
-                                                    Cuota
+                                                    Payment #
                                                 </label>
                                                 <div class="col-md-4 col-sm-4">
                                                     <asp:TextBox ID="txt_Cuota" Enabled="false" CssClass="form-control" runat="server"></asp:TextBox>
                                                 </div>
 
                                                 <label class="col-form-label col-md-2 col-sm-2 label-align stile_label">
-                                                    Fecha de Pago
+                                                    Payment Date
                                                 </label>
                                                 <div class="col-md-4 col-sm-4">
                                                     <asp:TextBox ID="txt_fproximoPago" Enabled="false" CssClass="date-picker form-control" TextMode="Date" runat="server"></asp:TextBox>
@@ -1033,21 +1045,21 @@
                                             <div class="item form-group">
 
                                                 <label class="col-form-label col-md-2 col-sm-2 label-align stile_label">
-                                                    Estado Cuota
+                                                    Payment Status
                                                 </label>
                                                 <div class="col-md-3 col-sm-3">
                                                     <asp:TextBox ID="txt_EstodoCuota" Enabled="false" CssClass="date-picker form-control" runat="server"></asp:TextBox>
                                                 </div>
 
                                                 <label class="col-form-label col-md-2 col-sm-2 label-align stile_label">
-                                                    Valor. Cuota
+                                                    Amount Due
                                                 </label>
                                                 <div class="col-md-2 col-sm-2">
                                                     <asp:TextBox ID="txt_valorCuota" Enabled="false" CssClass="date-picker form-control" runat="server"></asp:TextBox>
                                                 </div>
 
                                                 <label class="col-form-label col-md-1 col-sm-1 label-align stile_label">
-                                                    Costo
+                                                    Cost
                                                 </label>
                                                 <div class="col-md-2 col-sm-2">
                                                     <asp:TextBox ID="txt_costoCuota" TextMode="Number" CssClass="date-picker form-control" runat="server"></asp:TextBox>
@@ -1058,21 +1070,21 @@
                                             <div class="item form-group">
 
                                                 <label class="col-form-label col-md-2 col-sm-2 label-align stile_label">
-                                                    pago tarjeta
-                                                </label>
-                                                <div class="col-md-2 col-sm-2">
-                                                    <asp:TextBox ID="txt_ValorPagarTarjeta" TextMode="Number" CssClass="date-picker form-control" runat="server"></asp:TextBox>
-                                                </div>
-
-                                                <label class="col-form-label col-md-2 col-sm-2 label-align stile_label">
-                                                    Pago efectivo
+                                                    Cash-In
                                                 </label>
                                                 <div class="col-md-2 col-sm-2">
                                                     <asp:TextBox ID="txt_ValorPagarEfectivo" TextMode="Number" CssClass="date-picker form-control" runat="server"></asp:TextBox>
                                                 </div>
 
                                                 <label class="col-form-label col-md-2 col-sm-2 label-align stile_label">
-                                                    Recargo tarjeta
+                                                    Ccard-In
+                                                </label>
+                                                <div class="col-md-2 col-sm-2">
+                                                    <asp:TextBox ID="txt_ValorPagarTarjeta" TextMode="Number" CssClass="date-picker form-control" runat="server"></asp:TextBox>
+                                                </div>
+
+                                                <label class="col-form-label col-md-2 col-sm-2 label-align stile_label">
+                                                    Ccard-Fee
                                                 </label>
                                                 <div class="col-md-2 col-sm-2">
                                                     <asp:TextBox ID="txt_ValorPagarRecargo" TextMode="Number" CssClass="date-picker form-control" runat="server"></asp:TextBox>
@@ -1081,7 +1093,7 @@
 
                                             <div class="item form-group">
                                                 <label class="col-form-label col-md-2 col-sm-2 label-align stile_label" for="last-name">
-                                                    Archivo 
+                                                    Attachments 
                                                 </label>
                                                 <div class="col-md-10 col-sm-10 ">
                                                     <asp:FileUpload ID="file_Cuotas" runat="server" CssClass="form-control" />
@@ -1094,12 +1106,12 @@
                                                 <div class="col-md-2 col-sm-2 ">
                                                 </div>
                                                 <div>
-                                                    <asp:CheckBox ID="cbx_PagoInferior" Text="  Pago Inferior al valor de la cuota" CssClass="col-form-label label-align stile_label" runat="server" />
+                                                    <asp:CheckBox ID="cbx_PagoInferior" Text="Minor payment to amount due" CssClass="col-form-label label-align stile_label" runat="server" />
                                                 </div>
 
                                             </div>
 
-                                            
+
 
                                             <div class="item form-group">
 
@@ -1117,10 +1129,10 @@
                                             <div class="item form-group">
                                                 <div class="col-md-2 col-sm-2 ">
                                                 </div>
-                                                <div style="width:196px;">
+                                                <div style="width: 196px;">
                                                     <asp:CheckBox ID="cbx_Reinstalacion" AutoPostBack="true" OnCheckedChanged="cbx_Reinstalacion_CheckedChanged" Text="Reinstalación" CssClass="col-form-label label-align stile_label" runat="server" />
                                                 </div>
-                                                 <div class="col-md-4 col-sm-4">
+                                                <div class="col-md-4 col-sm-4">
                                                     <asp:TextBox ID="txt_Reinstalacion" Enabled="false" TextMode="Number" CssClass="form-control" runat="server"></asp:TextBox>
                                                 </div>
                                             </div>
@@ -1128,10 +1140,10 @@
                                             <div class="item form-group">
                                                 <div class="col-md-2 col-sm-2 ">
                                                 </div>
-                                                <div style="width:196px;">
+                                                <div style="width: 196px;">
                                                     <asp:CheckBox ID="cbx_RecargoCompania" AutoPostBack="true" OnCheckedChanged="cbx_RecargoCompania_CheckedChanged" Text="Recargo Compañia" CssClass="col-form-label label-align stile_label" runat="server" />
                                                 </div>
-                                                 <div class="col-md-4 col-sm-4">
+                                                <div class="col-md-4 col-sm-4">
                                                     <asp:TextBox ID="txt_recargoCompania" Enabled="false" TextMode="Number" CssClass="form-control" runat="server"></asp:TextBox>
                                                 </div>
                                             </div>
@@ -1205,11 +1217,217 @@
 
                 </asp:Panel>
 
+                <asp:HiddenField runat="server" ID="hf_IDCUOTADMV" />
+                <asp:HiddenField runat="server" ID="hf_CuotasDMV" />
+                <ajaxToolkit:ModalPopupExtender ID="mpe_CuotasDMV" runat="server" BackgroundCssClass="modalBackground" TargetControlID="hf_CuotasDMV" PopupControlID="pnl_CuotasDMV" OkControlID="btn_close_DMV" />
+                <asp:Panel ID="pnl_CuotasDMV" runat="server" Width="900PX">
+                    <div class="modal-dialog" runat="server" style="max-width: 800px !important;">
+                        <div class="modal-content">
+
+                            <div class="modal-header" style="height: 48px">
+                                <div class="left">
+                                    <h2>
+                                        <asp:Label runat="server" ForeColor="#73879C" Text="Payment details"></asp:Label>
+                                    </h2>
+                                </div>
+                                <button id="btn_close_DMV" type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                            </div>
+                            <div class="modal-body">
+
+                                <asp:UpdatePanel runat="server" ID="UpdatePanel3">
+                                    <ContentTemplate>
+                                        <div class="" role="main">
+
+                                            <div class="item form-group" runat="server" id="dv_ValorTramite">
+                                                <label class="col-form-label col-md-2 col-sm-2 label-align stile_label" for="last-name">
+                                                    Valor Impuestos 
+                                                </label>
+                                                <div class="col-md-4 col-sm-4">
+                                                    <asp:TextBox runat="server" ID="txt_ValorImpuesto" TextMode="Number" CssClass="form-control"></asp:TextBox>
+                                                </div>
+
+                                                <label class="col-form-label col-md-3 col-sm-3 label-align stile_label" style="width: 68px !important;" for="last-name">
+                                                    Excedente Impuesto
+                                                </label>
+                                                <div class="col-md-3 col-sm-3">
+                                                    <asp:TextBox runat="server" ID="txt_ExcedenteImpuesto" TextMode="Number" CssClass="form-control"></asp:TextBox>
+                                                </div>
+                                            </div>
+
+                                            <div class="item form-group">
+                                                <label class="col-form-label col-md-2 col-sm-2 label-align stile_label" for="last-name">
+                                                    Efectivo 
+                                                </label>
+                                                <div class="col-md-3 col-sm-3 ">
+                                                    <asp:TextBox runat="server" ID="txt_pagoEfectivoDMV" TextMode="Number" CssClass="form-control"></asp:TextBox>
+                                                </div>
+
+                                                <label class="col-form-label label-align stile_label" style="width: 68px !important;" for="last-name">
+                                                    T. Credito 
+                                                </label>
+                                                <div class="col-md-3 col-sm-3 ">
+                                                    <asp:TextBox runat="server" ID="txt_tarjetaCeditoDMV" TextMode="Number" CssClass="form-control"></asp:TextBox>
+                                                </div>
+
+                                                <label class="col-form-label col-md-1 col-sm-1 label-align stile_label" for="last-name">
+                                                    Recargo 
+                                                </label>
+                                                <div class="col-md-2 col-sm-2">
+                                                    <asp:TextBox runat="server" ID="txt_recargoDMV" TextMode="Number" CssClass="form-control"></asp:TextBox>
+                                                </div>
+                                            </div>
+
+                                            <div class="item form-group" runat="server" id="dv_valorServicioDMV">
+                                                <label class="col-form-label col-md-2 col-sm-2 label-align stile_label" for="last-name">
+                                                    Valor Servicio 
+                                                </label>
+                                                <div class="col-md-2 col-sm-2">
+                                                    <asp:TextBox runat="server" ID="txt_ValorServicioDMV" TextMode="Number" CssClass="form-control"></asp:TextBox>
+                                                </div>
+
+                                                <label class="col-form-label label-align col-md-2 col-sm-2 stile_label" for="last-name">
+                                                    Excedente tramite
+                                                </label>
+                                                <div class="col-md-2 col-sm-2 ">
+                                                    <asp:TextBox runat="server" ID="txt_Exc_tramite" TextMode="Number" CssClass="form-control"></asp:TextBox>
+                                                </div>
+
+                                                <label class="col-form-label col-md-2 col-sm-2 label-align stile_label" for="last-name">
+                                                    Total a cobrar 
+                                                </label>
+                                                <div class="col-md-2 col-sm-2">
+                                                    <asp:TextBox runat="server" ID="txt_totalCobrar" TextMode="Number" CssClass="form-control"></asp:TextBox>
+                                                </div>
+                                            </div>
+
+                                            <div class="item form-group" runat="server" visible="true">
+
+                                                <label class="col-form-label col-md-2 col-sm-2 label-align stile_label">
+                                                    Cash out
+                                                </label>
+                                                <div class="col-md-4 col-sm-4">
+                                                    <asp:TextBox ID="txt_cashout_DMV" TextMode="Number" CssClass="date-picker form-control" runat="server"></asp:TextBox>
+                                                </div>
+
+                                                <label class="col-form-label col-md-2 col-sm-2 label-align stile_label" for="last-name">
+                                                    Fecha<span class="required" style="color: red">*</span>
+                                                </label>
+                                                <div class="col-md-4 col-sm-4 ">
+                                                    <asp:TextBox ID="txt_FechaDMV" CssClass="date-picker form-control" TextMode="Date" runat="server"></asp:TextBox>
+                                                </div>
+
+
+                                            </div>
+
+                                            <div class="item form-group" runat="server" visible="true">
+                                                <label class="col-form-label col-md-2 col-sm-2 label-align stile_label" for="last-name">
+                                                    Operación 
+                                                </label>
+                                                <p>
+                                                    <input type="radio" class="flat" runat="server" name="OPERACION" id="cbx_transactin" value="TRASACTION" checked="" required />TRASACTION
+                                                   <br />
+                                                    <input type="radio" class="flat" runat="server" name="OPERACION" id="cbx_pagoCompleto" value="PAGO_COMPLETO" />PAGO COMPLETO
+                                                </p>
+                                            </div>
+
+                                            <div class="item form-group">
+                                                <label class="col-form-label col-md-2 col-sm-2 label-align stile_label" for="last-name">
+                                                    Observación
+                                                </label>
+                                                <div class="col-md-10 col-sm-10 ">
+                                                    <textarea runat="server" id="txt_ObservacionDMV" class="form-control" style="height: 50px;"></textarea>
+                                                </div>
+                                            </div>
+
+
+
+                                        </div>
+                                    </ContentTemplate>
+                                    <Triggers>
+
+                                        <asp:PostBackTrigger ControlID="btn_AceptarCuotasDMV" />
+                                        <asp:PostBackTrigger ControlID="btn_ImprimirCuotaDMV" />
+                                    </Triggers>
+                                </asp:UpdatePanel>
+
+                            </div>
+                            <div class="modal-footer">
+
+                                <asp:LinkButton runat="server" ID="btn_AceptarCuotasDMV" OnClick="btn_AceptarCuotasDMV_Click" CssClass="btn btn-success">
+                                <i class="fa fa-save" aria-hidden="true"></i> Aceptar
+                                </asp:LinkButton>
+
+                                <%--<asp:Button runat="server" ID="btn_AceptarCuotas" CssClass="btn btn-success" Text="Aceptar" OnClick="btn_AceptarCuotas_Click" />--%>
+                                <asp:Button runat="server" ID="btn_ImprimirCuotaDMV" CssClass="btn btn-primary" Text="Imprimir" OnClick="btn_ImprimirCuota_Click" />
+
+                                <asp:LinkButton runat="server" ID="btn_cerrarCuotaDMV" OnClick="btn_cerrarCuotaDMV_Click" CssClass="btn btn-secondary">
+                                <i class="fa fa-close" aria-hidden="true"></i> Cancelar
+                                </asp:LinkButton>
+                            </div>
+                        </div>
+                    </div>
+                </asp:Panel>
+
+                <asp:UpdatePanel runat="server" ID="upd_Report">
+                    <ContentTemplate>
+
+                        <asp:HiddenField runat="server" ID="hf_Informes" />
+                        <ajaxToolkit:ModalPopupExtender ID="mpe_Informes" runat="server" BackgroundCssClass="modalBackground" TargetControlID="hf_Informes" PopupControlID="pnl_Informes" OkControlID="btn_closeInformes" />
+                        <asp:Panel ID="pnl_Informes" runat="server" Width="500px">
+                            <div class="modal-dialog" runat="server">
+                                <div class="modal-content">
+
+                                    <div class="modal-header" style="height: 48px">
+                                        <div class="left">
+                                            <h2>
+                                                <asp:Label runat="server" ForeColor="#73879C" Text="Informes"></asp:Label>
+                                            </h2>
+                                        </div>
+                                        <button id="btn_closeInformes" type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                    </div>
+                                    <div class="modal-body">
+
+
+
+                                         <rsweb:ReportViewer ID="view_Reporte" runat="server" Width="800" InteractivityPostBackMode="SynchronousOnDrillthrough" AsyncRendering="true" Visible="true">
+                                        </rsweb:ReportViewer>
+
+                                        <%--<asp:ScriptManager runat="server"></asp:ScriptManager>--%>
+
+                                        <%--<rsweb:ReportViewer ID="view_Reporte" runat="server" BackColor="" ClientIDMode="AutoID" HighlightBackgroundColor="" InternalBorderColor="204, 204, 204" InternalBorderStyle="Solid" InternalBorderWidth="1px" LinkActiveColor="" LinkActiveHoverColor="" LinkDisabledColor="" PrimaryButtonBackgroundColor="" PrimaryButtonForegroundColor="" PrimaryButtonHoverBackgroundColor="" PrimaryButtonHoverForegroundColor="" SecondaryButtonBackgroundColor="" SecondaryButtonForegroundColor="" SecondaryButtonHoverBackgroundColor="" SecondaryButtonHoverForegroundColor="" SplitterBackColor="" ToolbarDividerColor="" ToolbarForegroundColor="" ToolbarForegroundDisabledColor="" ToolbarHoverBackgroundColor="" ToolbarHoverForegroundColor="" ToolBarItemBorderColor="" ToolBarItemBorderStyle="Solid" ToolBarItemBorderWidth="1px" ToolBarItemHoverBackColor="" ToolBarItemPressedBorderColor="51, 102, 153" ToolBarItemPressedBorderStyle="Solid" ToolBarItemPressedBorderWidth="1px" ToolBarItemPressedHoverBackColor="153, 187, 226">
+
+                                           <LocalReport ReportPath="REPORTES\REPORT_PRODUCTOS\REPORT_SEGUROS\Report_Detalles_Seguro.rdlc">
+                                            </LocalReport>
+                                        </rsweb:ReportViewer>--%>
+
+
+                                        
+
+                                    </div>
+
+                                    <div class="modal-footer">
+
+                                        <asp:LinkButton runat="server" ID="btn_CerrarInfo" OnClick="btn_CerrarInfo_Click" CssClass="btn btn-secondary">
+                                <i class="fa fa-close" aria-hidden="true"></i> Cerrar
+                                        </asp:LinkButton>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </asp:Panel>
+
+                    </ContentTemplate>
+                    <Triggers>
+                        <asp:PostBackTrigger ControlID="view_Reporte" />
+
+
+                    </Triggers>
+                </asp:UpdatePanel>
+
             </form>
         </ContentTemplate>
         <%--<Triggers>
             <asp:AsyncPostBackTrigger ControlID="gvCustomers" EventName="RowDataBound" />
         </Triggers>--%>
     </asp:UpdatePanel>
-
 </asp:Content>

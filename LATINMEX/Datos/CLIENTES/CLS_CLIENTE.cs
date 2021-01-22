@@ -35,7 +35,16 @@ namespace LATINMEX.Datos.CLIENTES
                 }
 
                 command.Parameters.Add(new System.Data.SqlClient.SqlParameter("@APELLIDOS", System.Data.SqlDbType.NVarChar));
-                command.Parameters["@APELLIDOS"].Value = cliente.APELLIDOS;
+                if (string.IsNullOrEmpty(cliente.APELLIDOS) || string.IsNullOrWhiteSpace(cliente.APELLIDOS))
+                {
+                    command.Parameters["@APELLIDOS"].Value = DBNull.Value;
+                }
+                else
+                {
+                    command.Parameters["@APELLIDOS"].Value = cliente.APELLIDOS;
+                }
+
+                
 
                 command.Parameters.Add(new System.Data.SqlClient.SqlParameter("@CORREO", System.Data.SqlDbType.NVarChar));
                 if (string.IsNullOrEmpty(cliente.CORREO) || string.IsNullOrWhiteSpace(cliente.CORREO))
@@ -49,7 +58,14 @@ namespace LATINMEX.Datos.CLIENTES
                 
 
                 command.Parameters.Add(new System.Data.SqlClient.SqlParameter("@TELEFONO_MOVIL", System.Data.SqlDbType.NVarChar));
-                command.Parameters["@TELEFONO_MOVIL"].Value = cliente.TELEFONO_MOVIL;
+                if (string.IsNullOrEmpty(cliente.TELEFONO_MOVIL) || string.IsNullOrWhiteSpace(cliente.TELEFONO_MOVIL))
+                {
+                    command.Parameters["@TELEFONO_MOVIL"].Value = DBNull.Value;
+                }
+                else
+                {
+                    command.Parameters["@TELEFONO_MOVIL"].Value = cliente.TELEFONO_MOVIL;
+                }
 
                 command.Parameters.Add(new System.Data.SqlClient.SqlParameter("@DIRECCION_RESIDENCIA", System.Data.SqlDbType.NVarChar));
                 command.Parameters["@DIRECCION_RESIDENCIA"].Value = cliente.DIRECCION_RESIDENCIA;
@@ -65,7 +81,14 @@ namespace LATINMEX.Datos.CLIENTES
                 }
                 
                 command.Parameters.Add(new System.Data.SqlClient.SqlParameter("@FECHA_NACIMIENTO", System.Data.SqlDbType.Date));
-                command.Parameters["@FECHA_NACIMIENTO"].Value = cliente.FECHA_NACIMIENTO;
+                if (cliente.FECHA_NACIMIENTO == null)
+                {
+                    command.Parameters["@FECHA_NACIMIENTO"].Value = DBNull.Value;
+                }
+                else
+                {
+                    command.Parameters["@FECHA_NACIMIENTO"].Value = cliente.FECHA_NACIMIENTO;
+                }
 
                 command.Parameters.Add(new System.Data.SqlClient.SqlParameter("@ID_CONDUCCION", System.Data.SqlDbType.NVarChar));
                 command.Parameters["@ID_CONDUCCION"].Value = cliente.ID_CONDUCCION;

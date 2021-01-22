@@ -1,6 +1,9 @@
 ﻿using LATINMEX.Datos.CLIENTES;
 using LATINMEX.Datos.CORE;
+using LATINMEX.Datos.INFORMES;
 using LATINMEX.Datos.PRODUCTOS;
+using Microsoft.Reporting.WebForms;
+
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -9,6 +12,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.Remoting.Metadata.W3cXsd2001;
 using System.Text;
+using System.Threading;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.HtmlControls;
@@ -67,13 +71,13 @@ namespace LATINMEX.MODULOS.VENTAS
         {
             //validar campos
             Response res = new Response();
-            res = validarCampos("Nuevo_usuario");
-            if (!res.Succ)
-            {
-                Message_warning.Text = res.Message;
-                Message_warning.Visible = true;
-                return;
-            }
+            //res = validarCampos("Nuevo_usuario");
+            //if (!res.Succ)
+            //{
+            //    Message_warning.Text = res.Message;
+            //    Message_warning.Visible = true;
+            //    return;
+            //}
 
             LTM_CLIENTE cliente = new LTM_CLIENTE();
             cliente.PRIMER_NOMBRE = txt_PrimerNombre.Text;
@@ -84,7 +88,15 @@ namespace LATINMEX.MODULOS.VENTAS
             cliente.TELEFONO_MOVIL = txt_Telefono.Text;
             cliente.DIRECCION_RESIDENCIA = txt_DirecResidencia.Text;
             cliente.DIRECCION_CORRESPONDENCIA = txt_DireCorrespond.Text;
-            cliente.FECHA_NACIMIENTO = Convert.ToDateTime(txt_fechaNacimiento.Text);
+            if (!string.IsNullOrEmpty(txt_fechaNacimiento.Text) || !string.IsNullOrEmpty(txt_fechaNacimiento.Text))
+            {
+                cliente.FECHA_NACIMIENTO = Convert.ToDateTime(txt_fechaNacimiento.Text);
+            }
+            else
+            {
+                cliente.FECHA_NACIMIENTO = null;
+            }
+            
             cliente.ID_CONDUCCION = txt_IDconducion.Text;
             cliente.CIUDAD = txt_Ciudad.Text;
             cliente.ESTADO = txt_Estado.Text;
@@ -184,13 +196,13 @@ namespace LATINMEX.MODULOS.VENTAS
             }
             //validar campos
             Response res = new Response();
-            res = validarCampos("Nuevo_usuario");
-            if (!res.Succ)
-            {
-                Message_warning.Text = res.Message;
-                Message_warning.Visible = true;
-                return;
-            }
+            //res = validarCampos("Nuevo_usuario");
+            //if (!res.Succ)
+            //{
+            //    Message_warning.Text = res.Message;
+            //    Message_warning.Visible = true;
+            //    return;
+            //}
 
             LTM_CLIENTE cliente = new LTM_CLIENTE();
             cliente.PRIMER_NOMBRE = txt_PrimerNombre.Text;
@@ -427,7 +439,7 @@ namespace LATINMEX.MODULOS.VENTAS
             if (e.Row.RowType == DataControlRowType.DataRow)
             {
                 Label lblEmpID = (Label)e.Row.FindControl("lbl_IdProducto");
-                GridView gv_Child = (GridView)e.Row.FindControl("gv_Cuotas");
+
 
                 string txtempid = lblEmpID.Text;
 
@@ -441,7 +453,7 @@ namespace LATINMEX.MODULOS.VENTAS
                     gv_Endos.DataBind();
                 }
 
-
+                GridView gv_Child = (GridView)e.Row.FindControl("gv_Cuotas");
                 DataTable notas = cls_Cli.SP_17_GET_LISTA_PRODUCTO_ASOCIADOS(txtempid);
                 if (notas != null && notas.Rows.Count > 0)
                 {
@@ -449,6 +461,13 @@ namespace LATINMEX.MODULOS.VENTAS
                     gv_Child.DataBind();
                 }
 
+                GridView gv_cuotas_DMV = (GridView)e.Row.FindControl("gv_cuotas_DMV");
+                DataTable dt_cuotas_DMV = cls_Cli.SP_36_GET_LISTA_COUTAS_DMV(txtempid);
+                if (dt_cuotas_DMV != null && dt_cuotas_DMV.Rows.Count > 0)
+                {
+                    gv_cuotas_DMV.DataSource = dt_cuotas_DMV;
+                    gv_cuotas_DMV.DataBind();
+                }
 
 
             }
@@ -457,7 +476,6 @@ namespace LATINMEX.MODULOS.VENTAS
         //opciones del grid de lista de productos asociados
         protected void gvEmployeeDetails_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-
             if (e.CommandName == "VerProducto")
             {
                 GridViewRow gvRow = (GridViewRow)(((LinkButton)e.CommandSource).NamingContainer);
@@ -474,7 +492,13 @@ namespace LATINMEX.MODULOS.VENTAS
 
             if (e.CommandName == "ImprimirProducto")
             {
+                GridViewRow gvRow = (GridViewRow)(((LinkButton)e.CommandSource).NamingContainer);
+                string idProducto = Convert.ToString(((Label)gvRow.FindControl("lbl_IdProducto")).Text.ToString());
 
+                Informe_Detalles_Seguro(idProducto);
+
+                
+                mpe_Informes.Show();
             }
 
             if (e.CommandName == "VerArchivos")
@@ -501,18 +525,71 @@ namespace LATINMEX.MODULOS.VENTAS
                 lbl_fechaInicio.Visible = true;
                 lbl_fechaFactura.Visible = false;
 
-
                 dv_fechaRetiro.Visible = false;
                 dv_Compania.Visible = true;
 
-                dv_ValorTramite.Visible = false;
+                //dv_ValorTramite.Visible = false;
                 dv_valorServicio.Visible = false;
-                dv_Impuestos.Visible = false;
+                //dv_Impuestos.Visible = false;
 
                 dv_CostosSeguro.Visible = true;
                 dv_ProximoPago.Visible = true;
-
+                dv_tipoPago.Visible = true;
                 EstadosProductos(Convert.ToInt32(id));
+            }
+            else if (bl_TipoProducto.SelectedItem.Text == "LATINMEX")
+            {
+                txt_reserva.Visible = true;
+                txt_reserva.Enabled = false;
+
+                dv_poliza.Visible = false;
+                div_estad.Visible = false;
+
+                lbl_fechaInicio.Visible = false;
+                lbl_fechaFactura.Visible = true;
+
+                dv_Compania.Visible = false;
+                dv_fechaRetiro.Visible = true;
+
+                //dv_ValorTramite.Visible = false;
+                dv_valorServicio.Visible = false;
+                //dv_Impuestos.Visible = false;
+                dv_CostosSeguro.Visible = false;
+                dv_ProximoPago.Visible = false;
+
+                dv_tipoPago.Visible = false;
+            }
+            else if (bl_TipoProducto.SelectedItem.Text == "DMV")
+            {
+                txt_reserva.Visible = false;
+                txt_reserva.Enabled = false;
+
+                dv_poliza.Visible = false;
+                div_estad.Visible = false;
+
+                lbl_fechaInicio.Visible = false;
+                lbl_fechaFactura.Visible = true;
+
+                dv_Compania.Visible = false;
+                dv_fechaRetiro.Visible = true;
+
+                //dv_ValorTramite.Visible = false;
+                dv_valorServicio.Visible = false;
+                //dv_Impuestos.Visible = false;
+                dv_CostosSeguro.Visible = false;
+                dv_ProximoPago.Visible = false;
+
+                dv_tipoPago.Visible = false;
+
+                if (bl_CatProduc.SelectedItem.Text.Contains("Sticker") || bl_CatProduc.SelectedItem.Text.Contains("Placa y Titulo"))
+                {
+                    dv_valorServicio.Visible = true;
+                }
+                else
+                {
+                    dv_valorServicio.Visible = false;
+                }
+
             }
             else
             {
@@ -525,13 +602,14 @@ namespace LATINMEX.MODULOS.VENTAS
 
                 dv_Compania.Visible = false;
                 dv_fechaRetiro.Visible = true;
-                txt_reserva.Enabled = false;
 
-                dv_ValorTramite.Visible = true;
+
+                //dv_ValorTramite.Visible = true;
                 dv_valorServicio.Visible = true;
-                dv_Impuestos.Visible = true;
+                //dv_Impuestos.Visible = true;
                 dv_CostosSeguro.Visible = false;
                 dv_ProximoPago.Visible = false;
+                dv_tipoPago.Visible = true;
             }
         }
 
@@ -542,7 +620,7 @@ namespace LATINMEX.MODULOS.VENTAS
             string id = bl_CatProduc.SelectedValue;
             ListaCompañias(Convert.ToInt32(id));
 
-            if (bl_CatProduc.SelectedItem.Text == "TIKET")
+            if (bl_CatProduc.SelectedItem.Text.Contains("AIRLINE TICKETS"))
             {
                 txt_reserva.Enabled = true;
             }
@@ -550,6 +628,17 @@ namespace LATINMEX.MODULOS.VENTAS
             {
                 txt_reserva.Enabled = false;
             }
+
+            if (bl_CatProduc.SelectedItem.Text.Contains("Sticker") || bl_CatProduc.SelectedItem.Text.Contains("Placa y Titulo"))
+            {
+                dv_valorServicio.Visible = true;
+            }
+            else
+            {
+                dv_valorServicio.Visible = false;
+            }
+
+
         }
 
         protected void bl_CompaniaSe_SelectedIndexChanged(object sender, EventArgs e)
@@ -712,7 +801,11 @@ namespace LATINMEX.MODULOS.VENTAS
             }
 
             cliente.FECHA_INICIO = Convert.ToDateTime(txt_FechInicio.Text);
-            cliente.FECHA_CADUCIDAD = Convert.ToDateTime(txt_fechCaduci.Text);
+            if (!string.IsNullOrEmpty(txt_fechCaduci.Text) || !string.IsNullOrWhiteSpace(txt_fechCaduci.Text))
+            {
+                cliente.FECHA_CADUCIDAD = Convert.ToDateTime(txt_fechCaduci.Text);
+            }
+
             cliente.ID_COMPANIA_SEGUROS = bl_CompaniaSe.SelectedValue;
             cliente.CODIGO_INTERNO = txt_CodInterno.Text;
             cliente.DATOS_AUXILIAR = Convert.ToInt32(Session["userID"].ToString());
@@ -817,23 +910,23 @@ namespace LATINMEX.MODULOS.VENTAS
                 cliente.RESERVA = null;
             }
 
-            if (!string.IsNullOrEmpty(txt_ValorTramite.Text) || !string.IsNullOrWhiteSpace(txt_ValorTramite.Text))
-            {
-                cliente.VALOR_TRAMITE = Convert.ToDecimal(txt_ValorTramite.Text);
-            }
-            else
-            {
-                cliente.VALOR_TRAMITE = null;
-            }
+            //if (!string.IsNullOrEmpty(txt_ValorTramite.Text) || !string.IsNullOrWhiteSpace(txt_ValorTramite.Text))
+            //{
+            //    cliente.VALOR_TRAMITE = Convert.ToDecimal(txt_ValorTramite.Text);
+            //}
+            //else
+            //{
+            //    cliente.VALOR_TRAMITE = null;
+            //}
 
-            if (!string.IsNullOrEmpty(txt_ValorTerceros.Text) || !string.IsNullOrWhiteSpace(txt_ValorTerceros.Text))
-            {
-                cliente.COSTO_TERCEROS = Convert.ToDecimal(txt_ValorTerceros.Text);
-            }
-            else
-            {
-                cliente.COSTO_TERCEROS = null;
-            }
+            //if (!string.IsNullOrEmpty(txt_ValorTerceros.Text) || !string.IsNullOrWhiteSpace(txt_ValorTerceros.Text))
+            //{
+            //    cliente.COSTO_TERCEROS = Convert.ToDecimal(txt_ValorTerceros.Text);
+            //}
+            //else
+            //{
+            //    cliente.COSTO_TERCEROS = null;
+            //}
 
             if (!string.IsNullOrEmpty(txt_ValorServicio.Text) || !string.IsNullOrWhiteSpace(txt_ValorServicio.Text))
             {
@@ -853,32 +946,32 @@ namespace LATINMEX.MODULOS.VENTAS
                 cliente.VALOR_TOTAL = null;
             }
 
-            if (!string.IsNullOrEmpty(txt_Impuesto.Text) || !string.IsNullOrWhiteSpace(txt_Impuesto.Text))
-            {
-                cliente.EXCEDENTE_IMPUESTO = Convert.ToDecimal(txt_Impuesto.Text);
-            }
-            else
-            {
-                cliente.EXCEDENTE_IMPUESTO = null;
-            }
+            //if (!string.IsNullOrEmpty(txt_Impuesto.Text) || !string.IsNullOrWhiteSpace(txt_Impuesto.Text))
+            //{
+            //    cliente.EXCEDENTE_IMPUESTO = Convert.ToDecimal(txt_Impuesto.Text);
+            //}
+            //else
+            //{
+            //    cliente.EXCEDENTE_IMPUESTO = null;
+            //}
 
-            if (!string.IsNullOrEmpty(txt_Exc_tramite.Text) || !string.IsNullOrWhiteSpace(txt_Exc_tramite.Text))
-            {
-                cliente.EXCEDENTE_TRAMITE = Convert.ToDecimal(txt_Exc_tramite.Text);
-            }
-            else
-            {
-                cliente.EXCEDENTE_TRAMITE = null;
-            }
+            //if (!string.IsNullOrEmpty(txt_Exc_tramite.Text) || !string.IsNullOrWhiteSpace(txt_Exc_tramite.Text))
+            //{
+            //    cliente.EXCEDENTE_TRAMITE = Convert.ToDecimal(txt_Exc_tramite.Text);
+            //}
+            //else
+            //{
+            //    cliente.EXCEDENTE_TRAMITE = null;
+            //}
 
-            if (!string.IsNullOrEmpty(txt_totalCobrar.Text) || !string.IsNullOrWhiteSpace(txt_totalCobrar.Text))
-            {
-                cliente.TOTAL_COBRAR = Convert.ToDecimal(txt_totalCobrar.Text);
-            }
-            else
-            {
-                cliente.TOTAL_COBRAR = null;
-            }
+            //if (!string.IsNullOrEmpty(txt_totalCobrar.Text) || !string.IsNullOrWhiteSpace(txt_totalCobrar.Text))
+            //{
+            //    cliente.TOTAL_COBRAR = Convert.ToDecimal(txt_totalCobrar.Text);
+            //}
+            //else
+            //{
+            //    cliente.TOTAL_COBRAR = null;
+            //}
 
             //validar si es pago a la compañia de seguros
             string pagoCom = "";
@@ -1104,23 +1197,23 @@ namespace LATINMEX.MODULOS.VENTAS
                 cliente.RESERVA = null;
             }
 
-            if (!string.IsNullOrEmpty(txt_ValorTramite.Text) || !string.IsNullOrWhiteSpace(txt_ValorTramite.Text))
-            {
-                cliente.VALOR_TRAMITE = Convert.ToDecimal(txt_ValorTramite.Text);
-            }
-            else
-            {
-                cliente.VALOR_TRAMITE = null;
-            }
+            //if (!string.IsNullOrEmpty(txt_ValorTramite.Text) || !string.IsNullOrWhiteSpace(txt_ValorTramite.Text))
+            //{
+            //    cliente.VALOR_TRAMITE = Convert.ToDecimal(txt_ValorTramite.Text);
+            //}
+            //else
+            //{
+            //    cliente.VALOR_TRAMITE = null;
+            //}
 
-            if (!string.IsNullOrEmpty(txt_ValorTerceros.Text) || !string.IsNullOrWhiteSpace(txt_ValorTerceros.Text))
-            {
-                cliente.COSTO_TERCEROS = Convert.ToDecimal(txt_ValorTerceros.Text);
-            }
-            else
-            {
-                cliente.COSTO_TERCEROS = null;
-            }
+            //if (!string.IsNullOrEmpty(txt_ValorTerceros.Text) || !string.IsNullOrWhiteSpace(txt_ValorTerceros.Text))
+            //{
+            //    cliente.COSTO_TERCEROS = Convert.ToDecimal(txt_ValorTerceros.Text);
+            //}
+            //else
+            //{
+            //    cliente.COSTO_TERCEROS = null;
+            //}
 
             if (!string.IsNullOrEmpty(txt_ValorServicio.Text) || !string.IsNullOrWhiteSpace(txt_ValorServicio.Text))
             {
@@ -1140,32 +1233,32 @@ namespace LATINMEX.MODULOS.VENTAS
                 cliente.VALOR_TOTAL = null;
             }
 
-            if (!string.IsNullOrEmpty(txt_Impuesto.Text) || !string.IsNullOrWhiteSpace(txt_Impuesto.Text))
-            {
-                cliente.EXCEDENTE_IMPUESTO = Convert.ToDecimal(txt_Impuesto.Text);
-            }
-            else
-            {
-                cliente.EXCEDENTE_IMPUESTO = null;
-            }
+            //if (!string.IsNullOrEmpty(txt_Impuesto.Text) || !string.IsNullOrWhiteSpace(txt_Impuesto.Text))
+            //{
+            //    cliente.EXCEDENTE_IMPUESTO = Convert.ToDecimal(txt_Impuesto.Text);
+            //}
+            //else
+            //{
+            //    cliente.EXCEDENTE_IMPUESTO = null;
+            //}
 
-            if (!string.IsNullOrEmpty(txt_Exc_tramite.Text) || !string.IsNullOrWhiteSpace(txt_Exc_tramite.Text))
-            {
-                cliente.EXCEDENTE_TRAMITE = Convert.ToDecimal(txt_Exc_tramite.Text);
-            }
-            else
-            {
-                cliente.EXCEDENTE_TRAMITE = null;
-            }
+            //if (!string.IsNullOrEmpty(txt_Exc_tramite.Text) || !string.IsNullOrWhiteSpace(txt_Exc_tramite.Text))
+            //{
+            //    cliente.EXCEDENTE_TRAMITE = Convert.ToDecimal(txt_Exc_tramite.Text);
+            //}
+            //else
+            //{
+            //    cliente.EXCEDENTE_TRAMITE = null;
+            //}
 
-            if (!string.IsNullOrEmpty(txt_totalCobrar.Text) || !string.IsNullOrWhiteSpace(txt_totalCobrar.Text))
-            {
-                cliente.TOTAL_COBRAR = Convert.ToDecimal(txt_totalCobrar.Text);
-            }
-            else
-            {
-                cliente.TOTAL_COBRAR = null;
-            }
+            //if (!string.IsNullOrEmpty(txt_totalCobrar.Text) || !string.IsNullOrWhiteSpace(txt_totalCobrar.Text))
+            //{
+            //    cliente.TOTAL_COBRAR = Convert.ToDecimal(txt_totalCobrar.Text);
+            //}
+            //else
+            //{
+            //    cliente.TOTAL_COBRAR = null;
+            //}
 
             if (!string.IsNullOrEmpty(txt_pagoCompania.Text) || !string.IsNullOrWhiteSpace(txt_pagoCompania.Text))
             {
@@ -1551,7 +1644,7 @@ namespace LATINMEX.MODULOS.VENTAS
                 txt_DireCorrespond.Text = data.Tables[0].Rows[0]["DIRECCION_CORRESPONDENCIA"].ToString();
 
                 DateTime FechaNacimiento = Convert.ToDateTime(data.Tables[0].Rows[0]["FECHA_NACIMIENTO"]);
-                txt_fechaNacimiento.Text = FechaNacimiento.ToString("yyyy-MM-dd");
+                txt_fechaNacimiento.Text = FechaNacimiento.ToString("MM-dd-yyyy");
 
                 txt_IDconducion.Text = data.Tables[0].Rows[0]["ID_CONDUCCION"].ToString();
                 txt_Ciudad.Text = data.Tables[0].Rows[0]["CIUDAD"].ToString();
@@ -1651,6 +1744,7 @@ namespace LATINMEX.MODULOS.VENTAS
         {
             if (tipo == "NUEVO_PRODUCTO")
             {
+                bl_TipoProducto.Enabled = true;
                 bl_TipoProducto.SelectedValue = "1";
 
                 string id = bl_TipoProducto.SelectedValue;
@@ -1665,6 +1759,7 @@ namespace LATINMEX.MODULOS.VENTAS
 
                 DateTime FechInicio = DateTime.Now;
                 txt_FechInicio.Text = FechInicio.ToString("yyyy-MM-dd");
+                txt_proximoPago.Text = FechInicio.AddDays(30).ToString("yyyy-MM-dd");
 
                 txt_fechCaduci.Text = "";
                 txt_CodInterno.Text = "";
@@ -1680,13 +1775,13 @@ namespace LATINMEX.MODULOS.VENTAS
                 txt_pagoCompania.Text = "0";
                 txt_proximoPago.Text = "";
 
-                txt_ValorTramite.Text = "0";
-                txt_ValorTerceros.Text = "0";
+                //txt_ValorTramite.Text = "0";
+                //txt_ValorTerceros.Text = "0";
                 txt_ValorServicio.Text = "0";
                 txt_valorTotal.Text = "0";
-                txt_Impuesto.Text = "0";
-                txt_Exc_tramite.Text = "0";
-                txt_totalCobrar.Text = "0";
+                //txt_Impuesto.Text = "0";
+                //txt_Exc_tramite.Text = "0";
+                //txt_totalCobrar.Text = "0";
 
                 bl_Tipopago.SelectedValue = "1";
                 bl_Numcuotas.SelectedValue = "0";
@@ -1723,8 +1818,11 @@ namespace LATINMEX.MODULOS.VENTAS
                 txt_pagoEfectivo.Enabled = true;
                 txt_recargo.Enabled = false;
                 txt_Intsallmentfee.Enabled = true;
-            }
+                dv_tipoPago.Visible = true;
 
+                txt_ValorServicio.Enabled = true;
+                txt_valorTotal.Enabled = true;
+            }
             if (tipo == "VER_PRODUCTO")
             {
                 BL_EstadosProdu.Enabled = true;
@@ -1760,6 +1858,9 @@ namespace LATINMEX.MODULOS.VENTAS
                 txt_pagoCompania.Enabled = false;
 
                 txt_proximoPago.Enabled = false;
+
+                txt_ValorServicio.Enabled = false;
+                txt_valorTotal.Enabled = false;
 
                 if (BL_EstadosProdu.SelectedItem.Text.Contains("Endoso") && hf_estado_endoso.Value == "POR_ACTUALIZAR")
                 {
@@ -1809,13 +1910,38 @@ namespace LATINMEX.MODULOS.VENTAS
                 dv_fechaRetiro.Visible = false;
                 dv_Compania.Visible = true;
 
-                dv_ValorTramite.Visible = false;
+                //dv_ValorTramite.Visible = false;
                 dv_valorServicio.Visible = false;
-                dv_Impuestos.Visible = false;
+                //dv_Impuestos.Visible = false;
 
                 dv_CostosSeguro.Visible = true;
                 dv_ProximoPago.Visible = true;
 
+                dv_tipoPago.Visible = true;
+
+            }
+            else if (bl_TipoProducto.SelectedItem.Text == "LATINMEX")
+            {
+                txt_reserva.Visible = true;
+                txt_reserva.Enabled = false;
+
+                dv_poliza.Visible = false;
+                div_estad.Visible = false;
+
+                lbl_fechaInicio.Visible = false;
+                lbl_fechaFactura.Visible = true;
+
+                dv_Compania.Visible = false;
+                dv_fechaRetiro.Visible = true;
+
+
+                //dv_ValorTramite.Visible = false;
+                dv_valorServicio.Visible = false;
+                //dv_Impuestos.Visible = false;
+                dv_CostosSeguro.Visible = false;
+                dv_ProximoPago.Visible = false;
+
+                dv_tipoPago.Visible = false;
             }
             else
             {
@@ -1830,19 +1956,21 @@ namespace LATINMEX.MODULOS.VENTAS
                 dv_fechaRetiro.Visible = true;
                 txt_reserva.Enabled = false;
 
-                if (tipo == "VER_PRODUCTO")
-                {
-                    dv_ValorTramite.Visible = true;
-                }
-                else
-                {
-                    dv_ValorTramite.Visible = false;
-                }
+                //if (tipo == "VER_PRODUCTO")
+                //{
+                //    dv_ValorTramite.Visible = true;
+                //}
+                //else
+                //{
+                //    dv_ValorTramite.Visible = false;
+                //}
 
                 dv_valorServicio.Visible = true;
-                dv_Impuestos.Visible = true;
+                //dv_Impuestos.Visible = true;
                 dv_CostosSeguro.Visible = false;
                 dv_ProximoPago.Visible = false;
+
+                dv_tipoPago.Visible = false;
 
                 if (bl_CatProduc.SelectedItem.Text == "TIKET")
                 {
@@ -2065,13 +2193,13 @@ namespace LATINMEX.MODULOS.VENTAS
                 }
 
                 txt_reserva.Text = dt_product.Rows[0]["RESERVA"].ToString();
-                txt_ValorTramite.Text = dt_product.Rows[0]["VALOR_TRAMITE"].ToString();
-                txt_ValorTerceros.Text = dt_product.Rows[0]["COSTO_TERCEROS"].ToString();
+                //txt_ValorTramite.Text = dt_product.Rows[0]["VALOR_TRAMITE"].ToString();
+                //txt_ValorTerceros.Text = dt_product.Rows[0]["COSTO_TERCEROS"].ToString();
                 txt_ValorServicio.Text = dt_product.Rows[0]["VALOR_SERVICIO"].ToString();
                 txt_valorTotal.Text = dt_product.Rows[0]["VALOR_TOTAL"].ToString();
-                txt_Impuesto.Text = dt_product.Rows[0]["EXCEDENTE_IMPUESTO"].ToString();
-                txt_Exc_tramite.Text = dt_product.Rows[0]["EXCEDENTE_TRAMITE"].ToString();
-                txt_totalCobrar.Text = dt_product.Rows[0]["TOTAL_COBRAR"].ToString();
+                //txt_Impuesto.Text = dt_product.Rows[0]["EXCEDENTE_IMPUESTO"].ToString();
+                //txt_Exc_tramite.Text = dt_product.Rows[0]["EXCEDENTE_TRAMITE"].ToString();
+                //txt_totalCobrar.Text = dt_product.Rows[0]["TOTAL_COBRAR"].ToString();
                 txt_observacion.Value = dt_product.Rows[0]["OBSERVACION"].ToString();
 
                 if (string.IsNullOrEmpty(dt_product.Rows[0]["ESTADO_ENDOSO"].ToString()) || string.IsNullOrWhiteSpace(dt_product.Rows[0]["ESTADO_ENDOSO"].ToString()) || dt_product.Rows[0]["ESTADO_ENDOSO"].ToString() == null)
@@ -2102,7 +2230,7 @@ namespace LATINMEX.MODULOS.VENTAS
             if (dt_product.Rows[0]["ESTADO_INTERNO"].ToString() == "ACTIVO")
             {
 
-               btn_ActualizarProduto.Visible = true;
+                btn_ActualizarProduto.Visible = true;
                 //btn_ActualizarEndoso.Visible = true;
             }
             else
@@ -2217,13 +2345,13 @@ namespace LATINMEX.MODULOS.VENTAS
                 }
 
                 txt_reserva.Text = dt_product.Rows[0]["RESERVA"].ToString();
-                txt_ValorTramite.Text = dt_product.Rows[0]["VALOR_TRAMITE"].ToString();
-                txt_ValorTerceros.Text = dt_product.Rows[0]["COSTO_TERCEROS"].ToString();
+                //txt_ValorTramite.Text = dt_product.Rows[0]["VALOR_TRAMITE"].ToString();
+                //txt_ValorTerceros.Text = dt_product.Rows[0]["COSTO_TERCEROS"].ToString();
                 txt_ValorServicio.Text = dt_product.Rows[0]["VALOR_SERVICIO"].ToString();
                 txt_valorTotal.Text = dt_product.Rows[0]["VALOR_TOTAL"].ToString();
-                txt_Impuesto.Text = dt_product.Rows[0]["EXCEDENTE_IMPUESTO"].ToString();
-                txt_Exc_tramite.Text = dt_product.Rows[0]["EXCEDENTE_TRAMITE"].ToString();
-                txt_totalCobrar.Text = dt_product.Rows[0]["TOTAL_COBRAR"].ToString();
+                //txt_Impuesto.Text = dt_product.Rows[0]["EXCEDENTE_IMPUESTO"].ToString();
+                //txt_Exc_tramite.Text = dt_product.Rows[0]["EXCEDENTE_TRAMITE"].ToString();
+                //txt_totalCobrar.Text = dt_product.Rows[0]["TOTAL_COBRAR"].ToString();
                 txt_observacion.Value = dt_product.Rows[0]["OBSERVACION"].ToString();
 
                 if (string.IsNullOrEmpty(dt_product.Rows[0]["ESTADO_ENDOSO"].ToString()) || string.IsNullOrWhiteSpace(dt_product.Rows[0]["ESTADO_ENDOSO"].ToString()) || dt_product.Rows[0]["ESTADO_ENDOSO"].ToString() == null)
@@ -2373,7 +2501,6 @@ namespace LATINMEX.MODULOS.VENTAS
                     return res;
                 }
 
-
                 if (bl_TipoProducto.SelectedItem.Text == "SEGURO")
                 {
                     if (bl_CompaniaSe.SelectedItem.Text == "SELECCIONAR")
@@ -2403,7 +2530,6 @@ namespace LATINMEX.MODULOS.VENTAS
                         res.Succ = false;
                         return res;
                     }
-
                 }
                 else
                 {
@@ -2940,5 +3066,233 @@ namespace LATINMEX.MODULOS.VENTAS
                 }
             }
         }
+
+        protected void gv_cuotas_DMV_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            if (e.CommandName == "VerCuotaDMV")
+            {
+                GridViewRow gvRow = (GridViewRow)(((LinkButton)e.CommandSource).NamingContainer);
+                string varName1 = Convert.ToString(((Label)gvRow.FindControl("lbl_COUTAS_DMV_1")).Text.ToString());
+
+                hf_IDCUOTADMV.Value = varName1;
+
+                DetallesCuotaDMV(varName1);
+                mpe_CuotasDMV.Show();
+            }
+
+            //if (e.CommandName == "ImprimirCuota")
+            //{
+            //    //btn_ActualizarProduto.Visible = true;
+            //    //btn_aceptar.Visible = false;
+            //    //hf_Producto.Value = varName1;
+
+            //    //DetallesProducto(varName1);
+            //}
+
+            //if (e.CommandName == "VerArchivosCuota")
+            //{
+            //    GridViewRow gvRow = (GridViewRow)(((LinkButton)e.CommandSource).NamingContainer);
+            //    string varName1 = Convert.ToString(((Label)gvRow.FindControl("lblCuotasProduc")).Text.ToString());
+
+            //    mpe_Archivos.Show();
+            //    ListaArchivos(varName1, "CUOTAS");
+
+            //}
+        }
+
+        private void DetallesCuotaDMV(string idCuota)
+        {
+            CLS_PRODUCTOS cls_Cli = new CLS_PRODUCTOS();
+            DataTable dt_CuotasDMV = cls_Cli.SP_38_GET_DETALLES_COUTAS_DMV(idCuota);
+
+            if (dt_CuotasDMV != null && dt_CuotasDMV.Rows.Count > 0)
+            {
+                hf_IDCUOTADMV.Value = dt_CuotasDMV.Rows[0]["ID_COUTAS_DMV"].ToString();
+                hf_ID_PRODUCTO_CUOTA.Value = dt_CuotasDMV.Rows[0]["ID_PRODUCTO"].ToString();
+
+                txt_ValorImpuesto.Text = dt_CuotasDMV.Rows[0]["VALOR_IMPUESTO"].ToString();
+                txt_ExcedenteImpuesto.Text = dt_CuotasDMV.Rows[0]["EXCEDENTE_IMPUESTO"].ToString();
+                txt_tarjetaCeditoDMV.Text = dt_CuotasDMV.Rows[0]["VALOR_PAGO_TARJETA"].ToString();
+                txt_recargoDMV.Text = dt_CuotasDMV.Rows[0]["VALOR_RECARGO"].ToString();
+                txt_pagoEfectivoDMV.Text = dt_CuotasDMV.Rows[0]["VALOR_PAGO_EFECTIVO"].ToString();
+                txt_ValorServicioDMV.Text = dt_CuotasDMV.Rows[0]["VALOR_SERVICIO"].ToString();
+                txt_Exc_tramite.Text = dt_CuotasDMV.Rows[0]["EXCEDENTE_TRAMITE"].ToString();
+                txt_totalCobrar.Text = dt_CuotasDMV.Rows[0]["TOTAL_COBRAR"].ToString();
+                txt_cashout_DMV.Text =  dt_CuotasDMV.Rows[0]["CASH_OUT"].ToString();
+                txt_FechaDMV.Text = dt_CuotasDMV.Rows[0]["FECHA"].ToString();
+                txt_ObservacionDMV.Value = dt_CuotasDMV.Rows[0]["FECHA"].ToString();
+
+                if (dt_CuotasDMV.Rows[0]["ESTADO"].ToString() == "PAGADO")
+                {
+                    btn_AceptarCuotasDMV.Visible = false;
+
+
+                    txt_ValorImpuesto.Enabled = false;
+                    txt_ExcedenteImpuesto.Enabled = false;
+                    txt_tarjetaCeditoDMV.Enabled = false;
+                    txt_recargoDMV.Enabled = false;
+                    txt_pagoEfectivoDMV.Enabled = false;
+                    txt_ValorServicioDMV.Enabled = false;
+                    txt_Exc_tramite.Enabled = false;
+                    txt_totalCobrar.Enabled = false;
+
+                    cbx_Reinstalacion.Enabled = false;
+                    cbx_pagoCompleto.Visible = false;
+                    if (dt_CuotasDMV.Rows[0]["TIPO_PAGO"].ToString() == "TRASACTION")
+                    {
+                        cbx_transactin.Checked = true;
+                        cbx_pagoCompleto.Checked = false;
+                    }
+                    else
+                    {
+                        cbx_pagoCompleto.Checked = true;
+                        cbx_transactin.Checked = false;
+                    }
+
+
+
+                }
+                else
+                {
+                    btn_AceptarCuotasDMV.Visible = true;
+
+                    txt_ValorImpuesto.Enabled = true;
+                    txt_ExcedenteImpuesto.Enabled = true;
+                    txt_tarjetaCeditoDMV.Enabled = true;
+                    txt_recargoDMV.Enabled = true;
+                    txt_pagoEfectivoDMV.Enabled = true;
+                    txt_ValorServicioDMV.Enabled = true;
+                    txt_Exc_tramite.Enabled = true;
+                    txt_totalCobrar.Enabled = true;
+
+                    cbx_Reinstalacion.Enabled = true;
+                    cbx_pagoCompleto.Visible = true;
+
+
+                    cbx_transactin.Checked = true;
+                    cbx_pagoCompleto.Checked = false;
+
+                    txt_ValorImpuesto.Text = "0";
+                    txt_ExcedenteImpuesto.Text =  "0";
+                    txt_tarjetaCeditoDMV.Text = "0";
+                    txt_recargoDMV.Text = "0";
+                    txt_pagoEfectivoDMV.Text = "0";
+                    txt_ValorServicioDMV.Text = "0";
+                    txt_Exc_tramite.Text = "0";
+                    txt_totalCobrar.Text = "0";
+
+                }
+
+                //txt_ValorImpuesto.Text
+                //txt_ExcedenteImpuesto.Text
+                //txt_tarjetaCeditoDMV.Text
+                //txt_recargoDMV.Text
+                //txt_pagoEfectivoDMV.Text
+                //txt_ValorServicioDMV.Text
+                //txt_Exc_tramite.Text
+                //txt_totalCobrar.Text
+
+            }
+            else
+            {
+                hf_IDCUOTADMV.Value = "";
+            }
+        }
+
+        protected void btn_AceptarCuotasDMV_Click(object sender, EventArgs e)
+        {
+            string idCliente = "";
+            try
+            {
+                idCliente = Page.Request.QueryString["CLIENT_ID"].ToString();
+            }
+            catch (Exception)
+            {
+            }
+
+            string idCuota = hf_IDCUOTADMV.Value;
+            string idProducto = hf_ID_PRODUCTO_CUOTA.Value;
+            decimal valorImpuesto = Convert.ToDecimal(txt_ValorImpuesto.Text);
+            decimal excedenteImpuesto = Convert.ToDecimal(txt_ExcedenteImpuesto.Text);
+            decimal valortarjeta = Convert.ToDecimal(txt_tarjetaCeditoDMV.Text);
+            decimal valorRecargo = Convert.ToDecimal(txt_recargoDMV.Text);
+            decimal valorEfectivo = Convert.ToDecimal(txt_pagoEfectivoDMV.Text);
+            decimal valorServicio = Convert.ToDecimal(txt_ValorServicioDMV.Text);
+            decimal excedenteTramite = Convert.ToDecimal(txt_Exc_tramite.Text);
+            decimal totalCobrar = Convert.ToDecimal(txt_totalCobrar.Text);
+
+            decimal cashout = Convert.ToDecimal(txt_cashout_DMV.Text);
+            DateTime fecha = Convert.ToDateTime(txt_FechaDMV.Text);
+            string observacion = txt_ObservacionDMV.Value;
+
+            string estado = "TRASACTION";
+            string tipoPago = "PAGADO";
+
+            if (cbx_transactin.Checked)
+            {
+                tipoPago = "TRASACTION";
+                estado = "PAGADO";
+            }
+            else
+            {
+                tipoPago = "PAGO_COMPLETO";
+                estado = "PAGADO";
+            }
+
+            int idUser = Convert.ToInt32(Session["userID"].ToString());
+
+            CLS_PRODUCTOS cls_produ = new CLS_PRODUCTOS();
+            int resul = cls_produ.SP_37_ACTUALIZAR_CUOTA_DMV(idCuota, idProducto, valorImpuesto, excedenteImpuesto, valortarjeta, valorRecargo, valorEfectivo, valorServicio, excedenteTramite, totalCobrar, estado, cashout, fecha, tipoPago, idUser, observacion);
+
+            if (resul > 0)
+            {
+                CLS_AUDITORIA audi = new CLS_AUDITORIA();
+                string IP = Request.UserHostAddress;
+                string nombreCliente = $"{txt_PrimerNombre.Text} {txt_SegundoNombre.Text} {txt_Apellidos.Text}";
+                audi.SP_02_INSERTAR_AUDITORIA("ACTUALIZAR CUOTA", $"El usuario {Session["nombre_usuario"]} actualizo el valor de una cuota {nombreCliente}", "VENTAS", IP, Convert.ToInt32(Session["userID"].ToString()));
+
+                ProductosCliente(idCliente);
+
+                Message_Succes.Text = "Cuota actulizada correctamente correctamente";
+                Message_Succes.Visible = true;
+            }
+            else
+            {
+                Message_danger.Text = "Error al actulizar cuota, por favor revise los datos";
+                Message_danger.Visible = true;
+                mpe_CuotasDMV.Show();
+            }
+
+        }
+
+        protected void btn_cerrarCuotaDMV_Click(object sender, EventArgs e)
+        {
+            mpe_CuotasDMV.Hide();
+        }
+
+        protected void btn_CerrarInfo_Click(object sender, EventArgs e)
+        {
+            mpe_Informes.Hide();
+        }
+
+
+        #region INFORMES
+
+        private void Informe_Detalles_Seguro(string idProducto)
+        {
+            CLS_INFORMES cls_Cli = new CLS_INFORMES();
+            DataTable dt_seguro = cls_Cli.SP_INFORME_GET_DETALLES_SEGURO(idProducto);
+
+            view_Reporte.LocalReport.DataSources.Clear();
+            ReportDataSource re = new ReportDataSource("DataSet_Detalles_Seguro", dt_seguro);
+            view_Reporte.LocalReport.DataSources.Add(re);
+            view_Reporte.LocalReport.ReportPath =  Server.MapPath("/REPORTES/REPORT_PRODUCTOS/REPORT_SEGUROS/Report_Detalles_Seguro.rdlc");
+
+            //view_Reporte.LocalReport.Refresh();
+
+            mpe_Informes.Show();
+        }
+
+            #endregion
+        }
     }
-}

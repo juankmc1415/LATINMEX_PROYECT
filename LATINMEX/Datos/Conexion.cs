@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
@@ -14,6 +15,7 @@ namespace LATINMEX.Datos
         protected void Conectar()
         {
             string MyCnnString = System.Configuration.ConfigurationManager.AppSettings.Get("cnn_CORE_MASTER");
+            //string MyCnnString = ConfigurationManager.ConnectionStrings["cnn_CORE_MASTER"].ConnectionString;
 
             try
             {

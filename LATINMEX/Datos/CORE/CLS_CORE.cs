@@ -112,7 +112,7 @@ namespace LATINMEX.Datos.CORE
             public string TELEFONO_MOVIL { get; set; }
             public string DIRECCION_RESIDENCIA { get; set; }
             public string DIRECCION_CORRESPONDENCIA { get; set; }
-            public DateTime FECHA_NACIMIENTO { get; set; }
+            public DateTime? FECHA_NACIMIENTO { get; set; }
             public string ID_CONDUCCION { get; set; }
             public string CIUDAD { get; set; }
             public string ESTADO { get; set; }
