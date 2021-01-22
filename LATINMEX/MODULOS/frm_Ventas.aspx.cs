@@ -3238,6 +3238,7 @@ namespace LATINMEX.MODULOS.VENTAS
                 tipoPago = "PAGO_COMPLETO";
                 estado = "PAGADO";
             }
+            //Codigo de prueba
 
             int idUser = Convert.ToInt32(Session["userID"].ToString());
 
