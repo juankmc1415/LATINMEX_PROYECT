@@ -3100,6 +3100,7 @@ namespace LATINMEX.MODULOS.VENTAS
             //}
         }
 
+        //detalles cuotas
         private void DetallesCuotaDMV(string idCuota)
         {
             CLS_PRODUCTOS cls_Cli = new CLS_PRODUCTOS();
