@@ -68,7 +68,7 @@ namespace LATINMEX.LOGIN
                 Session["Auth"] = "OK";
                 Session["userID"] = result;
              
-                Response.Redirect("/MODULOS/frm_Ventas.aspx?CLIENT_ID=0");
+                Response.Redirect("~/MODULOS/frm_Ventas.aspx?CLIENT_ID=0");
             }
             else
             {

@@ -308,8 +308,18 @@ namespace LATINMEX.Datos.CLIENTES
                     command.Parameters["@DIRECCION_CORRESPONDENCIA"].Value = cliente.DIRECCION_CORRESPONDENCIA;
                 }
 
-                command.Parameters.Add(new System.Data.SqlClient.SqlParameter("@FECHA_NACIMIENTO", System.Data.SqlDbType.DateTime));
-                command.Parameters["@FECHA_NACIMIENTO"].Value = cliente.FECHA_NACIMIENTO;
+                command.Parameters.Add(new System.Data.SqlClient.SqlParameter("@FECHA_NACIMIENTO", System.Data.SqlDbType.Date));
+                if (cliente.FECHA_NACIMIENTO == null)
+                {
+                    command.Parameters["@FECHA_NACIMIENTO"].Value = DBNull.Value;
+                }
+                else
+                {
+                    command.Parameters["@FECHA_NACIMIENTO"].Value = cliente.FECHA_NACIMIENTO;
+                }
+
+                //command.Parameters.Add(new System.Data.SqlClient.SqlParameter("@FECHA_NACIMIENTO", System.Data.SqlDbType.DateTime));
+                //command.Parameters["@FECHA_NACIMIENTO"].Value = cliente.FECHA_NACIMIENTO;
 
                 command.Parameters.Add(new System.Data.SqlClient.SqlParameter("@ID_CONDUCCION", System.Data.SqlDbType.NVarChar));
                 command.Parameters["@ID_CONDUCCION"].Value = cliente.ID_CONDUCCION;

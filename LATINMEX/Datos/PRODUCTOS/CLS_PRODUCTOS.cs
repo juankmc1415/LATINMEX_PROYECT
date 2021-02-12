@@ -1327,10 +1327,10 @@ namespace LATINMEX.Datos.PRODUCTOS
         }
 
 
-        public int SP_33_INSERTAR_ENDOSO(int ID_PRODUCTO, int ESTADO_PRODUCTO, int ID_USUARIO, int ESTADO_ENDOSO)
+        public DataTable SP_33_INSERTAR_ENDOSO(int ID_PRODUCTO, int ESTADO_PRODUCTO, int ID_USUARIO, int ESTADO_ENDOSO)
         {
             Conectar();
-            int result;
+            DataTable result = new DataTable();
             try
             {
                 System.Data.SqlClient.SqlCommand command = new System.Data.SqlClient.SqlCommand("SP_33_INSERTAR_ENDOSO", cnn);
@@ -1349,13 +1349,20 @@ namespace LATINMEX.Datos.PRODUCTOS
                 command.Parameters.Add(new System.Data.SqlClient.SqlParameter("@ESTADO_ENDOSO", System.Data.SqlDbType.Int));
                 command.Parameters["@ESTADO_ENDOSO"].Value = ESTADO_ENDOSO;
 
-                result = command.ExecuteNonQuery();
+                //result = command.ExecuteNonQuery();
+                //command.Dispose();
+
+
+                System.Data.SqlClient.SqlDataAdapter da = new System.Data.SqlClient.SqlDataAdapter(command);
+                da.Fill(result);
+
+                //result = command.ExecuteNonQuery();
                 command.Dispose();
 
             }
             catch (Exception e)
             {
-                result = -1;
+                result = null;
                 Console.WriteLine(e.StackTrace);
             }
             finally
