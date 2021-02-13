@@ -1156,6 +1156,88 @@ namespace LATINMEX.Datos.PRODUCTOS
             return result;
         }
 
+        public int SP_62_ACTUALIZAR_PRODUCTO_ENDOSO(string ID_PRODUCTO,  decimal VALOR_PRODUCTO, decimal COSTO, decimal SERVICIO_ADICIONAL, 
+            decimal CASH_OUT, decimal TARJETA_CREDITO, decimal PAGO_EFECTIVO, 
+            decimal RECARGO, string NUMERO_CUOTAS, decimal INTSALLMENTFEE,
+            string OBSERVACION, int ID_USUARIO, string ESTADO_ENDOSO,  decimal VALOR_COMPANIA)
+        {
+            Conectar();
+            int result;
+            try
+            {
+                System.Data.SqlClient.SqlCommand command = new System.Data.SqlClient.SqlCommand("SP_62_ACTUALIZAR_PRODUCTO_ENDOSO", cnn);
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+                command.CommandTimeout = _commandTimeout;
+
+                command.Parameters.Add(new System.Data.SqlClient.SqlParameter("@ID_PRODUCTO", System.Data.SqlDbType.NVarChar));
+                command.Parameters["@ID_PRODUCTO"].Value = ID_PRODUCTO;
+
+                command.Parameters.Add(new System.Data.SqlClient.SqlParameter("@VALOR_PRODUCTO", System.Data.SqlDbType.Decimal));
+                command.Parameters["@VALOR_PRODUCTO"].Value = VALOR_PRODUCTO;
+
+                command.Parameters.Add(new System.Data.SqlClient.SqlParameter("@COSTO", System.Data.SqlDbType.Decimal));
+                command.Parameters["@COSTO"].Value = COSTO;
+
+                command.Parameters.Add(new System.Data.SqlClient.SqlParameter("@SERVICIO_ADICIONAL", System.Data.SqlDbType.Decimal));
+                command.Parameters["@SERVICIO_ADICIONAL"].Value = SERVICIO_ADICIONAL;
+
+                command.Parameters.Add(new System.Data.SqlClient.SqlParameter("@CASH_OUT", System.Data.SqlDbType.Decimal));
+                command.Parameters["@CASH_OUT"].Value = CASH_OUT;
+
+                command.Parameters.Add(new System.Data.SqlClient.SqlParameter("@TARJETA_CREDITO", System.Data.SqlDbType.Decimal));
+                 command.Parameters["@TARJETA_CREDITO"].Value = TARJETA_CREDITO;
+                
+                command.Parameters.Add(new System.Data.SqlClient.SqlParameter("@PAGO_EFECTIVO", System.Data.SqlDbType.Decimal));
+                command.Parameters["@PAGO_EFECTIVO"].Value = PAGO_EFECTIVO;
+                
+                command.Parameters.Add(new System.Data.SqlClient.SqlParameter("@RECARGO", System.Data.SqlDbType.Decimal));
+                command.Parameters["@RECARGO"].Value = RECARGO;
+               
+                command.Parameters.Add(new System.Data.SqlClient.SqlParameter("@NUMERO_CUOTAS", System.Data.SqlDbType.Int));
+                command.Parameters["@NUMERO_CUOTAS"].Value = NUMERO_CUOTAS;
+                
+                command.Parameters.Add(new System.Data.SqlClient.SqlParameter("@INTSALLMENTFEE", System.Data.SqlDbType.Decimal));
+                command.Parameters["@INTSALLMENTFEE"].Value = INTSALLMENTFEE;
+               
+                command.Parameters.Add(new System.Data.SqlClient.SqlParameter("@OBSERVACION", System.Data.SqlDbType.NVarChar));
+                if (string.IsNullOrEmpty(OBSERVACION) || string.IsNullOrWhiteSpace(OBSERVACION))
+                {
+                    command.Parameters["@OBSERVACION"].Value = DBNull.Value;
+                }
+                else
+                {
+                    command.Parameters["@OBSERVACION"].Value = OBSERVACION;
+                }
+
+                command.Parameters.Add(new System.Data.SqlClient.SqlParameter("@ID_USUARIO", System.Data.SqlDbType.Int));
+                command.Parameters["@ID_USUARIO"].Value = ID_USUARIO;
+
+                command.Parameters.Add(new System.Data.SqlClient.SqlParameter("@ESTADO_ENDOSO", System.Data.SqlDbType.NVarChar));
+                command.Parameters["@ESTADO_ENDOSO"].Value = ESTADO_ENDOSO;
+
+                //command.Parameters.Add(new System.Data.SqlClient.SqlParameter("@PAGO_COMPANIA", System.Data.SqlDbType.NVarChar));
+                //command.Parameters["@PAGO_COMPANIA"].Value = PAGO_COMPANIA;
+
+                command.Parameters.Add(new System.Data.SqlClient.SqlParameter("@VALOR_COMPANIA", System.Data.SqlDbType.Decimal));
+                command.Parameters["@VALOR_COMPANIA"].Value = VALOR_COMPANIA;
+               
+
+                result = command.ExecuteNonQuery();
+                command.Dispose();
+            }
+            catch (Exception e)
+            {
+                result = -1;
+                Console.WriteLine(e.StackTrace);
+            }
+            finally
+            {
+                Desconectar();
+            }
+            return result;
+        }
+
+
         public int SP_23_ACTUALIZAR_CUOTAS(string ID_PRODUCTO, string ID_PRODUCTO_ASOCIADO, string ESTADO, decimal VALOR_CUOTA, decimal VALOR_TERJETA, decimal VALOR_EFECTIVO, decimal VALOR_RECARGO, string OBSERVACION, int ID_USUARIO, int PAGO_INFERIOR, decimal COSTO_ADICIONAL, string PAGO_COMPANIA, decimal VALOR_COMPANIA, decimal VALORE_REINSTALACION, decimal VALORE_CUOTA_COMPANIA)
         {
             Conectar();

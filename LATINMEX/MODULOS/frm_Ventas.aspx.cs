@@ -1134,7 +1134,6 @@ namespace LATINMEX.MODULOS.VENTAS
             }
 
             cliente.CASH_OUT = txt_CashOut.Text;
-
             if (!string.IsNullOrEmpty(txt_tarjetaCedito.Text) || !string.IsNullOrWhiteSpace(txt_tarjetaCedito.Text))
             {
                 cliente.TARJETA_CREDITO = Convert.ToDecimal(txt_tarjetaCedito.Text);
@@ -1300,7 +1299,7 @@ namespace LATINMEX.MODULOS.VENTAS
                 total = Convert.ToDecimal(txt_pagoEfectivo.Text == "" ? "0" : txt_pagoEfectivo.Text)
                 + Convert.ToDecimal(txt_tarjetaCedito.Text == "" ? "0" : txt_tarjetaCedito.Text)
                 - Convert.ToDecimal(txt_recargo.Text == "" ? "0" : txt_recargo.Text)
-                - Convert.ToDecimal(txt_Costo.Text == "" ? "0" : txt_Costo.Text)                
+                - Convert.ToDecimal(txt_Costo.Text == "" ? "0" : txt_Costo.Text)
                 - Convert.ToDecimal(txt_ValorServicio.Text == "" ? "0" : txt_ValorServicio.Text);
 
 
@@ -2154,7 +2153,6 @@ namespace LATINMEX.MODULOS.VENTAS
                     cb_prospecto.Checked = true;
                 }
 
-
                 if (!string.IsNullOrEmpty(dt_product.Rows[0]["FECHA_RETIRO"].ToString()) || !string.IsNullOrWhiteSpace(dt_product.Rows[0]["FECHA_RETIRO"].ToString()))
                 {
                     DateTime FechaRetiro = Convert.ToDateTime(dt_product.Rows[0]["FECHA_RETIRO"]);
@@ -2188,7 +2186,6 @@ namespace LATINMEX.MODULOS.VENTAS
                 {
                     hf_estado_renovado.Value = dt_product.Rows[0]["ESTADO_RENOVADO"].ToString();
                 }
-
 
             }
 
@@ -2361,18 +2358,46 @@ namespace LATINMEX.MODULOS.VENTAS
             txt_pagoCompania.Enabled = false;
             txt_proximoPago.Enabled = false;
 
-            if (dt_product.Rows[0]["ESTADO_INTERNO"].ToString() == "ACTIVO")
+            if (BL_EstadosProdu.SelectedItem.Text.Contains("Endoso") && hf_estado_endoso.Value == "POR_ACTUALIZAR")
             {
-                btn_ActualizarEndoso.Visible = true;
-                BL_EstadosProdu.Enabled = true;
-                //btn_ActualizarProduto.Visible = true;
+                bl_Tipopago.Enabled = false;
+                bl_Numcuotas.Enabled = false;
+                txt_valor.Enabled = true;
+                txt_Costo.Enabled = true;
+                txt_SerAdicional.Enabled = true;
+                txt_CashOut.Enabled = true;
+                txt_tarjetaCedito.Enabled = true;
+                txt_pagoEfectivo.Enabled = true;
+                txt_recargo.Enabled = true;
+                txt_Intsallmentfee.Enabled = true;
+                txt_pagoCompania.Enabled = true;
+                //txt_proximoPago.Enabled = true;
+            }
+
+
+
+            if (dt_product != null && dt_product.Rows.Count > 0)
+            {
+                if (dt_product.Rows[0]["ESTADO_INTERNO"].ToString() == "ACTIVO")
+                {
+                    btn_ActualizarEndoso.Visible = true;
+                    BL_EstadosProdu.Enabled = true;
+                    btn_ActualizarProduto.Visible = false;
+                }
+                else
+                {
+                    btn_ActualizarEndoso.Visible = false;
+                    BL_EstadosProdu.Enabled = false;
+                    btn_ActualizarProduto.Visible = false;
+                }
             }
             else
             {
-                btn_ActualizarEndoso.Visible = false;
-                BL_EstadosProdu.Enabled = false;
-                //btn_ActualizarProduto.Visible = false;
+                btn_ActualizarEndoso.Visible = true;
+                BL_EstadosProdu.Enabled = true;
+                btn_ActualizarProduto.Visible = false;
             }
+
 
         }
 
@@ -2867,7 +2892,7 @@ namespace LATINMEX.MODULOS.VENTAS
                     string IP = Request.UserHostAddress;
                     string nombreCliente = $"{txt_PrimerNombre.Text} {txt_SegundoNombre.Text} {txt_Apellidos.Text}";
                     audi.SP_02_INSERTAR_AUDITORIA("ACTUALIZAR PRODUCTO", $"El usuario {Session["nombre_usuario"]} actualizo el estado de un producto a 'ENDOSO', producto asociado al cliente cliente {nombreCliente}", "VENTAS", IP, Convert.ToInt32(Session["userID"].ToString()));
-                   
+
                     hf_Producto.Value = idProducto;
 
                     DetallesProducto_Endoso(hf_Producto.Value);
@@ -2883,9 +2908,8 @@ namespace LATINMEX.MODULOS.VENTAS
                 txt_recargo.Text = "0";
                 txt_Intsallmentfee.Text = "0";
                 txt_pagoCompania.Text = "0";
-               
-                bl_Tipopago.Enabled = false;
-                bl_Numcuotas.Enabled = false;
+
+
                 txt_valor.Enabled = true;
                 txt_Costo.Enabled = true;
                 txt_SerAdicional.Enabled = true;
@@ -2948,7 +2972,7 @@ namespace LATINMEX.MODULOS.VENTAS
                 btn_ActualizarProduto.Visible = false;
                 btn_ActualizarEndoso.Visible = true;
                 btn_aceptar.Visible = false;
-                hf_Producto.Value = idProducto;
+                hf_Producto.Value = idEndoso;
                 hf_estado_producto.Value = estadoP;
 
                 DetallesProducto_Endoso(idEndoso);
@@ -2991,26 +3015,191 @@ namespace LATINMEX.MODULOS.VENTAS
 
         protected void btn_ActualizarEndoso_Click(object sender, EventArgs e)
         {
+            string idCliente = "";
+            try
+            {
+                idCliente = Page.Request.QueryString["CLIENT_ID"].ToString();
+            }
+            catch (Exception)
+            {
+            }
+
+            decimal VALOR_PRODUCTO = 0;
+            decimal COSTO = 0;
+            decimal SERVICIO_ADICIONAL = 0;
+            decimal CASH_OUT = 0;
+            decimal TARJETA_CREDITO = 0;
+            decimal PAGO_EFECTIVO = 0;
+            decimal RECARGO = 0;
+            decimal INTSALLMENTFEE = 0;
+            decimal VALOR_COMPANIA = 0;
+            string NUMERO_CUOTAS = "1";
+            int ID_USUARIO = Convert.ToInt32(Session["userID"].ToString());
+
+
+            if (!string.IsNullOrEmpty(txt_valor.Text) || !string.IsNullOrWhiteSpace(txt_valor.Text))
+            {
+                VALOR_PRODUCTO = Convert.ToDecimal(txt_valor.Text);
+            }
+            else
+            {
+                VALOR_PRODUCTO = 0;
+            }
+
+            if (!string.IsNullOrEmpty(txt_Costo.Text) || !string.IsNullOrWhiteSpace(txt_Costo.Text))
+            {
+                COSTO = Convert.ToDecimal(txt_Costo.Text);
+            }
+            else
+            {
+                COSTO = 0;
+            }
+
+            if (!string.IsNullOrEmpty(txt_SerAdicional.Text) || !string.IsNullOrWhiteSpace(txt_SerAdicional.Text))
+            {
+                SERVICIO_ADICIONAL = Convert.ToDecimal(txt_SerAdicional.Text);
+            }
+            else
+            {
+                SERVICIO_ADICIONAL = 0;
+            }
+
+            if (!string.IsNullOrEmpty(txt_CashOut.Text) || !string.IsNullOrWhiteSpace(txt_CashOut.Text))
+            {
+                CASH_OUT = Convert.ToDecimal(txt_CashOut.Text);
+            }
+            else
+            {
+                CASH_OUT = 0;
+            }
+
+            if (!string.IsNullOrEmpty(txt_tarjetaCedito.Text) || !string.IsNullOrWhiteSpace(txt_tarjetaCedito.Text))
+            {
+                TARJETA_CREDITO = Convert.ToDecimal(txt_tarjetaCedito.Text);
+            }
+            else
+            {
+                TARJETA_CREDITO = 0;
+            }
+
+            if (!string.IsNullOrEmpty(txt_pagoEfectivo.Text) || !string.IsNullOrWhiteSpace(txt_pagoEfectivo.Text))
+            {
+                PAGO_EFECTIVO = Convert.ToDecimal(txt_pagoEfectivo.Text);
+            }
+            else
+            {
+                PAGO_EFECTIVO = 0;
+            }
+
+            if (!string.IsNullOrEmpty(txt_recargo.Text) || !string.IsNullOrWhiteSpace(txt_recargo.Text))
+            {
+                RECARGO = Convert.ToDecimal(txt_recargo.Text);
+            }
+            else
+            {
+                RECARGO = 0;
+            }
+
+            if (!string.IsNullOrEmpty(txt_Intsallmentfee.Text) || !string.IsNullOrWhiteSpace(txt_Intsallmentfee.Text))
+            {
+                INTSALLMENTFEE = Convert.ToDecimal(txt_Intsallmentfee.Text);
+            }
+            else
+            {
+                INTSALLMENTFEE = 0;
+            }
+
+            if (!string.IsNullOrEmpty(txt_pagoCompania.Text) || !string.IsNullOrWhiteSpace(txt_pagoCompania.Text))
+            {
+                VALOR_COMPANIA = Convert.ToDecimal(txt_pagoCompania.Text);
+            }
+            else
+            {
+                VALOR_COMPANIA = 0;
+            }
+
+            string OBSERVACION = txt_observacion.Value;
+
+            if (bl_Tipopago.SelectedItem.Text == "Cuotas")
+            {
+                NUMERO_CUOTAS = bl_Numcuotas.SelectedValue;
+            }
+            else
+            {
+                NUMERO_CUOTAS = null;
+            }
+
+            CLS_PRODUCTOS cls_produ = new CLS_PRODUCTOS();
+            string idArchivo = "";
+            if (file_Producto.HasFile == true)
+            {
+
+                if (file_Producto.PostedFile.ContentLength > 10000000)
+                {
+                    Message_warning.Text = "El tamaño no puede ser mayo a 10 MB";
+                    Message_warning.Visible = true;
+                    mpe_Produc.Show();
+                    return;
+                }
+
+                idArchivo = GuardarArchivos(file_Producto);
+            }
+
+            //string ID_PRODUCTO,  decimal VALOR_PRODUCTO, decimal COSTO, decimal SERVICIO_ADICIONAL,
+            //decimal CASH_OUT, decimal TARJETA_CREDITO, decimal PAGO_EFECTIVO,
+            //decimal RECARGO, decimal NUMERO_CUOTAS, decimal INTSALLMENTFEE,
+            //string OBSERVACION, string ID_USUARIO, string ESTADO_ENDOSO, string PAGO_COMPANIA, string VALOR_COMPANIA
+
+            int resul = cls_produ.SP_62_ACTUALIZAR_PRODUCTO_ENDOSO(hf_Producto.Value,
+                VALOR_PRODUCTO, COSTO, SERVICIO_ADICIONAL, CASH_OUT, TARJETA_CREDITO,
+                PAGO_EFECTIVO, RECARGO, NUMERO_CUOTAS, INTSALLMENTFEE, OBSERVACION,
+                ID_USUARIO, hf_estado_endoso.Value, VALOR_COMPANIA);
+
+
+            if (resul > 0)
+            {
+                if (!string.IsNullOrEmpty(idArchivo) && !string.IsNullOrWhiteSpace(idArchivo))
+                {
+                    cls_produ.SP_30_GUARDAR_FORMULARIO_ARCHIVOS(idArchivo, idCliente, hf_Producto.Value, "PRODUCTOS");
+                }
+
+
+                CLS_AUDITORIA audi = new CLS_AUDITORIA();
+                string IP = Request.UserHostAddress;
+                string nombreCliente = $"{txt_PrimerNombre.Text} {txt_SegundoNombre.Text} {txt_Apellidos.Text}";
+
+                audi.SP_02_INSERTAR_AUDITORIA("ACTUALIZAR PRODUCTO", $"El usuario {Session["nombre_usuario"]} actualizo el producto nuevo producto asociado al cliente cliente {nombreCliente}", "VENTAS", IP, Convert.ToInt32(Session["userID"].ToString()));
+
+                OcultarControles("ACTUALIZAR");
+                ProductosCliente(idCliente);
+
+                Message_Succes.Text = "Producto actualizado correctamente";
+                Message_Succes.Visible = true;
+            }
+            //hf_Producto.Value = idProducto;
+            //txt_valor.Enabled = true;
+            //txt_Costo.Enabled = true;
+            //txt_SerAdicional.Enabled = true;
+            //txt_CashOut.Enabled = true;
+            //txt_tarjetaCedito.Enabled = true;
+            //txt_pagoEfectivo.Enabled = true;
+            //txt_recargo.Enabled = true;
+            //txt_Intsallmentfee.Enabled = true;
+            //txt_pagoCompania.Enabled = true;
+            //txt_proximoPago.Enabled = true;
+
             if (bl_TipoProducto.SelectedItem.Text == "SEGURO")
             {
                 if (BL_EstadosProdu.SelectedItem.Text.Contains("Nuevo Endoso"))
                 {
-                    string idCliente = "";
-                    try
-                    {
-                        idCliente = Page.Request.QueryString["CLIENT_ID"].ToString();
-                    }
-                    catch (Exception)
-                    {
-                    }
 
                     string id = BL_EstadosProdu.SelectedValue;
-                    CLS_PRODUCTOS cls_produ = new CLS_PRODUCTOS();
-                    DataTable resul = null;
-                    resul = cls_produ.SP_33_INSERTAR_ENDOSO(Convert.ToInt32(hf_Producto.Value), Convert.ToInt32(4), Convert.ToInt32(Session["userID"].ToString()), 1);
-                    if (resul != null)
+                    //CLS_PRODUCTOS cls_produ = new CLS_PRODUCTOS();
+                    DataTable resul2 = null;
+                    resul2 = cls_produ.SP_33_INSERTAR_ENDOSO(Convert.ToInt32(hf_Producto.Value), Convert.ToInt32(4), Convert.ToInt32(Session["userID"].ToString()), 1);
+                    if (resul2 != null)
                     {
-                        string idProducto = resul.Rows[0]["PRODUCTO_ENDOSO"].ToString();
+                        string idProducto = resul2.Rows[0]["PRODUCTO_ENDOSO"].ToString();
 
                         CLS_AUDITORIA audi = new CLS_AUDITORIA();
                         string IP = Request.UserHostAddress;
@@ -3033,7 +3222,7 @@ namespace LATINMEX.MODULOS.VENTAS
                     txt_recargo.Text = "0";
                     txt_Intsallmentfee.Text = "0";
                     txt_pagoCompania.Text = "0";
-                    
+
 
                     bl_Tipopago.Enabled = false;
                     bl_Numcuotas.Enabled = false;
