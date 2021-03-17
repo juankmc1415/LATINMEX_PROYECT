@@ -15,16 +15,16 @@
     <title>LATINMEX </title>
 
     <!-- Bootstrap -->
-    <link href="~/Content/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../Content/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
     <!-- Font Awesome -->
-    <link href="~/Content/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="../Content/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
     <!-- NProgress -->
-    <link href="~/Content/nprogress/nprogress.css" rel="stylesheet" />
+    <link href="../Content/nprogress/nprogress.css" rel="stylesheet" />
     <!-- Animate.css -->
-    <link href="~/Content/animate.css/animate.min.css" rel="stylesheet" />
+    <link href="../Content/animate.css/animate.min.css" rel="stylesheet" />
 
     <!-- Custom Theme Style -->
-    <link href="~/Content/build/css/custom.min.css" rel="stylesheet" />
+    <link href="../Content/build/css/custom.min.css" rel="stylesheet" />
 
 </head>
 <body class="login">
@@ -42,7 +42,7 @@
 
                         <div>
                             <%--<img src="/resources/images/Latinmex.jpg" width="400" alt="..." class="" />--%>
-                            <img src="/resources/images/logo.jpg" height="200" alt="..." class="" />
+                            <img src="../resources/images/logo.jpg" height="200" alt="..." class="" />
                         </div>
                     </div>
 
@@ -57,7 +57,7 @@
 
                     <div>
                         <asp:Button runat="server" ID="tst" OnClick="btn_login_Click" Text="Log In" CssClass="btn btn-secondary btn-xs" />
-                        <a class="reset_pass" href="#">Lost your password?</a>
+                        <a class="reset_pass" href="../WEB/frm_recuperarContraseña.aspx">Lost your password?</a>
                     </div>
 
                     <div class="clearfix"></div>

@@ -52,11 +52,22 @@ namespace LATINMEX.LOGIN
 
                 if (dataUsuario != null && dataUsuario.Tables.Count > 0)
                 {
-                    nombre = dataUsuario.Tables[0].Rows[0]["NOMBRES"].ToString();
+                    int estado = dataUsuario.Tables[0].Rows[0].Field<int>("ID_ESTADO");
+                    if ((int)(ESTADOS_USUARIO.Inactivo) == estado)
+                    {
+                        lbl_Mensaje.Text = "Usuario inactivo";
+                        lbl_Mensaje.Visible = true;
+                        txt_Contraseña.Focus();
+                        return;
+                    }
 
+                    nombre = dataUsuario.Tables[0].Rows[0]["NOMBRES"].ToString();
                     Session["usuario"] = usuario;
                     Session["userID"] = dataUsuario.Tables[0].Rows[0]["ID_USUARIO"].ToString();
+                    Session["roles"] = dataUsuario.Tables[0].Rows[0]["ROLES"].ToString();
                     Session["nombre_usuario"] = nombre;
+                    bool forzar = dataUsuario.Tables[0].Rows[0].Field<bool>("FORZAR_CAMBIO");
+                    Session["forzar_contraseña"] = forzar;
                 }
 
                 //Registrar auditoria

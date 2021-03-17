@@ -1408,8 +1408,83 @@ namespace LATINMEX.Datos.PRODUCTOS
             return result;
         }
 
+        public int SP_72_ESTADO_ACTUALIZAR_ESTADO_CUOTA_DMV(string @ID_CUOTA_DMV, string ID_PRODUCTO, decimal VALOR_IMPUESTO, decimal EXCEDENTE_IMPUESTO, decimal VALOR_PAGO_TARJETA, decimal VALOR_RECARGO, decimal VALOR_PAGO_EFECTIVO, decimal VALOR_SERVICIO, decimal EXCEDENTE_TRAMITE, decimal TOTAL_COBRAR, string ESTADO, decimal CASH_OUT, DateTime FECHA, string TIPO_PAGO, int ID_USUARIO, string OBSERVACION)
+        {
+            Conectar();
+            int result;
+            try
+            {
+                System.Data.SqlClient.SqlCommand command = new System.Data.SqlClient.SqlCommand("SP_72_ESTADO_ACTUALIZAR_ESTADO_CUOTA_DMV", cnn);
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+                command.CommandTimeout = _commandTimeout;
 
-        public DataTable SP_33_INSERTAR_ENDOSO(int ID_PRODUCTO, int ESTADO_PRODUCTO, int ID_USUARIO, int ESTADO_ENDOSO)
+                command.Parameters.Add(new System.Data.SqlClient.SqlParameter("@ID_CUOTA_DMV", System.Data.SqlDbType.Int));
+                command.Parameters["@ID_CUOTA_DMV"].Value = ID_CUOTA_DMV;
+
+                command.Parameters.Add(new System.Data.SqlClient.SqlParameter("@ID_PRODUCTO", System.Data.SqlDbType.Int));
+                command.Parameters["@ID_PRODUCTO"].Value = @ID_PRODUCTO;
+
+                command.Parameters.Add(new System.Data.SqlClient.SqlParameter("@VALOR_IMPUESTO", System.Data.SqlDbType.Decimal));
+                command.Parameters["@VALOR_IMPUESTO"].Value = VALOR_IMPUESTO;
+
+                command.Parameters.Add(new System.Data.SqlClient.SqlParameter("@EXCEDENTE_IMPUESTO", System.Data.SqlDbType.Decimal));
+                command.Parameters["@EXCEDENTE_IMPUESTO"].Value = EXCEDENTE_IMPUESTO;
+
+                command.Parameters.Add(new System.Data.SqlClient.SqlParameter("@VALOR_PAGO_TARJETA", System.Data.SqlDbType.Decimal));
+                command.Parameters["@VALOR_PAGO_TARJETA"].Value = VALOR_PAGO_TARJETA;
+
+                command.Parameters.Add(new System.Data.SqlClient.SqlParameter("@VALOR_RECARGO", System.Data.SqlDbType.Decimal));
+                command.Parameters["@VALOR_RECARGO"].Value = VALOR_RECARGO;
+
+                command.Parameters.Add(new System.Data.SqlClient.SqlParameter("@VALOR_PAGO_EFECTIVO", System.Data.SqlDbType.Decimal));
+                command.Parameters["@VALOR_PAGO_EFECTIVO"].Value = VALOR_PAGO_EFECTIVO;
+
+                command.Parameters.Add(new System.Data.SqlClient.SqlParameter("@VALOR_SERVICIO", System.Data.SqlDbType.Decimal));
+                command.Parameters["@VALOR_SERVICIO"].Value = VALOR_SERVICIO;
+
+                command.Parameters.Add(new System.Data.SqlClient.SqlParameter("@EXCEDENTE_TRAMITE", System.Data.SqlDbType.Decimal));
+                command.Parameters["@EXCEDENTE_TRAMITE"].Value = EXCEDENTE_TRAMITE;
+
+                command.Parameters.Add(new System.Data.SqlClient.SqlParameter("@TOTAL_COBRAR", System.Data.SqlDbType.Decimal));
+                command.Parameters["@TOTAL_COBRAR"].Value = TOTAL_COBRAR;
+
+                command.Parameters.Add(new System.Data.SqlClient.SqlParameter("@ESTADO", System.Data.SqlDbType.NVarChar));
+                command.Parameters["@ESTADO"].Value = ESTADO;
+
+                command.Parameters.Add(new System.Data.SqlClient.SqlParameter("@CASH_OUT", System.Data.SqlDbType.Decimal));
+                command.Parameters["@CASH_OUT"].Value = CASH_OUT;
+
+                command.Parameters.Add(new System.Data.SqlClient.SqlParameter("@FECHA", System.Data.SqlDbType.DateTime));
+                command.Parameters["@FECHA"].Value = FECHA;
+
+                command.Parameters.Add(new System.Data.SqlClient.SqlParameter("@TIPO_PAGO", System.Data.SqlDbType.NVarChar));
+                command.Parameters["@TIPO_PAGO"].Value = TIPO_PAGO;
+
+                command.Parameters.Add(new System.Data.SqlClient.SqlParameter("@ID_USUARIO", System.Data.SqlDbType.NVarChar));
+                command.Parameters["@ID_USUARIO"].Value = ID_USUARIO;
+
+                command.Parameters.Add(new System.Data.SqlClient.SqlParameter("@OBSERVACION", System.Data.SqlDbType.NVarChar));
+                command.Parameters["@OBSERVACION"].Value = OBSERVACION;
+
+
+                result = command.ExecuteNonQuery();
+                command.Dispose();
+
+            }
+            catch (Exception e)
+            {
+                result = -1;
+                Console.WriteLine(e.StackTrace);
+            }
+            finally
+            {
+                Desconectar();
+            }
+            return result;
+        }
+
+
+        public DataTable SP_33_INSERTAR_ENDOSO(int ID_PRODUCTO, int ESTADO_PRODUCTO, int ID_USUARIO, int ESTADO_ENDOSO, string OPCION)
         {
             Conectar();
             DataTable result = new DataTable();
@@ -1430,6 +1505,10 @@ namespace LATINMEX.Datos.PRODUCTOS
 
                 command.Parameters.Add(new System.Data.SqlClient.SqlParameter("@ESTADO_ENDOSO", System.Data.SqlDbType.Int));
                 command.Parameters["@ESTADO_ENDOSO"].Value = ESTADO_ENDOSO;
+
+                command.Parameters.Add(new System.Data.SqlClient.SqlParameter("@OPCION", System.Data.SqlDbType.NVarChar));
+                command.Parameters["@OPCION"].Value = OPCION;
+                
 
                 //result = command.ExecuteNonQuery();
                 //command.Dispose();

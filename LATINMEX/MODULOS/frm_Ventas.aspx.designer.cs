@@ -60,6 +60,24 @@ namespace LATINMEX.MODULOS.VENTAS
         protected global::System.Web.UI.WebControls.Label Message_danger;
 
         /// <summary>
+        /// UpdatePanel6 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel UpdatePanel6;
+
+        /// <summary>
+        /// rp_listaClientes control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Repeater rp_listaClientes;
+
+        /// <summary>
         /// pnll_info1 control.
         /// </summary>
         /// <remarks>
@@ -771,6 +789,15 @@ namespace LATINMEX.MODULOS.VENTAS
         protected global::System.Web.UI.WebControls.TextBox txt_Costo;
 
         /// <summary>
+        /// div_adicional control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl div_adicional;
+
+        /// <summary>
         /// txt_SerAdicional control.
         /// </summary>
         /// <remarks>
@@ -814,6 +841,15 @@ namespace LATINMEX.MODULOS.VENTAS
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txt_CashOut;
+
+        /// <summary>
+        /// div_tipoPago control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl div_tipoPago;
 
         /// <summary>
         /// bl_Tipopago control.
@@ -1464,6 +1500,15 @@ namespace LATINMEX.MODULOS.VENTAS
         protected global::System.Web.UI.WebControls.LinkButton btn_AceptarCuotasDMV;
 
         /// <summary>
+        /// btn_ActualizarCuotasDMV control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton btn_ActualizarCuotasDMV;
+
+        /// <summary>
         /// btn_ImprimirCuotaDMV control.
         /// </summary>
         /// <remarks>
@@ -1482,15 +1527,6 @@ namespace LATINMEX.MODULOS.VENTAS
         protected global::System.Web.UI.WebControls.LinkButton btn_cerrarCuotaDMV;
 
         /// <summary>
-        /// btnShow control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnShow;
-
-        /// <summary>
         /// hf_Informes control.
         /// </summary>
         /// <remarks>
@@ -1498,6 +1534,15 @@ namespace LATINMEX.MODULOS.VENTAS
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hf_Informes;
+
+        /// <summary>
+        /// hf_InfoPop control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hf_InfoPop;
 
         /// <summary>
         /// mpe_Informes control.
@@ -1543,5 +1588,19 @@ namespace LATINMEX.MODULOS.VENTAS
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton btn_CerrarInfo;
+
+        /// <summary>
+        /// Master property.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated property.
+        /// </remarks>
+        public new LATINMEX.SiteMaster Master
+        {
+            get
+            {
+                return ((LATINMEX.SiteMaster)(base.Master));
+            }
+        }
     }
 }

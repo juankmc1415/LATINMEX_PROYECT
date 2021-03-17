@@ -7,40 +7,86 @@ namespace LATINMEX.Datos.CORE
 {
     public class CLS_CORE
     {
-        public static string Encrypt(string plainText)
+        public static string Encrypt(string clearText)
         {
-            if (plainText == null)
+            string EncryptionKey = "0x86Bd77318bA4524F8Ad22A1E2897A27A53a99561";
+            byte[] clearBytes = Encoding.Unicode.GetBytes(clearText);
+            using (Aes encryptor = Aes.Create())
             {
-                return null;
+                Rfc2898DeriveBytes pdb = new Rfc2898DeriveBytes(EncryptionKey, new byte[] { 0x49, 0x76, 0x61, 0x6e, 0x20, 0x4d, 0x65, 0x64, 0x76, 0x65, 0x64, 0x65, 0x76 });
+                encryptor.Key = pdb.GetBytes(32);
+                encryptor.IV = pdb.GetBytes(16);
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    using (CryptoStream cs = new CryptoStream(ms, encryptor.CreateEncryptor(), CryptoStreamMode.Write))
+                    {
+                        cs.Write(clearBytes, 0, clearBytes.Length);
+                        cs.Close();
+                    }
+                    clearText = Convert.ToBase64String(ms.ToArray());
+                }
             }
-            // Get the bytes of the string
-            var bytesToBeEncrypted = Encoding.UTF8.GetBytes(plainText);
-            var passwordBytes = Encoding.UTF8.GetBytes(plainText);
-
-            // Hash the password with SHA256
-            passwordBytes = SHA512.Create().ComputeHash(passwordBytes);
-
-            var bytesEncrypted = Encrypt(bytesToBeEncrypted, passwordBytes);
-
-            return Convert.ToBase64String(bytesEncrypted);
+            return clearText;
         }
 
-        public static string Decrypt(string encryptedText)
+        public static string Decrypt(string cipherText)
         {
-            if (encryptedText == null)
+            string EncryptionKey = "0x86Bd77318bA4524F8Ad22A1E2897A27A53a99561";
+            cipherText = cipherText.Replace(" ", "+");
+            byte[] cipherBytes = Convert.FromBase64String(cipherText);
+            using (Aes encryptor = Aes.Create())
             {
-                return null;
+                Rfc2898DeriveBytes pdb = new Rfc2898DeriveBytes(EncryptionKey, new byte[] { 0x49, 0x76, 0x61, 0x6e, 0x20, 0x4d, 0x65, 0x64, 0x76, 0x65, 0x64, 0x65, 0x76 });
+                encryptor.Key = pdb.GetBytes(32);
+                encryptor.IV = pdb.GetBytes(16);
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    using (CryptoStream cs = new CryptoStream(ms, encryptor.CreateDecryptor(), CryptoStreamMode.Write))
+                    {
+                        cs.Write(cipherBytes, 0, cipherBytes.Length);
+                        cs.Close();
+                    }
+                    cipherText = Encoding.Unicode.GetString(ms.ToArray());
+                }
             }
-            // Get the bytes of the string
-            var bytesToBeDecrypted = Convert.FromBase64String(encryptedText);
-            var passwordBytes = Encoding.UTF8.GetBytes(encryptedText);
-
-            passwordBytes = SHA512.Create().ComputeHash(passwordBytes);
-
-            var bytesDecrypted = Decrypt(bytesToBeDecrypted, passwordBytes);
-
-            return Encoding.UTF8.GetString(bytesDecrypted);
+            return cipherText;
         }
+
+
+        //public static string Encrypt(string plainText)
+        //{
+        //    if (plainText == null)
+        //    {
+        //        return null;
+        //    }
+        //    // Get the bytes of the string
+        //    var bytesToBeEncrypted = Encoding.UTF8.GetBytes(plainText);
+        //    var passwordBytes = Encoding.UTF8.GetBytes(plainText);
+
+        //    // Hash the password with SHA256
+        //    passwordBytes = SHA512.Create().ComputeHash(passwordBytes);
+
+        //    var bytesEncrypted = Encrypt(bytesToBeEncrypted, passwordBytes);
+
+        //    return Convert.ToBase64String(bytesEncrypted);
+        //}
+
+        //public static string Decrypt(string encryptedText)
+        //{
+        //    if (encryptedText == null)
+        //    {
+        //        return null;
+        //    }
+        //    // Get the bytes of the string
+        //    var bytesToBeDecrypted = Convert.FromBase64String(encryptedText);
+        //    var passwordBytes = Encoding.UTF8.GetBytes(encryptedText);
+
+        //    passwordBytes = SHA512.Create().ComputeHash(passwordBytes);
+
+        //    var bytesDecrypted = Decrypt(bytesToBeDecrypted, passwordBytes);
+
+        //    return Encoding.UTF8.GetString(bytesDecrypted);
+        //}
 
         private static byte[] Encrypt(byte[] bytesToBeEncrypted, byte[] passwordBytes)
         {
@@ -103,11 +149,33 @@ namespace LATINMEX.Datos.CORE
             return decryptedBytes;
         }
 
+        public static string GenerarCodigo(int codeLength)
+        {
+            string result = "";
+            // Nuestro patrón de caracteres para formar el código
+            string pattern = "+-_#!?0123456789abcdefghijklmnñopqrstuvwxyzABCDEFGHIJKLMNÑOPQRSTUVWXYZ";
+            // Creamos una instancia del generador de números aleatorios
+            // cogemos como semilla los Ticks de reloj de esta forma nos 
+            // aseguramos de no generar códigos con la misma semilla.
+            Random myRndGenerator = new Random((int)DateTime.Now.Ticks);
+            // Procedemos a conformar el código
+            for (int i = 0; i < codeLength; i++)
+            {
+                // Obtenemos un número aleatorio que se corresponde con una
+                // posición dentro del pattern.
+                int mIndex = myRndGenerator.Next(pattern.Length);
+                // Vamos formando el código
+                result += pattern[mIndex];
+            }
+
+            return result;
+        }
+
         public class LTM_CLIENTE
         {
             public string PRIMER_NOMBRE { get; set; }
             public string SEGUNDO_NOMBRE { get; set; }
-            public string APELLIDOS { get; set; }            
+            public string APELLIDOS { get; set; }
             public string CORREO { get; set; }
             public string TELEFONO_MOVIL { get; set; }
             public string DIRECCION_RESIDENCIA { get; set; }
@@ -132,11 +200,11 @@ namespace LATINMEX.Datos.CORE
             public DateTime? FECHA_VIN_5 { get; set; }
 
             public int ID_USUARIO_CREACION { get; set; }
-            
+
             public int ID_USUARIO_ACTUALIZACION { get; set; }
             public DateTime FECHA_CREACION { get; set; }
             public DateTime FECHA_ACTULIZACION { get; set; }
-           
+
         }
 
         public class LTM_PRODUCTO

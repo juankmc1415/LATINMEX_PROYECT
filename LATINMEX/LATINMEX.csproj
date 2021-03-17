@@ -49,6 +49,8 @@
     <Reference Include="AjaxControlToolkit, Version=20.1.0.0, Culture=neutral, PublicKeyToken=28f01b0e84b6d53e, processorArchitecture=MSIL">
       <HintPath>..\packages\AjaxControlToolkit.20.1.0\lib\net40\AjaxControlToolkit.dll</HintPath>
     </Reference>
+    <Reference Include="DevExpress.Web.Bootstrap.v19.1, Version=19.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Web.v19.1, Version=19.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.ReportViewer.Common, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.WebForms.150.1427.0\lib\net40\Microsoft.ReportViewer.Common.dll</HintPath>
@@ -2180,6 +2182,7 @@
     <Content Include="Content\skycons\index.html" />
     <Content Include="Content\skycons\skycons.js" />
     <Content Include="favicon.ico" />
+    <Content Include="Files\perfilusuarios.png" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -2658,6 +2661,13 @@
     <Content Include="LATINMEX_BDDataSet.xsc">
       <DependentUpon>LATINMEX_BDDataSet.xsd</DependentUpon>
     </Content>
+    <Content Include="MODULOS\Default.aspx" />
+    <Content Include="MODULOS\frm_forzarContrasena.aspx" />
+    <Content Include="MODULOS\frm_ListaUsuarios.aspx" />
+    <Content Include="MODULOS\frm_Permisos.aspx" />
+    <Content Include="MODULOS\frm_roles.aspx" />
+    <Content Include="MODULOS\frm_usuarios.aspx" />
+    <Content Include="WEB\frm_recuperarContraseña.aspx" />
     <None Include="LATINMEX_BDDataSet.xsd">
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>LATINMEX_BDDataSet.Designer.cs</LastGenOutput>
@@ -2666,6 +2676,7 @@
     <Content Include="LATINMEX_BDDataSet.xss">
       <DependentUpon>LATINMEX_BDDataSet.xsd</DependentUpon>
     </Content>
+    <Content Include="MODULOS\frm_Menus.aspx" />
     <Content Include="REPORTES\REPORT_PRODUCTOS\REPORT_SEGUROS\DataSet_Detalles_Seguro.xsc">
       <DependentUpon>DataSet_Detalles_Seguro.xsd</DependentUpon>
     </Content>
@@ -2679,7 +2690,6 @@
     </Content>
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="LOGIN\LOGIN.aspx" />
-    <Content Include="MODULOS\Default.aspx" />
     <Content Include="MODULOS\frm_Gastos.aspx" />
     <Content Include="MODULOS\frm_Informes.aspx" />
     <Content Include="MODULOS\frm_llamadas.aspx" />
@@ -2751,6 +2761,12 @@
     <Compile Include="Datos\Conexion.cs" />
     <Compile Include="Datos\CORE\CLS_AUDITORIA.cs" />
     <Compile Include="Datos\CORE\CLS_CORE.cs" />
+    <Compile Include="Datos\CORE\CLS_MENUS.cs" />
+    <Compile Include="Datos\CORE\CLS_NOTIFY.cs" />
+    <Compile Include="Datos\CORE\CLS_PARAMETROS.cs" />
+    <Compile Include="Datos\CORE\CLS_PERMISOS.cs" />
+    <Compile Include="Datos\CORE\CLS_USUARIOS.cs" />
+    <Compile Include="Datos\CORE\RESULT.cs" />
     <Compile Include="Datos\INFORMES\CLS_INFORMES.cs" />
     <Compile Include="Datos\LLAMADAS\CLS_LLAMADAS.cs" />
     <Compile Include="Datos\LOGIN\DBA_LOGIN.cs" />
@@ -2771,12 +2787,27 @@
     <Compile Include="LOGIN\LOGIN.aspx.designer.cs">
       <DependentUpon>LOGIN.aspx</DependentUpon>
     </Compile>
+    <Compile Include="MODELVIEW\AuditoriasView.cs" />
+    <Compile Include="MODELVIEW\ClientesView.cs" />
+    <Compile Include="MODELVIEW\Menuview.cs" />
+    <Compile Include="MODELVIEW\PermisosView.cs" />
+    <Compile Include="MODELVIEW\RolesMenusView.cs" />
+    <Compile Include="MODELVIEW\RolesView.cs" />
+    <Compile Include="MODELVIEW\TipoPermisoView.cs" />
+    <Compile Include="MODELVIEW\UsuariosView.cs" />
     <Compile Include="MODULOS\Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="MODULOS\Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="MODULOS\frm_forzarContrasena.aspx.cs">
+      <DependentUpon>frm_forzarContrasena.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MODULOS\frm_forzarContrasena.aspx.designer.cs">
+      <DependentUpon>frm_forzarContrasena.aspx</DependentUpon>
     </Compile>
     <Compile Include="MODULOS\frm_Gastos.aspx.cs">
       <DependentUpon>frm_Gastos.aspx</DependentUpon>
@@ -2792,12 +2823,47 @@
     <Compile Include="MODULOS\frm_Informes.aspx.designer.cs">
       <DependentUpon>frm_Informes.aspx</DependentUpon>
     </Compile>
+    <Compile Include="MODULOS\frm_ListaUsuarios.aspx.cs">
+      <DependentUpon>frm_ListaUsuarios.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MODULOS\frm_ListaUsuarios.aspx.designer.cs">
+      <DependentUpon>frm_ListaUsuarios.aspx</DependentUpon>
+    </Compile>
     <Compile Include="MODULOS\frm_llamadas.aspx.cs">
       <DependentUpon>frm_llamadas.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="MODULOS\frm_llamadas.aspx.designer.cs">
       <DependentUpon>frm_llamadas.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="MODULOS\frm_Menus.aspx.cs">
+      <DependentUpon>frm_Menus.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MODULOS\frm_Menus.aspx.designer.cs">
+      <DependentUpon>frm_Menus.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="MODULOS\frm_Permisos.aspx.cs">
+      <DependentUpon>frm_Permisos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MODULOS\frm_Permisos.aspx.designer.cs">
+      <DependentUpon>frm_Permisos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="MODULOS\frm_roles.aspx.cs">
+      <DependentUpon>frm_roles.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MODULOS\frm_roles.aspx.designer.cs">
+      <DependentUpon>frm_roles.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="MODULOS\frm_usuarios.aspx.cs">
+      <DependentUpon>frm_usuarios.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MODULOS\frm_usuarios.aspx.designer.cs">
+      <DependentUpon>frm_usuarios.aspx</DependentUpon>
     </Compile>
     <Compile Include="MODULOS\frm_Ventas.aspx.cs">
       <DependentUpon>frm_Ventas.aspx</DependentUpon>
@@ -2835,6 +2901,13 @@
     <Compile Include="ViewSwitcher.ascx.designer.cs">
       <DependentUpon>ViewSwitcher.ascx</DependentUpon>
     </Compile>
+    <Compile Include="WEB\frm_recuperarContraseña.aspx.cs">
+      <DependentUpon>frm_recuperarContraseña.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WEB\frm_recuperarContraseña.aspx.designer.cs">
+      <DependentUpon>frm_recuperarContraseña.aspx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -2857,7 +2930,14 @@
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Properties\licenses.licx" />
     <EmbeddedResource Include="REPORTES\REPORT_PRODUCTOS\REPORT_SEGUROS\Report_Detalles_Seguro.rdlc" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\LATINMEX.NOTIFY\LATINMEX.NOTIFY.csproj">
+      <Project>{92c1fb67-2068-466c-ade8-4e51fc2de29b}</Project>
+      <Name>LATINMEX.NOTIFY</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

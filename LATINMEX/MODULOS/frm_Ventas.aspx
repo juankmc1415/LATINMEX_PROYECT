@@ -1,15 +1,15 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="frm_Ventas.aspx.cs" Inherits="LATINMEX.MODULOS.VENTAS.frm_Ventas" %>
 
-<%@ Import Namespace="System.Data" %>
+<%@ MasterType VirtualPath="~/Site.Master" %>
 
+<%@ Register Assembly="DevExpress.Web.v19.1, Version=19.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" Namespace="DevExpress.Web" TagPrefix="dx" %>
 <%@ Register Assembly="Microsoft.ReportViewer.WebForms, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" Namespace="Microsoft.Reporting.WebForms" TagPrefix="rsweb" %>
 
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 
     <style>
-        .stile_label 
-        {
+        .stile_label {
             color: black;
             /*font-size: 18px;*/
         }
@@ -58,6 +58,49 @@
             COLOR: BLACK;
             margin-bottom: 5px
         }
+
+
+        .maxWidth {
+            max-width: 450px;
+        }
+
+        .editor {
+            padding-bottom: 8px;
+            padding-right: 1px;
+            width: 20%;
+        }
+
+        .container {
+            display: table;
+            width: 100%;
+        }
+
+        @media(min-width:500px) {
+            .container > * {
+                display: table-cell;
+                vertical-align: top;
+            }
+
+            .editor {
+                vertical-align: middle;
+                width: 110px;
+                padding-right: 10px;
+                padding-bottom: 0;
+            }
+        }
+
+        .lastEditor {
+            padding-right: 0;
+            padding-bottom: 0px;
+        }
+
+        .quitarMargen {
+            margin-bottom: 0px !important;
+        }
+
+        .margenBtnClose {
+            border-radius: 50%;
+        }
     </style>
 
     <script lang="ja" type="text/javascript">
@@ -87,16 +130,11 @@
             }
         }
 
-        function LanzaModal() {
-            $find('mpe_Informes').show();
-            $find('ModalPopupExtender1').show();
-        }
     </script>
 
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 
-    <%-- <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>--%>
     <asp:UpdatePanel ID="UpdatePanel1" runat="server">
         <ContentTemplate>
 
@@ -108,6 +146,45 @@
                     <asp:Label runat="server" ID="Message_info" Visible="false" Font-Size="19px" Font-Bold="true" CssClass="alert alert-info alert-dismissible col-12"></asp:Label>
                     <asp:Label runat="server" ID="Message_warning" Visible="false" Font-Size="19px" Font-Bold="true" CssClass="alert alert-warning alert-dismissible col-12"></asp:Label>
                     <asp:Label runat="server" ID="Message_danger" Visible="false" Font-Size="19px" Font-Bold="true" CssClass="alert alert-danger alert-dismissible  col-12"></asp:Label>
+
+                    <div class="col-md-12 col-sm-12 form-group">
+
+                        <asp:UpdatePanel ID="UpdatePanel6" UpdateMode="Conditional" runat="server">
+                            <ContentTemplate>
+                                <dx:PanelContent>
+                                    <div class="container">
+                                        <asp:Repeater ID="rp_listaClientes" runat="server">
+                                            <ItemTemplate>
+                                                <div class="editor">
+                                                    <table>
+                                                        <tbody>
+                                                            <tr style="background-color: #17a2b8">
+                                                                <td style="width: 100%; height: 100%;">
+                                                                    <dx:ASPxHyperLink ID="btn_Cliente"
+                                                                        NavigateUrl='<%# "frm_Ventas.aspx?CLIENT_ID="+ Eval("IdCliente").ToString()%>'
+                                                                        ToolTip='<%# Eval("Cliente").ToString()%>'
+                                                                        CssClass="btn btn-info btn-sm quitarMargen"
+                                                                        ForeColor="White" runat="server"
+                                                                        Checked='<%# Convert.ToBoolean(Eval("Active")) %>'
+                                                                        GroupName="G"
+                                                                        Text='<%# Eval("Cliente").ToString().Length>15?Eval("Cliente").ToString().Substring(0,10)+"...":Eval("Cliente").ToString() %>' Width="100%">
+                                                                    </dx:ASPxHyperLink>
+                                                                </td>
+                                                                <td>
+                                                                    <asp:LinkButton ID="btn_close" ToolTip="Quitar cliente" OnClick="btn_close_Click" TabIndex='<%# Convert.ToInt32(Eval("IdCliente"))%>' CssClass="btn-sm margenBtnClose" BackColor="Gray" ForeColor="White" runat="server">x</asp:LinkButton>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+
+                                                </div>
+                                            </ItemTemplate>
+                                        </asp:Repeater>
+                                    </div>
+                                </dx:PanelContent>
+                            </ContentTemplate>
+                        </asp:UpdatePanel>
+                    </div>
 
                     <div class="col-md-4 col-sm-4 ">
                         <div class="x_panel">
@@ -389,7 +466,7 @@
                                                                             <h4>Effective date:
                                                                             <asp:Label runat="server" Font-Bold="true" Text='<%#  Convert.ToDateTime(Eval("FECHA_INICIO")).ToString("MM-dd-yyyy") %>'></asp:Label>
                                                                                 &nbsp; Expiration Date
-                                                                            <asp:Label runat="server" Font-Bold="true" Text='<%# Convert.ToDateTime(Eval("FECHA_CADUCIDAD")).ToString("MM-dd-yyyy") %>'></asp:Label>
+                                                                            <asp:Label runat="server" Font-Bold="true" Text='<%# Convert.ToDateTime(Eval("FECHA_CADUCIDAD")) %>'></asp:Label>
 
                                                                             </h4>
 
@@ -402,11 +479,11 @@
                                                                             <div class="actionBar" style="padding: 3px 2px 1px !important;">
 
                                                                                 <asp:LinkButton runat="server" ID="btn_verProducto" ToolTip="Ver detalles" CommandName="VerProducto" CssClass="btn btn-sm btn-success">
-                                                                            <i class="fa fa-eye" aria-hidden="true"></i>                                                                             
+                                                                                    <i class="fa fa-eye" aria-hidden="true"></i>                                                                             
                                                                                 </asp:LinkButton>
 
-                                                                                <asp:LinkButton runat="server" ID="btn_ImprimirProduc" ToolTip="Imprimir" CommandName="ImprimirProducto" CssClass="btn btn-sm btn-secondary">
-                                                                            <i class="fa fa-print" aria-hidden="true"></i> 
+                                                                                <asp:LinkButton runat="server" ID="btn_ImprimirProduc1" ToolTip="Imprimir" CommandName="ImprimirProducto" CssClass="btn btn-sm btn-secondary">
+                                                                                    <i class="fa fa-print" aria-hidden="true"></i> 
                                                                                 </asp:LinkButton>
 
                                                                                 <asp:LinkButton runat="server" ID="btn_cargarArchivos" ToolTip="Ver archivos" CommandName="VerArchivos" CssClass="btn btn-sm btn-default">
@@ -491,15 +568,15 @@
                                                                                     <ItemTemplate>
 
                                                                                         <asp:LinkButton runat="server" ID="btn_verProducto" ToolTip="Ver detalles" CommandName="VerCuota" Width="20" Height="20" CssClass="btn btn-sm btn-default">
-                                                                                    <i class="fa fa-eye" aria-hidden="true"></i>                                                                             
+                                                                                          <i class="fa fa-eye" aria-hidden="true"></i>                                                                             
                                                                                         </asp:LinkButton>
 
-                                                                                        <asp:LinkButton runat="server" ID="btn_ImprimirProduc" ToolTip="Imprimir" CommandName="ImprimirCuota" Width="20" Height="20" CssClass="btn btn-sm btn-default">
-                                                                                    <i class="fa fa-print" aria-hidden="true"></i> 
+                                                                                        <asp:LinkButton runat="server" ID="btn_ImprimirProduc2" ToolTip="Imprimir" CommandName="ImprimirCuota" Width="20" Height="20" CssClass="btn btn-sm btn-default">
+                                                                                           <i class="fa fa-print" aria-hidden="true"></i> 
                                                                                         </asp:LinkButton>
 
                                                                                         <asp:LinkButton runat="server" ID="btn_cargarArchivos" ToolTip="Ver archivos" CommandName="VerArchivosCuota" Width="20" Height="20" CssClass="btn btn-sm btn-default">
-                                                                                     <i class="fa fa-paperclip" aria-hidden="true"></i> 
+                                                                                           <i class="fa fa-paperclip" aria-hidden="true"></i> 
                                                                                         </asp:LinkButton>
 
                                                                                     </ItemTemplate>
@@ -526,6 +603,7 @@
                                                                                 <asp:BoundField DataField="VALOR_PAGO_EFECTIVO" HeaderText="VALOR EFECTIVO" />
                                                                                 <asp:BoundField DataField="VALOR_PAGO_TARJETA" HeaderText="V. TARJETA CREDITO" />
                                                                                 <asp:BoundField DataField="VALOR_SERVICIO" HeaderText="VALOR SERVICIO" />
+                                                                                <asp:BoundField DataField="TOTAL_PAGADO" HeaderText="TOTAL" />
                                                                                 <asp:BoundField DataField="FECHA" HeaderText="FECHA" DataFormatString="{0:MM/dd/yyyy}" />
                                                                                 <asp:BoundField DataField="OBSERVACION" HeaderText="OBSERVACION" />
 
@@ -554,7 +632,8 @@
                                     </ContentTemplate>
                                     <Triggers>
                                         <%--<asp:AsyncPostBackTrigger ControlID="cbx_pagocompania" EventName="CheckedChanged" />--%>
-                                        <%--<asp:PostBackTrigger ControlID="btn_ImprimirProduc" />--%>
+                                        <%--<asp:PostBackTrigger ControlID="btn_ImprimirProduc1" />--%>
+                                        <%--<asp:PostBackTrigger ControlID="btnClosetese" />--%>
                                     </Triggers>
                                 </asp:UpdatePanel>
                             </div>
@@ -839,18 +918,22 @@
                                                     <asp:TextBox runat="server" ID="txt_Costo" AutoPostBack="true" OnTextChanged="txt_Adicional_TextChanged" TextMode="Number" CssClass="form-control"></asp:TextBox>
                                                 </div>
 
-                                                <label class="col-form-label col-md-1 col-sm-1 label-align stile_label" for="last-name">
-                                                    Adicional 
-                                                </label>
-                                                <div class="col-md-2 col-sm-2 ">
-                                                    <asp:TextBox runat="server" ID="txt_SerAdicional" TextMode="Number" CssClass="form-control"></asp:TextBox>
-                                                </div>
+                                                <div runat="server" class="col-md-7 col-sm-7" id="div_adicional">
 
-                                                <label class="col-form-label  label-align stile_label" runat="server" id="lbl_Premium" for="last-name">
-                                                    Premium 
-                                                </label>
-                                                <div class="col-md-3 col-sm-3">
-                                                    <asp:TextBox runat="server" ID="txt_valor" AutoPostBack="true" OnTextChanged="txt_valor_TextChanged" TextMode="Number" CssClass="form-control"></asp:TextBox>
+                                                    <label class="col-form-label col-md-2 col-sm-2 label-align stile_label" for="last-name">
+                                                        Adicional 
+                                                    </label>
+                                                    <div class="col-md-4 col-sm-4">
+                                                        <asp:TextBox runat="server" ID="txt_SerAdicional" TextMode="Number" CssClass="form-control"></asp:TextBox>
+                                                    </div>
+
+                                                    <label class="col-form-label col-md-2 col-sm-2  label-align stile_label" runat="server" id="lbl_Premium" for="last-name">
+                                                        Premium 
+                                                    </label>
+                                                    <div class="col-md-4 col-sm-4">
+                                                        <asp:TextBox runat="server" ID="txt_valor" AutoPostBack="true" OnTextChanged="txt_valor_TextChanged" TextMode="Number" CssClass="form-control"></asp:TextBox>
+                                                    </div>
+
                                                 </div>
                                             </div>
 
@@ -859,39 +942,42 @@
                                                 <label class="col-form-label col-md-2 col-sm-2 label-align stile_label" for="last-name">
                                                     Cash out
                                                 </label>
-                                                <div class="col-md-3 col-sm-3">
+                                                <div class="col-md-2 col-sm-2">
                                                     <asp:TextBox runat="server" ID="txt_CashOut" TextMode="Number" CssClass="form-control"></asp:TextBox>
                                                 </div>
 
-                                                <label class="col-form-label label-align stile_label" style="width: 130px !important;" for="last-name">
-                                                    Tipo de Pago 
-                                                </label>
-                                                <div class="col-md-3 col-sm-3">
-                                                    <asp:DropDownList ID="bl_Tipopago" runat="server" AutoPostBack="true" OnSelectedIndexChanged="bl_Tipopago_SelectedIndexChanged" CssClass="form-control">
-                                                        <asp:ListItem Value="1" Text="Seleccionar"></asp:ListItem>
-                                                        <asp:ListItem Value="2" Text="Cuotas"></asp:ListItem>
-                                                        <asp:ListItem Value="3" Text="Completa"></asp:ListItem>
-                                                    </asp:DropDownList>
-                                                </div>
+                                                <div class="col-md-8 col-sm-8" runat="server" id="div_tipoPago">
 
-                                                <label class="col-form-label  label-align stile_label" for="last-name">
-                                                    Cuotas
-                                                </label>
-                                                <div class="col-md-2 col-sm-2">
-                                                    <asp:DropDownList ID="bl_Numcuotas" Enabled="false" runat="server" CssClass="form-control">
-                                                        <asp:ListItem Value="0" Text="Cantidad"></asp:ListItem>
-                                                        <asp:ListItem Value="1" Text="1"></asp:ListItem>
-                                                        <asp:ListItem Value="2" Text="2"></asp:ListItem>
-                                                        <asp:ListItem Value="3" Text="3"></asp:ListItem>
-                                                        <asp:ListItem Value="4" Text="4"></asp:ListItem>
-                                                        <asp:ListItem Value="5" Text="5"></asp:ListItem>
-                                                        <asp:ListItem Value="6" Text="6"></asp:ListItem>
-                                                        <asp:ListItem Value="7" Text="7"></asp:ListItem>
-                                                        <asp:ListItem Value="8" Text="8 "></asp:ListItem>
-                                                        <asp:ListItem Value="9" Text="9"></asp:ListItem>
-                                                        <asp:ListItem Value="10" Text="10"></asp:ListItem>
-                                                        <asp:ListItem Value="11" Text="11"></asp:ListItem>
-                                                    </asp:DropDownList>
+                                                    <label class="col-md-3 col-sm-3 col-form-label label-align stile_label" style="width: 130px !important;" for="last-name">
+                                                        Tipo de Pago 
+                                                    </label>
+                                                    <div class="col-md-4 col-sm-4">
+                                                        <asp:DropDownList ID="bl_Tipopago" runat="server" AutoPostBack="true" OnSelectedIndexChanged="bl_Tipopago_SelectedIndexChanged" CssClass="form-control">
+                                                            <asp:ListItem Value="1" Text="Seleccionar"></asp:ListItem>
+                                                            <asp:ListItem Value="2" Text="Cuotas"></asp:ListItem>
+                                                            <asp:ListItem Value="3" Text="Completa"></asp:ListItem>
+                                                        </asp:DropDownList>
+                                                    </div>
+
+                                                    <label class="col-md-2 col-sm-2 col-form-label  label-align stile_label" style="width: 130px !important;" for="last-name">
+                                                        Cuotas
+                                                    </label>
+                                                    <div class="col-md-3 col-sm-3">
+                                                        <asp:DropDownList ID="bl_Numcuotas" Enabled="false" runat="server" CssClass="form-control">
+                                                            <asp:ListItem Value="0" Text="Cantidad"></asp:ListItem>
+                                                            <asp:ListItem Value="1" Text="1"></asp:ListItem>
+                                                            <asp:ListItem Value="2" Text="2"></asp:ListItem>
+                                                            <asp:ListItem Value="3" Text="3"></asp:ListItem>
+                                                            <asp:ListItem Value="4" Text="4"></asp:ListItem>
+                                                            <asp:ListItem Value="5" Text="5"></asp:ListItem>
+                                                            <asp:ListItem Value="6" Text="6"></asp:ListItem>
+                                                            <asp:ListItem Value="7" Text="7"></asp:ListItem>
+                                                            <asp:ListItem Value="8" Text="8 "></asp:ListItem>
+                                                            <asp:ListItem Value="9" Text="9"></asp:ListItem>
+                                                            <asp:ListItem Value="10" Text="10"></asp:ListItem>
+                                                            <asp:ListItem Value="11" Text="11"></asp:ListItem>
+                                                        </asp:DropDownList>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="item form-group" runat="server" id="dv_ProximoPago" visible="true">
@@ -915,7 +1001,7 @@
                                                     Archivo <span class="required" style="color: red">*</span>
                                                 </label>
                                                 <div class="col-md-9 col-sm-9 ">
-                                                    <asp:FileUpload ID="file_Producto" runat="server" CssClass="form-control" />
+                                                    <asp:FileUpload ID="file_Producto" runat="server" CssClass="form-control" AllowMultiple="true" />
                                                 </div>
 
                                                 <div class=" ">
@@ -1094,7 +1180,7 @@
                                                     Attachments 
                                                 </label>
                                                 <div class="col-md-10 col-sm-10 ">
-                                                    <asp:FileUpload ID="file_Cuotas" runat="server" CssClass="form-control" />
+                                                    <asp:FileUpload ID="file_Cuotas" runat="server" CssClass="form-control" AllowMultiple="true" />
                                                 </div>
                                             </div>
 
@@ -1297,10 +1383,6 @@
                                                 </div>
                                             </div>
 
-
-
-                                            
-
                                             <div class="item form-group" runat="server" visible="true">
 
                                                 <label class="col-form-label col-md-2 col-sm-2 label-align stile_label">
@@ -1353,7 +1435,11 @@
                             <div class="modal-footer">
 
                                 <asp:LinkButton runat="server" ID="btn_AceptarCuotasDMV" OnClick="btn_AceptarCuotasDMV_Click" CssClass="btn btn-success">
-                                <i class="fa fa-save" aria-hidden="true"></i> Aceptar
+                                     <i class="fa fa-save" aria-hidden="true"></i> Aceptar
+                                </asp:LinkButton>
+
+                                <asp:LinkButton runat="server" ID="btn_ActualizarCuotasDMV" Visible="false" OnClick="btn_ActualizarCuotasDMV_Click" CssClass="btn btn-success">
+                                     <i class="fa fa-save" aria-hidden="true"></i> Actualizar
                                 </asp:LinkButton>
 
                                 <%--<asp:Button runat="server" ID="btn_AceptarCuotas" CssClass="btn btn-success" Text="Aceptar" OnClick="btn_AceptarCuotas_Click" />--%>
@@ -1368,83 +1454,52 @@
                 </asp:Panel>
 
 
-                <asp:Button ID="btnShow" runat="server" Text="Show" />
-                <asp:HiddenField runat="server" ID="hf_Informes" />
-                <ajaxToolkit:ModalPopupExtender ID="mpe_Informes" runat="server" BackgroundCssClass="modalBackground" TargetControlID="btnShow" PopupControlID="pnl_Informes" OkControlID="btn_closeInformes" />
-                <asp:Panel ID="pnl_Informes" runat="server" CssClass="" Width="1000PX" Height="400px" ScrollBars="Auto">
-                    <div class="modal-dialog" runat="server" style="max-width: 1000px !important; " >
-                        <div class="modal-content">
 
-                            <div class="modal-header">
-                                <div class="left">
-                                    <h2>
-                                        <asp:Label runat="server" ForeColor="#73879C" Text="Informes"></asp:Label>
-                                    </h2>
-                                </div>
-                                <button id="btn_closeInformes" type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                            </div>
-                            <div class="modal-body">
+                <div class="" role="main">
 
-                                <asp:UpdatePanel runat="server" ID="UpdatePanel5">
+                    <asp:HiddenField runat="server" ID="hf_Informes" />
+                    <asp:HiddenField runat="server" ID="hf_InfoPop" />
+                    <ajaxToolkit:ModalPopupExtender ID="mpe_Informes" runat="server" BackgroundCssClass="modalBackground" TargetControlID="hf_Informes" PopupControlID="pnl_Informes" />
+                    <asp:Panel ID="pnl_Informes" runat="server" CssClass="" Width="1000PX">
+                        <div class="modal-dialog" runat="server" style="max-width: 1000px !important; height: 800px !important;">
+                            <div class="modal-content">
+
+                                <asp:UpdatePanel runat="server" UpdateMode="Conditional" ID="UpdatePanel5">
                                     <ContentTemplate>
-                                        <div class="" role="main">
+                                        <div class="modal-header">
+                                            <div class="left">
+                                                <h2>
+                                                    <asp:Label runat="server" ForeColor="#73879C" Text="Informes"></asp:Label>
+                                                </h2>
+                                            </div>
+                                        </div>
+                                        <div class="modal-body">
 
-                                            <rsweb:ReportViewer ID="view_Reporte" runat="server" Width="800" Height="350px">
+                                            <rsweb:ReportViewer ID="view_Reporte" InteractivityPostBackMode="SynchronousOnDrillthrough" runat="server" Width="950">
                                             </rsweb:ReportViewer>
 
                                         </div>
+
+                                        <div class="modal-footer">
+
+                                            <asp:LinkButton runat="server" ID="btn_CerrarInfo" OnClick="btn_CerrarInfo_Click" CssClass="btn btn-secondary">
+                                               <i class="fa fa-close" aria-hidden="true"></i> Cerrar
+                                            </asp:LinkButton>
+                                        </div>
+
                                     </ContentTemplate>
                                     <Triggers>
-
-                                        <asp:PostBackTrigger ControlID="view_Reporte" />
+                                        <asp:PostBackTrigger ControlID="btn_CerrarInfo" />
                                     </Triggers>
                                 </asp:UpdatePanel>
-
-                                <%--<asp:ScriptManager runat="server"></asp:ScriptManager>--%>
-                                <%--<rsweb:ReportViewer ID="view_Reporte" runat="server" BackColor="" ClientIDMode="AutoID" HighlightBackgroundColor="" InternalBorderColor="204, 204, 204" InternalBorderStyle="Solid" InternalBorderWidth="1px" LinkActiveColor="" LinkActiveHoverColor="" LinkDisabledColor="" PrimaryButtonBackgroundColor="" PrimaryButtonForegroundColor="" PrimaryButtonHoverBackgroundColor="" PrimaryButtonHoverForegroundColor="" SecondaryButtonBackgroundColor="" SecondaryButtonForegroundColor="" SecondaryButtonHoverBackgroundColor="" SecondaryButtonHoverForegroundColor="" SplitterBackColor="" ToolbarDividerColor="" ToolbarForegroundColor="" ToolbarForegroundDisabledColor="" ToolbarHoverBackgroundColor="" ToolbarHoverForegroundColor="" ToolBarItemBorderColor="" ToolBarItemBorderStyle="Solid" ToolBarItemBorderWidth="1px" ToolBarItemHoverBackColor="" ToolBarItemPressedBorderColor="51, 102, 153" ToolBarItemPressedBorderStyle="Solid" ToolBarItemPressedBorderWidth="1px" ToolBarItemPressedHoverBackColor="153, 187, 226">
-
-                                           <LocalReport ReportPath="REPORTES\REPORT_PRODUCTOS\REPORT_SEGUROS\Report_Detalles_Seguro.rdlc">
-                                            </LocalReport>
-                                        </rsweb:ReportViewer>--%>
-                            </div>
-
-                            <div class="modal-footer">
-
-                                <asp:LinkButton runat="server" ID="btn_CerrarInfo" OnClick="btn_CerrarInfo_Click" CssClass="btn btn-secondary">
-                                <i class="fa fa-close" aria-hidden="true"></i> Cerrar
-                                </asp:LinkButton>
                             </div>
                         </div>
-                    </div>
+                    </asp:Panel>
 
-                </asp:Panel>
-
-
-
-                <%-- <asp:HiddenField ID="hidForModel" runat="server" />
-                <ajaxToolkit:ModalPopupExtender ID="ModalPopupExtender1" TargetControlID="hidForModel" PopupControlID="Panel1" runat="server">
-                </ajaxToolkit:ModalPopupExtender>
-                <asp:Panel ID="Panel1" runat="server" CssClass="modalPopup" align="center" Style="display: none">
-                  
-
-                     <rsweb:ReportViewer ID="view_Reporte" runat="server" Width="800" Height="283px" >
-                                        </rsweb:ReportViewer>
-
-                    <asp:Button ID="btnClose" runat="server" Text="Close" />
-                </asp:Panel>--%>
+                </div>
 
 
 
-                <%-- <ajaxToolkit:ModalPopupExtender ID="ModalPopupExtender1" runat="server" PopupControlID="Panel1"
-                    TargetControlID="btnShow" CancelControlID="btnClose" BackgroundCssClass="modalBackground">
-                </ajaxToolkit:ModalPopupExtender>
-                <asp:Panel ID="Panel1" runat="server" CssClass="modalPopup" align="center" Style="display: none">
-                    
-                     <rsweb:ReportViewer ID="view_Reporte" runat="server" Width="800" Height="283px" >
-                                        </rsweb:ReportViewer>
-                    <br />
-                    <asp:Button ID="btnClose" runat="server" Text="Close" />
-                </asp:Panel>--%>
             </form>
         </ContentTemplate>
         <%--<Triggers>
